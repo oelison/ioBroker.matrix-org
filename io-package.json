@@ -1,0 +1,154 @@
+{
+    "common": {
+        "name": "matrix-org",
+        "version": "0.0.1",
+        "news": {
+            "0.0.1": {
+                "en": "initial release",
+                "de": "Erstveröffentlichung",
+                "ru": "Начальная версия",
+                "pt": "lançamento inicial",
+                "nl": "Eerste uitgave",
+                "fr": "Première version",
+                "it": "Versione iniziale",
+                "es": "Versión inicial",
+                "pl": "Pierwsze wydanie",
+                "zh-cn": "首次出版"
+            }
+        },
+        "title": "push messages to matrix",
+        "titleLang": {
+            "en": "push messages to matrix",
+            "de": "Push-Nachrichten an Matrix",
+            "ru": "push-сообщения в матрицу",
+            "pt": "enviar mensagens para a matriz",
+            "nl": "push berichten naar matrix",
+            "fr": "pousser les messages vers la matrice",
+            "it": "inviare messaggi alla matrice",
+            "es": "enviar mensajes a la matriz",
+            "pl": "wypychanie wiadomości do macierzy",
+            "zh-cn": "将消息推送到矩阵"
+        },
+        "desc": {
+            "en": "Adapter for matrix push messages",
+            "de": "Adapter für Matrix-Push-Nachrichten",
+            "ru": "Адаптер для матричных push-сообщений",
+            "pt": "Adaptador para mensagens push de matriz",
+            "nl": "Adapter voor matrix push-berichten",
+            "fr": "Adaptateur pour messages push matriciels",
+            "it": "Adattatore per messaggi push a matrice",
+            "es": "Adaptador para mensajes push de matriz",
+            "pl": "Adapter do matrycowych wiadomości push",
+            "zh-cn": "矩阵推送消息的适配器"
+        },
+        "authors": [
+            "Christian Oelschlegel <iobrokermatrix@sciphy.de>"
+        ],
+        "keywords": [
+            "push",
+            "message",
+            "matrix"
+        ],
+        "license": "MIT",
+        "platform": "Javascript/Node.js",
+        "main": "main.js",
+        "icon": "matrix-logo.svg",
+        "enabled": true,
+        "extIcon": "https://raw.githubusercontent.com/oelison/ioBroker.matrix-org/main/admin/matrix-logo.svg",
+        "readme": "https://github.com/oelison/ioBroker.matrix-org/blob/main/README.md",
+        "loglevel": "info",
+        "mode": "daemon",
+        "type": "messaging",
+        "compact": true,
+        "connectionType": "cloud",
+        "dataSource": "push",
+        "materialize": true,
+        "adminUI": {
+            "config": "json"
+        },
+        "eraseOnUpload": true,
+        "dependencies": [
+            {
+                "js-controller": ">=2.0.0"
+            }
+        ],
+        "globalDependencies": [
+            {
+                "admin": ">=5.1.28"
+            }
+        ]
+    },
+    "native": {
+        "serverIp": "",
+        "serverPort": "8448",
+        "roomName": "#room:yourserver.com",
+        "botName": "",
+        "botPassword": ""
+    },
+    "objects": [],
+    "instanceObjects": [
+        {
+            "_id": "info",
+            "type": "channel",
+            "common": {
+                "name": "Information"
+            },
+            "native": {}
+        },
+        {
+            "_id": "info.connection",
+            "type": "state",
+            "common": {
+                "role": "indicator.connected",
+                "name": "Device or service connected",
+                "type": "boolean",
+                "read": true,
+                "write": false,
+                "def": false
+            },
+            "native": {}
+        },
+        {
+            "_id": "matrixServerData",
+            "type": "channel",
+            "common": {
+                "name": {
+                    "en": "data from matrix server",
+                    "de": "daten von matrixserver",
+                    "ru": "данные с матрицы сервера",
+                    "pt": "dados do servidor de matriz",
+                    "nl": "data van matrix server",
+                    "fr": "data from matrix server",
+                    "it": "dati dal server matrix",
+                    "es": "datos del servidor de matriz",
+                    "pl": "dane z serwera macierzowego",
+                    "zh-cn": "矩阵服务器数据"
+                }
+            },
+            "native": {}
+        },
+        {
+            "_id": "matrixServerData.roomId",
+            "type": "state",
+            "common": {
+                "name": {
+                    "en": "room id",
+                    "de": "room id",
+                    "ru": "комната id",
+                    "pt": "quarto id",
+                    "nl": "quality over quantity (qoq) releases vertaling:",
+                    "fr": "room id",
+                    "it": "camera id",
+                    "es": "habitación id",
+                    "pl": "pomieszczenie",
+                    "zh-cn": "会议室"
+                },
+                "type": "string",
+                "role": "text",
+                "read": true,
+                "write": false
+            },
+            "native": {}
+        }
+    ]
+}

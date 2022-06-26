@@ -1,0 +1,54 @@
+{
+    "i18n": true,
+    "type": "tabs",
+    "items": {
+        "_options": {
+            "type": "panel",
+            "label": "Options",
+            "items": {
+                "serverIp": {
+                    "type": "text",
+                    "sm": 12,
+                    "md": 6,
+                    "lg": 6,
+                    "label": "Server",
+                    "help": "IP or hostname of your matrix server"
+                },
+                "serverPort": {
+                    "type": "number",
+                    "min": 1,
+                    "max": 65535,
+                    "sm": 12,
+                    "md": 6,
+                    "lg": 6,
+                    "label": "Port"
+                },
+                "roomName": {
+                    "type": "text",
+                    "sm": 12,
+                    "md": 6,
+                    "lg": 6,
+                    "label": "room",
+                    "help": "room name in your matrix server"
+                },
+                "botName": {
+                    "newLine": true,
+                    "type": "text",
+                    "sm": 12,
+                    "md": 6,
+                    "lg": 6,
+                    "label": "botName",
+                    "help": "user name of this service in matrix"
+                },
+                "botPassword": {
+                    "type": "text",
+                    "sm": 12,
+                    "md": 6,
+                    "lg": 6,
+                    "label": "botPassword",
+                    "help": "a more or less complex password for the bot user in matrix"
+                }
+            }
+        }
+    }
+}
