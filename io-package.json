@@ -1,8 +1,20 @@
 {
     "common": {
         "name": "matrix-org",
-        "version": "0.0.2",
+        "version": "0.0.3",
         "news": {
+            "0.0.3": {
+                "en": "Invalid workflow line 54 in test-and-release.yml (leading space removed)",
+                "de": "Invalide Workflow-Leitung 54 in test-and-release.yml (führender Raum entfernt)",
+                "ru": "Неверная линия рабочего потока 54 в test-and-release.yml (удаленное пространство)",
+                "pt": "Linha de fluxo de trabalho inválida 54 em test-and-release.yml (leading space removido)",
+                "nl": "Ongeldige werklijn 54 in test-en-release",
+                "fr": "Ligne de workflow invalide 54 dans test-and-release.yml (leading space removed)",
+                "it": "Linea di flusso di lavoro non valida 54 in test-and-release.yml (spazio di rilascio rimosso)",
+                "es": "Línea de flujo de trabajo inválida 54 en test-and-release.yml (extracción del espacio de liberación)",
+                "pl": "Invalid workflow line 54 in test-and-release.yml (przewodnica)",
+                "zh-cn": "试验和重新定位(拆除空间)第54条"
+            },
             "0.0.2": {
                 "en": "message sending by setting object sendMessage implemented\nmost \"try/catch\" done\nReadme completed.",
                 "de": "nachricht senden per set object sendMessage implementiert\nam meisten versuchen/kaschiert\nReadme abgeschlossen.",

@@ -34,7 +34,7 @@ Add as many instances as you need. Add a value to matrix-org.0.sendMessage on th
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 0.0.3 (2022-06-26)
 * Invalid workflow line 54 in test-and-release.yml (leading space removed)
 
 ### 0.0.2 (2022-06-26)
