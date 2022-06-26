@@ -7,10 +7,8 @@
 // The adapter-core module gives you access to the core ioBroker functions
 // you need to create an adapter
 const utils = require("@iobroker/adapter-core");
-const axios = require("axios").default;
 
-// Load your modules here, e.g.:
-// const fs = require("fs");
+const axios = require("axios").default;
 
 class MatrixOrg extends utils.Adapter {
 
@@ -22,11 +20,8 @@ class MatrixOrg extends utils.Adapter {
             ...options,
             name: "matrix-org",
         });
-        this.matrixApiClient = null;
         this.on("ready", this.onReady.bind(this));
         this.on("stateChange", this.onStateChange.bind(this));
-        // this.on("objectChange", this.onObjectChange.bind(this));
-        // this.on("message", this.onMessage.bind(this));
         this.on("unload", this.onUnload.bind(this));
     }
 
@@ -34,21 +29,18 @@ class MatrixOrg extends utils.Adapter {
      * Is called when databases are connected and adapter received configuration.
      */
     async onReady() {
-        // Initialize your adapter here
 
         // Reset the connection indicator during startup
         this.setState("info.connection", false, true);
 
         /*
-        For every state in the system there has to be also an object of type state
-        Here a simple template for a boolean variable named "testVariable"
-        Because every adapter instance uses its own unique namespace variable names can't collide with other adapters variables
+        the send message container
         */
-        await this.setObjectNotExistsAsync("testVariable", {
+        await this.setObjectNotExistsAsync("sendMessage", {
             type: "state",
             common: {
-                name: "testVariable",
-                type: "boolean",
+                name: "Send message",
+                type: "string",
                 role: "indicator",
                 read: true,
                 write: true,
@@ -56,37 +48,14 @@ class MatrixOrg extends utils.Adapter {
             native: {},
         });
 
-        // In order to get state updates, you need to subscribe to them. The following line adds a subscription for our variable we have created above.
-        this.subscribeStates("testVariable");
-        // You can also add a subscription for multiple states. The following line watches all states starting with "lights."
-        // this.subscribeStates("lights.*");
-        // Or, if you really must, you can also watch all states. Don't do this if you don't need to. Otherwise this will cause a lot of unnecessary load on the system:
-        // this.subscribeStates("*");
-
-        /*
-            setState examples
-            you will notice that each setState will cause the stateChange event to fire (because of above subscribeStates cmd)
-        */
-        // the variable testVariable is set to true as command (ack=false)
-        await this.setStateAsync("testVariable", true);
-
-        // same thing, but the value is flagged "ack"
-        // ack should be always set to true if the value is received from or acknowledged from the target system
-        await this.setStateAsync("testVariable", { val: true, ack: true });
-
-        // same thing, but the state is deleted after 30s (getState will return null afterwards)
-        await this.setStateAsync("testVariable", { val: true, ack: true, expire: 30 });
+        // message will send after a change
+        this.subscribeStates("sendMessage");
 
         let reqUrl = "https://"
         + this.config.serverIp + ":"
         + this.config.serverPort + "/_matrix/client/r0/directory/room/"
         + this.config.roomName;
         reqUrl = reqUrl.replace("#", "%23");
-        this.matrixApiClient = axios.create({
-            baseURL: reqUrl,
-            timeout: 1000,
-            responseType: "json"
-        });
         this.log.debug("url request with axios: " + reqUrl);
         try {
             const res = await axios.get(reqUrl);
@@ -107,68 +76,68 @@ class MatrixOrg extends utils.Adapter {
      */
     onUnload(callback) {
         try {
-            // Here you must clear all timeouts or intervals that may still be active
-            // clearTimeout(timeout1);
-            // clearTimeout(timeout2);
-            // ...
-            // clearInterval(interval1);
-
             callback();
         } catch (e) {
             callback();
         }
     }
 
-    // If you need to react to object changes, uncomment the following block and the corresponding line in the constructor.
-    // You also need to subscribe to the objects with `this.subscribeObjects`, similar to `this.subscribeStates`.
-    // /**
-    //  * Is called if a subscribed object changes
-    //  * @param {string} id
-    //  * @param {ioBroker.Object | null | undefined} obj
-    //  */
-    // onObjectChange(id, obj) {
-    //     if (obj) {
-    //         // The object was changed
-    //         this.log.info(`object ${id} changed: ${JSON.stringify(obj)}`);
-    //     } else {
-    //         // The object was deleted
-    //         this.log.info(`object ${id} deleted`);
-    //     }
-    // }
-
     /**
      * Is called if a subscribed state changes
      * @param {string} id
      * @param {ioBroker.State | null | undefined} state
      */
-    onStateChange(id, state) {
-        if (state) {
+    async onStateChange(id, state)
+    {
+        if (state)
+        {
             // The state was changed
-            this.log.info(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
+            const roomId = await this.getStateAsync("matrixServerData.roomId");
+            if (roomId)
+            {
+                this.log.info("room id will be used: " + roomId.val);
+                //connectToMatrix(this.config.serverIp, this.config.serverPort, this.config.botName, this.config.botPassword, roomId.val, state.val);
+                let reqUrl = "https://"
+                + this.config.serverIp + ":"
+                + this.config.serverPort + "/_matrix/client/r0/login";
+                reqUrl = reqUrl.replace("#", "%23");
+                const data = {"type": "m.login.password", "user": this.config.botName, "password": this.config.botPassword };
+                try
+                {
+                    let res = await axios.post(reqUrl, data);
+                    if (res.status === 200) {
+                        const accTokenData = res.data;
+                        const accToken = accTokenData.access_token;
+                        reqUrl = "https://"
+                        + this.config.serverIp + ":"
+                        + this.config.serverPort + "/_matrix/client/r0/rooms/"
+                        + roomId.val + "/send/m.room.message/35?access_token="
+                        + accToken;
+                        const data = {"body": state.val, "msgtype": "m.text" };
+                        reqUrl = reqUrl.replace("#", "%23");
+                        res = await axios.put(reqUrl, data);
+                        if (res.status === 200) {
+                            reqUrl = "https://"
+                            + this.config.serverIp + ":"
+                            + this.config.serverPort + "/_matrix/client/r0/logout?access_token="
+                            + accToken;
+                            const data = {};
+                            reqUrl = reqUrl.replace("#", "%23");
+                            axios.post(reqUrl, data);
+                            // ignore the returns, there is no info in it.
+                        }
+                    }
+                }
+                catch (err)
+                {
+                    this.log.error(err);
+                }
+            }
         } else {
             // The state was deleted
             this.log.info(`state ${id} deleted`);
         }
     }
-
-    // If you need to accept messages in your adapter, uncomment the following block and the corresponding line in the constructor.
-    // /**
-    //  * Some message was sent to this instance over message box. Used by email, pushover, text2speech, ...
-    //  * Using this method requires "common.messagebox" property to be set to true in io-package.json
-    //  * @param {ioBroker.Message} obj
-    //  */
-    // onMessage(obj) {
-    //     if (typeof obj === "object" && obj.message) {
-    //         if (obj.command === "send") {
-    //             // e.g. send email or pushover or whatever
-    //             this.log.info("send command");
-
-    //             // Send response in callback if required
-    //             if (obj.callback) this.sendTo(obj.from, obj.command, "Message received", obj.callback);
-    //         }
-    //     }
-    // }
-
 }
 
 if (require.main !== module) {
