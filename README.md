@@ -7,7 +7,7 @@
 ![Current version in stable repository](https://iobroker.live/badges/matrix-org-stable.svg)
 [![Dependency Status](https://img.shields.io/david/oelison/iobroker.matrix-org.svg)](https://david-dm.org/oelison/iobroker.matrix-org)
 
-[![NPM](https://nodei.co/npm/iobroker.matrix-logo.png?downloads=true)](https://nodei.co/npm/iobroker.matrix-org/)
+[![NPM](https://nodei.co/npm/iobroker.matrix-org.png?downloads=true)](https://nodei.co/npm/iobroker.matrix-org/)
 
 **Tests:** ![Test and Release](https://github.com/oelison/ioBroker.matrix-org/workflows/Test%20and%20Release/badge.svg)
 
@@ -26,14 +26,18 @@ Create an own user as your BOT with password. Create a room for all members who 
 
 Add as many instances as you need. Add a value to matrix-org.0.sendMessage on the way you like, with blockly or js
 
+### ToDo
+* blockly symbol is missing
+
 ## Changelog
 <!--
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
 ### **WORK IN PROGRESS**
-* (oelison) 
-
+* (oelison) message sending by setting object sendMessage implemented
+* (oelison) most "try/catch" done
+* (oelison) Readme completed.
 
 ### 0.0.1 (2022-06-26)
 * (oelison) initial release
