@@ -95,8 +95,6 @@ class MatrixOrg extends utils.Adapter {
             const roomId = await this.getStateAsync("matrixServerData.roomId");
             if (roomId)
             {
-                this.log.info("room id will be used: " + roomId.val);
-                //connectToMatrix(this.config.serverIp, this.config.serverPort, this.config.botName, this.config.botPassword, roomId.val, state.val);
                 let reqUrl = "https://"
                 + this.config.serverIp + ":"
                 + this.config.serverPort + "/_matrix/client/r0/login";
