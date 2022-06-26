@@ -1,8 +1,20 @@
 {
     "common": {
         "name": "matrix-org",
-        "version": "0.0.1",
+        "version": "0.0.2",
         "news": {
+            "0.0.2": {
+                "en": "message sending by setting object sendMessage implemented\nmost \"try/catch\" done\nReadme completed.",
+                "de": "nachricht senden per set object sendMessage implementiert\nam meisten versuchen/kaschiert\nReadme abgeschlossen.",
+                "ru": "отправка сообщения по объекту установки sendMessage реализован\nбольшинство try/catch сделано\nReadme завершена.",
+                "pt": "mensagem de envio por definição objeto sendMessage implementado\nmais tentativa/catch feito\nReadme concluído.",
+                "nl": "vertaling:\nde meeste pogingen\nLees me voltooid.",
+                "fr": "message en définissant objet sendMessage implemented\nla plupart d'essayer/catch fait\nReadme terminé.",
+                "it": "messaggio di invio impostando l'oggetto sendMessage implementato\nla maggior parte del provi/catch fatto\nReadme completato.",
+                "es": "mensaje enviado por medio de la configuración objeto sendMessage implementado\nla mayoría intento / captura hecho\nReadme completed.",
+                "pl": "wiadomość wysyłana przez ustawiony obiekt sendMessage\ntry/catch wykonany\nReadme ukończono.",
+                "zh-cn": "发出信息,提出执行的物体发送\n进行的大多数尝试/评估\n阅读摘要已经完成。."
+            },
             "0.0.1": {
                 "en": "initial release",
                 "de": "Erstveröffentlichung",
