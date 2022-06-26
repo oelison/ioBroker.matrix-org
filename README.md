@@ -31,8 +31,11 @@ Add as many instances as you need. Add a value to matrix-org.0.sendMessage on th
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-
 ### **WORK IN PROGRESS**
+* (oelison) 
+
+
+### 0.0.1 (2022-06-26)
 * (oelison) initial release
 
 ## License
