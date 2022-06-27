@@ -16,7 +16,7 @@
     "adminFeatures": [],
     "type": "messaging",
     "startMode": "daemon",
-    "connectionType": "cloud",
+    "connectionType": "local",
     "dataSource": "push",
     "connectionIndicator": "yes",
     "language": "JavaScript",

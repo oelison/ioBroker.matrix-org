@@ -22,6 +22,7 @@ class MatrixOrg extends utils.Adapter {
         });
         this.on("ready", this.onReady.bind(this));
         this.on("stateChange", this.onStateChange.bind(this));
+        this.on("message", this.onMessage.bind(this));
         this.on("unload", this.onUnload.bind(this));
     }
 
@@ -41,7 +42,7 @@ class MatrixOrg extends utils.Adapter {
             common: {
                 name: "Send message",
                 type: "string",
-                role: "indicator",
+                role: "text",
                 read: true,
                 write: true,
             },
@@ -92,48 +93,75 @@ class MatrixOrg extends utils.Adapter {
         if (state)
         {
             // The state was changed
-            const roomId = await this.getStateAsync("matrixServerData.roomId");
-            if (roomId)
+            if (state.val)
             {
-                let reqUrl = "https://"
-                + this.config.serverIp + ":"
-                + this.config.serverPort + "/_matrix/client/r0/login";
-                reqUrl = reqUrl.replace("#", "%23");
-                const data = {"type": "m.login.password", "user": this.config.botName, "password": this.config.botPassword };
-                try
-                {
-                    let res = await axios.post(reqUrl, data);
-                    if (res.status === 200) {
-                        const accTokenData = res.data;
-                        const accToken = accTokenData.access_token;
-                        reqUrl = "https://"
-                        + this.config.serverIp + ":"
-                        + this.config.serverPort + "/_matrix/client/r0/rooms/"
-                        + roomId.val + "/send/m.room.message/35?access_token="
-                        + accToken;
-                        const data = {"body": state.val, "msgtype": "m.text" };
-                        reqUrl = reqUrl.replace("#", "%23");
-                        res = await axios.put(reqUrl, data);
-                        if (res.status === 200) {
-                            reqUrl = "https://"
-                            + this.config.serverIp + ":"
-                            + this.config.serverPort + "/_matrix/client/r0/logout?access_token="
-                            + accToken;
-                            const data = {};
-                            reqUrl = reqUrl.replace("#", "%23");
-                            axios.post(reqUrl, data);
-                            // ignore the returns, there is no info in it.
-                        }
-                    }
-                }
-                catch (err)
-                {
-                    this.log.error(err);
-                }
+                this.sendMessageToMatrix(state.val.toString());
             }
         } else {
             // The state was deleted
             this.log.info(`state ${id} deleted`);
+        }
+    }
+    /**
+     * @param {string} message
+     */
+    async sendMessageToMatrix(message) {
+        const roomId = await this.getStateAsync("matrixServerData.roomId");
+        if (roomId)
+        {
+            let reqUrl = "https://"
+            + this.config.serverIp + ":"
+            + this.config.serverPort + "/_matrix/client/r0/login";
+            reqUrl = reqUrl.replace("#", "%23");
+            const data = {"type": "m.login.password", "user": this.config.botName, "password": this.config.botPassword };
+            try
+            {
+                let res = await axios.post(reqUrl, data);
+                if (res.status === 200) {
+                    const accTokenData = res.data;
+                    const accToken = accTokenData.access_token;
+                    reqUrl = "https://"
+                    + this.config.serverIp + ":"
+                    + this.config.serverPort + "/_matrix/client/r0/rooms/"
+                    + roomId.val + "/send/m.room.message/35?access_token="
+                    + accToken;
+                    const data = {"body": message, "msgtype": "m.text" };
+                    reqUrl = reqUrl.replace("#", "%23");
+                    res = await axios.put(reqUrl, data);
+                    if (res.status === 200) {
+                        reqUrl = "https://"
+                        + this.config.serverIp + ":"
+                        + this.config.serverPort + "/_matrix/client/r0/logout?access_token="
+                        + accToken;
+                        const data = {};
+                        reqUrl = reqUrl.replace("#", "%23");
+                        axios.post(reqUrl, data);
+                        // ignore the returns, there is no info in it.
+                    }
+                }
+            }
+            catch (err)
+            {
+                this.log.error(err);
+            }
+        }
+    }
+
+    onMessage(obj) {
+        if (typeof obj === "object" && obj.message)
+        {
+            if (obj.command === "send")
+            {
+                this.log.info("send command is triggered! Oeli." + obj.message);
+                if (obj.message)
+                {
+                    this.sendMessageToMatrix(obj.message);
+                }
+                if (obj.callback)
+                {
+                    this.sendTo(obj.from, obj.command, "Message computed", obj.callback);
+                }
+            }
         }
     }
 }

@@ -24,16 +24,22 @@ Create an own user as your BOT with password. Create a room for all members who 
 
 ### Usage
 
-Add as many instances as you need. Add a value to matrix-org.0.sendMessage on the way you like, with blockly or js
+Add as many instances as you need. Add a value to matrix-org.0.sendMessage on the way you like, with js
+Or use: sendTo("matrix-org.0", "Hello World!"); in js
+Or use the blockly symbol in Sendto
 
 ### ToDo
-* blockly symbol is missing
+* remove the sendMessage? 
 
 ## Changelog
 <!--
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+* blockly added
+* onMessage method added
+
 ### 0.0.3 (2022-06-26)
 * Invalid workflow line 54 in test-and-release.yml (leading space removed)
 

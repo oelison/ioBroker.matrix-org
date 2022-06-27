@@ -87,6 +87,8 @@
         "connectionType": "cloud",
         "dataSource": "push",
         "materialize": true,
+        "messagebox": true,
+        "blockly": true,
         "adminUI": {
             "config": "json"
         },
