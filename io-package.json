@@ -1,8 +1,20 @@
 {
     "common": {
         "name": "matrix-org",
-        "version": "0.0.3",
+        "version": "0.0.4",
         "news": {
+            "0.0.4": {
+                "en": "blockly added\nonMessage method added",
+                "de": "blockweise hinzugefügt\nonMessage-Methode hinzugefügt",
+                "ru": "заблокирован\nonMessage метод добавлен",
+                "pt": "bloco adicionado\nno método de mensagem adicionado",
+                "nl": "quality over quantity (qoq) releases vertaling:\nvertaling:",
+                "fr": "bloqué ajouté\nonMessage method added",
+                "it": "aggiunto blocco\nmetodo onMessage aggiunto",
+                "es": "bloque añadido\nmétodo de mensaje añadido",
+                "pl": "dodać blockowo\nmetoda dodawana została przeznaczona na Metodę",
+                "zh-cn": "部分增编\n废弃物法"
+            },
             "0.0.3": {
                 "en": "Invalid workflow line 54 in test-and-release.yml (leading space removed)",
                 "de": "Invalide Workflow-Leitung 54 in test-and-release.yml (führender Raum entfernt)",
