@@ -37,7 +37,7 @@ simply open the objects and change the string of one matrix-org instance
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 0.0.5 (2022-07-08)
 * sendMessage stay in for fast config testing
 * index_m.html and files from admin/build removed
 * password encryption and protection enabled
