@@ -30,7 +30,7 @@ class MatrixOrg extends utils.Adapter {
      * Is called when databases are connected and adapter received configuration.
      */
     async onReady() {
-
+        this.unloaded = false;
         // Reset the connection indicator during startup
         this.setState("info.connection", false, true);
 
@@ -51,23 +51,33 @@ class MatrixOrg extends utils.Adapter {
 
         // message will send after a change
         this.subscribeStates("sendMessage");
-
-        let reqUrl = "https://"
-        + this.config.serverIp + ":"
-        + this.config.serverPort + "/_matrix/client/r0/directory/room/"
-        + this.config.roomName;
-        reqUrl = reqUrl.replace("#", "%23");
-        this.log.debug("url request with axios: " + reqUrl);
-        try {
-            const res = await axios.get(reqUrl);
-            if (res.status === 200) {
-                const roomIdData = res.data;
-                await this.setStateAsync("matrixServerData.roomId", {val: roomIdData.room_id, ack: true});
-                this.setState("info.connection", true, true);
+        if (this.config.serverIp === "")
+        {
+            this.log.error("No server set!");
+        }
+        else
+        {
+            let reqUrl = "https://"
+            + this.config.serverIp + ":"
+            + this.config.serverPort + "/_matrix/client/r0/directory/room/"
+            + this.config.roomName;
+            reqUrl = encodeURI(reqUrl); // to catch the most malformating strings
+            reqUrl = reqUrl.replace("#", "%23"); // still needed for the room key, at least my server need it. Do not before or the % will be %25 :-)
+            this.log.debug("url request with axios: " + reqUrl);
+            try {
+                const res = await axios.get(reqUrl);
+                if (res.status === 200) {
+                    if (this.unloaded === false) {
+                        const roomIdData = res.data;
+                        await this.setStateAsync("matrixServerData.roomId", {val: roomIdData.room_id, ack: true});
+                        this.setState("info.connection", true, true);
+                    }
+                }
+            } catch (err) {
+                this.log.error(err);
+                this.log.error("Server not reached! " + this.config.serverIp + ":" + this.config.serverPort + " with room: " + this.config.roomName);
+                this.setState("info.connection", false, true);
             }
-        } catch (err) {
-            this.log.error(err);
-            this.setState("info.connection", false, true);
         }
     }
 
@@ -76,6 +86,7 @@ class MatrixOrg extends utils.Adapter {
      * @param {() => void} callback
      */
     onUnload(callback) {
+        this.unloaded = true;
         try {
             callback();
         } catch (e) {
@@ -95,7 +106,10 @@ class MatrixOrg extends utils.Adapter {
             // The state was changed
             if (state.val)
             {
-                this.sendMessageToMatrix(state.val.toString());
+                if (state.ack === false) // This is ioBroker convention, only send commands if ack = false
+                {
+                    this.sendMessageToMatrix(state.val.toString());
+                }
             }
         } else {
             // The state was deleted
@@ -112,7 +126,7 @@ class MatrixOrg extends utils.Adapter {
             let reqUrl = "https://"
             + this.config.serverIp + ":"
             + this.config.serverPort + "/_matrix/client/r0/login";
-            reqUrl = reqUrl.replace("#", "%23");
+            reqUrl = encodeURI(reqUrl);
             const data = {"type": "m.login.password", "user": this.config.botName, "password": this.config.botPassword };
             try
             {
@@ -126,7 +140,7 @@ class MatrixOrg extends utils.Adapter {
                     + roomId.val + "/send/m.room.message/35?access_token="
                     + accToken;
                     const data = {"body": message, "msgtype": "m.text" };
-                    reqUrl = reqUrl.replace("#", "%23");
+                    reqUrl = encodeURI(reqUrl);
                     res = await axios.put(reqUrl, data);
                     if (res.status === 200) {
                         reqUrl = "https://"
@@ -134,7 +148,7 @@ class MatrixOrg extends utils.Adapter {
                         + this.config.serverPort + "/_matrix/client/r0/logout?access_token="
                         + accToken;
                         const data = {};
-                        reqUrl = reqUrl.replace("#", "%23");
+                        reqUrl = encodeURI(reqUrl);
                         axios.post(reqUrl, data);
                         // ignore the returns, there is no info in it.
                     }

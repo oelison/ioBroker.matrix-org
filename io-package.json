@@ -107,7 +107,7 @@
         "eraseOnUpload": true,
         "dependencies": [
             {
-                "js-controller": ">=2.0.0"
+                "js-controller": ">=3.0.0"
             }
         ],
         "globalDependencies": [
@@ -116,6 +116,12 @@
             }
         ]
     },
+    "encryptedNative": [
+        "botPassword"
+    ],
+    "protectedNative": [
+        "botPassword"
+    ],
     "native": {
         "serverIp": "",
         "serverPort": "8448",

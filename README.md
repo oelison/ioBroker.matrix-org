@@ -28,14 +28,25 @@ Add as many instances as you need. Add a value to matrix-org.0.sendMessage on th
 Or use: sendTo("matrix-org.0", "Hello World!"); in js
 Or use the blockly symbol in Sendto
 
-### ToDo
-* remove the sendMessage? 
+### to test your configuration use sendMessage
+
+simply open the objects and change the string of one matrix-org instance
 
 ## Changelog
 <!--
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+* sendMessage stay in for fast config testing
+* index_m.html and files from admin/build removed
+* password encryption and protection enabled
+* password field now as type password
+* detection of missing config give an error log
+* detection of unread room data give an error log
+* encodeURI() used where possible
+* catching termination during await for avoid errors when writing on ioBroker database
+
 ### 0.0.4 (2022-07-02)
 * blockly added
 * onMessage method added
