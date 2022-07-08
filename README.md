@@ -46,6 +46,7 @@ simply open the objects and change the string of one matrix-org instance
 * detection of unread room data give an error log
 * encodeURI() used where possible
 * catching termination during await for avoid errors when writing on ioBroker database
+* adding matrix to blockly symbol
 
 ### 0.0.4 (2022-07-02)
 * blockly added

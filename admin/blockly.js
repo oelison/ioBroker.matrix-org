@@ -1,16 +1,16 @@
 "use strict";
 
 Blockly.Words["matrix-org_instance"] = {
-    "en": "instance",
-    "de": "instanz",
-    "ru": "пример",
-    "pt": "instância",
-    "nl": "instituut",
-    "fr": "instance",
-    "it": "istanza",
-    "es": "ejemplo",
-    "pl": "instancja",
-    "zh-cn": "例子"};
+    "en": "matrix instance",
+    "de": "matrix instanz",
+    "ru": "matrix пример",
+    "pt": "matrix instância",
+    "nl": "matrix instituut",
+    "fr": "matrix instance",
+    "it": "matrix istanza",
+    "es": "matrix ejemplo",
+    "pl": "matrix instancja",
+    "zh-cn": "matrix 例子"};
 Blockly.Words["matrix-org_message"] = {
     "en": "message",
     "de": "nachricht",
