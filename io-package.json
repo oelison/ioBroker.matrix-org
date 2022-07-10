@@ -1,8 +1,20 @@
 {
     "common": {
         "name": "matrix-org",
-        "version": "0.0.5",
+        "version": "0.0.6",
         "news": {
+            "0.0.6": {
+                "en": "repeat false set for stable admin v5.3.8\nReadme with example improved (how to chose port 443 or 8448)\nsome more debug output on errors",
+                "de": "wiederholung falsch gesetzt für stabil admin v5.3.8\nReadme mit Beispiel verbessert (wie man Port 443 oder 8448 wählt)\neinige weitere debug-ausgabe auf fehlern",
+                "ru": "повторите ложный набор для стабильного админ v5.3.8\nReadme с примером улучшен (как выбрать порт 443 или 8448)\nнемного больше отладки вывода на ошибки",
+                "pt": "repetir falso conjunto para admin estável v5.3.8\nReadme com exemplo melhorado (como escolher a porta 443 ou 8448)\nalguns mais depuração de saída em erros",
+                "nl": "herhaal valse set voor stabiele administratie v5.3.8\nLees me met voorbeeld verbeterd\nnog meer debug output over fouten",
+                "fr": "répéter faux set pour administrateur stable v5.3.8\nLire l'exemple amélioré (comment choisir le port 443 ou 8448)\nun peu plus de sortie debug sur les erreurs",
+                "it": "ripeti il set falso per amministratore stabile v5.3.8\nReadme con esempio migliorato (come scegliere il porto 443 o 8448)\nqualche output debug in più su errori",
+                "es": "repita el falso set para administración estable v5.3.8\nReadme con ejemplo mejorado (cómo elegir puerto 443 o 8448)\nalgunos más depuración de salida en errores",
+                "pl": "powtórne losy admin v5.3.8\nCzytelnia poprawiona (jako port 443 lub 8448)\njakiś debug wykonujemy na błędach",
+                "zh-cn": "第5.3.8号决定重申的虚假要求\n阅读的例子有改进(选择港口443或8448)\n错误方面的一些更显著的产出"
+            },
             "0.0.5": {
                 "en": "sendMessage stay in for fast config testing\nindex_m.html and files from admin/build removed\npassword encryption and protection enabled\npassword field now as type password\ndetection of missing config give an error log\ndetection of unread room data give an error log\nencodeURI() used where possible\ncatching termination during await for avoid errors when writing on ioBroker database\nadding matrix to blockly symbol",
                 "de": "senden Nachrichtenaufenthalt für schnelle config-Tests\nindex_m.html und dateien von admin/build entfernt\npasswortverschlüsselung und schutz aktiviert\npasswortfeld jetzt als typ passwort\nerkennung von fehlenden config geben sie ein fehlerprotokoll\nerkennung von ungelesenen raumdaten ein fehlerprotokoll\nencodeURI() soweit möglich verwendet\nabbruch während des Wartens, um Fehler beim Schreiben auf ioBroker Datenbank zu vermeiden\nmatrix zu blocksymbol hinzufügen",
