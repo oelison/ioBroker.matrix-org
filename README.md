@@ -31,12 +31,23 @@ Or use the blockly symbol in Sendto
 ### to test your configuration use sendMessage
 
 simply open the objects and change the string of one matrix-org instance
+The port is mostly 8448, when you have a self hosted system without proxy.
+Sometimes the port is 443, if you have a public system like matrix.org
+If you like to test it:
+Server: matrix.org Port: 443
+room: #test-ioBroker-adapter:matrix.org
+Join this room and try it out with your own credentials
 
 ## Changelog
 <!--
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+* repeat false set for stable admin v5.3.8
+* Readme with example improved (how to chose port 443 or 8448)
+* some more debug output on errors
+
 ### 0.0.5 (2022-07-08)
 * sendMessage stay in for fast config testing
 * index_m.html and files from admin/build removed

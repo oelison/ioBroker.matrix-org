@@ -42,6 +42,7 @@
                 },
                 "botPassword": {
                     "type": "password",
+                    "repeat": false,
                     "sm": 12,
                     "md": 6,
                     "lg": 6,

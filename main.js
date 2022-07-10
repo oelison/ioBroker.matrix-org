@@ -73,6 +73,10 @@ class MatrixOrg extends utils.Adapter {
                         this.setState("info.connection", true, true);
                     }
                 }
+                else
+                {
+                    this.log.error("Server or room not found. Check port (443/8448), room name and server.");
+                }
             } catch (err) {
                 this.log.error(err);
                 this.log.error("Server not reached! " + this.config.serverIp + ":" + this.config.serverPort + " with room: " + this.config.roomName);
@@ -123,6 +127,7 @@ class MatrixOrg extends utils.Adapter {
         const roomId = await this.getStateAsync("matrixServerData.roomId");
         if (roomId)
         {
+            let state = "get access token with user and password!";
             let reqUrl = "https://"
             + this.config.serverIp + ":"
             + this.config.serverPort + "/_matrix/client/r0/login";
@@ -132,6 +137,7 @@ class MatrixOrg extends utils.Adapter {
             {
                 let res = await axios.post(reqUrl, data);
                 if (res.status === 200) {
+                    state = "send message to room with access token!";
                     const accTokenData = res.data;
                     const accToken = accTokenData.access_token;
                     reqUrl = "https://"
@@ -143,6 +149,7 @@ class MatrixOrg extends utils.Adapter {
                     reqUrl = encodeURI(reqUrl);
                     res = await axios.put(reqUrl, data);
                     if (res.status === 200) {
+                        state = "logout again to invalidate token.";
                         reqUrl = "https://"
                         + this.config.serverIp + ":"
                         + this.config.serverPort + "/_matrix/client/r0/logout?access_token="
@@ -157,6 +164,8 @@ class MatrixOrg extends utils.Adapter {
             catch (err)
             {
                 this.log.error(err);
+                this.log.error("URL requested: " + reqUrl);
+                this.log.error("error during: " + state);
             }
         }
     }
