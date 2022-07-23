@@ -217,6 +217,52 @@
                 "write": false
             },
             "native": {}
+        },
+        {
+            "_id": "sendMessage",
+            "type": "state",
+            "common": {
+                "name": {
+                    "en": "send message directly",
+                    "de": "nachricht direkt senden",
+                    "ru": "отправить сообщение напрямую",
+                    "pt": "enviar mensagem diretamente",
+                    "nl": "stuur direct bericht",
+                    "fr": "envoyer un message directement",
+                    "it": "inviare messaggi direttamente",
+                    "es": "enviar el mensaje directamente",
+                    "pl": "komunikat",
+                    "zh-cn": "直接发送信息"
+                },
+                "type": "string",
+                "role": "text",
+                "read": true,
+                "write": true
+            },
+            "native": {}
+        },
+        {
+            "_id": "receiveMessage",
+            "type": "state",
+            "common": {
+                "name": {
+                    "en": "receive message",
+                    "de": "nachricht senden",
+                    "ru": "получить сообщение",
+                    "pt": "receber mensagem",
+                    "nl": "ontvangen",
+                    "fr": "message",
+                    "it": "ricevere messaggio",
+                    "es": "mensaje",
+                    "pl": "wiadomość",
+                    "zh-cn": "收到的资料"
+                  },
+                  "type": "string",
+                  "role": "text",
+                  "read": true,
+                  "write": false
+            },
+            "native": {}
         }
     ]
 }

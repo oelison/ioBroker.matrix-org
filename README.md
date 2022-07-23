@@ -43,6 +43,14 @@ Join this room and try it out with your own credentials
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+* removed all axios request
+* replaced with matrix-js-sdk calls
+* no logoff during the whole time
+* test with servers with access token expiery need to be done
+* sync added
+* receive message added (please check on update and not on change to react on the same message)
+
 ### 0.0.6 (2022-07-10)
 * repeat false set for stable admin v5.3.8
 * Readme with example improved (how to chose port 443 or 8448)
