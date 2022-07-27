@@ -4,21 +4,35 @@
  * Created with @iobroker/create-adapter v2.1.1
  */
 
+/// site references for matrix and crypto:
+// https://www.npmjs.com/package/@matrix-org/matrix-sdk-crypto-nodejs
+// https://turt2live.github.io/matrix-bot-sdk/tutorial-encryption-bots.html
+// https://github.com/turt2live/matrix-bot-sdk
+// another bot using project https://github.com/guardianproject/ractive
+// https://matrix.org/docs/guides/usage-of-the-matrix-js-sdk
+
 // The adapter-core module gives you access to the core ioBroker functions
 // you need to create an adapter
 const utils = require("@iobroker/adapter-core");
+
+global.Olm = require("olm");
 const matrix = require("matrix-js-sdk");
+const { LocalStorageCryptoStore } = require("matrix-js-sdk/lib/crypto/store/localStorage-crypto-store");
+const { LocalStorage } = require("node-localstorage");
+const localStorage = new LocalStorage("./localCryptoStorage");
+
 // Next three lines because of https://github.com/matrix-org/matrix-js-sdk/issues/2415
 const matrixcs = require("matrix-js-sdk/lib/matrix");
 const request = require("request");
 matrixcs.request(request);
 // until here may be deleted when fix of https://github.com/matrix-org/matrix-js-sdk/issues/2415
+//const { EventEmitterEvents } = require("matrix-js-sdk/lib/models/typed-event-emitter");
 
-// the client for matrix communication
-var matrixClient;
-// local variable for fast access to static data
-var fullUserId = "";
-var roomId = "";
+let matrixClient;
+let accessToken = "";
+let deviceID = "";
+let fullUserId = "";
+let roomId = "";
 class MatrixOrg extends utils.Adapter {
 
     /**
@@ -36,8 +50,8 @@ class MatrixOrg extends utils.Adapter {
     }
     /**
      * is called as part of the login chain to big for inline
-     * @param {*} err 
-     * @param {*} data 
+     * @param {*} err
+     * @param {*} data
      */
     async matrixRoomIdResponse(err, data)
     {
@@ -45,8 +59,8 @@ class MatrixOrg extends utils.Adapter {
         {
             await this.setStateAsync("matrixServerData.roomId", {val: data.room_id, ack: true});
             roomId = data.room_id;
-            matrixClient.login("m.login.password",{"user": this.config.botName, "password": this.config.botPassword},
-            (err, data)=>this.matrixLoginResponse(err, data)
+            matrixClient.login("m.login.password",{user: this.config.botName, password: this.config.botPassword},
+                (err, data)=>this.matrixLoginResponse(err, data)
             );
         }
         else if (err)
@@ -57,28 +71,66 @@ class MatrixOrg extends utils.Adapter {
     }
     /**
      * is called of last state of the login chain, Crypto disabled due to malfunction
-     * @param {*} err 
-     * @param {*} data 
+     * @param {*} err
+     * @param {*} data
      */
     async matrixLoginResponse(err, data)
     {
         if (data)
         {
+            accessToken = data.access_token;
+            deviceID = data.device_id;
             fullUserId = data.user_id;
             this.setState("info.connection", true, true);
-            try 
+            try
             {
+                let baseURL = "";
+                if (this.config.serverPort === "443")
+                {
+                    baseURL = "https://" + this.config.serverIp;
+                }
+                else
+                {
+                    baseURL = "https://" + this.config.serverIp + ":" + this.config.serverPort;
+                }
+                // ToDo: switch crypto on
+                const fullUserId = "@" + this.config.botName + ":" + this.config.serverIp;
+                this.log.debug("baseUrl: " + baseURL + " userId: " + fullUserId + " deviceId: " + deviceID + " accessToken: " + accessToken);
+                matrixClient = matrix.createClient(
+                    {
+                        baseUrl: baseURL,
+                        accessToken: accessToken,
+                        //sessionStore: new matrix.WebStorageSessionStore(localStorage),
+                        cryptoStore: new LocalStorageCryptoStore(localStorage),
+                        userId: fullUserId,
+                        deviceId: deviceID
+                    });
+                matrixClient.setDeviceDetails(deviceID, {display_name: "ioBrokerBot"});
+                matrixClient.on("event", (event)=>this.onMatrixEvent(event,null,null));
+                matrixClient.on("Event.decrypted", ()=>this.handleEventDecrypted);
+                this.log.debug("try to start crypto!");
+                await matrixClient.initCrypto();
+                this.log.debug("crypto started!");
                 await matrixClient.startClient();
                 this.log.debug("client started!");
+                matrixClient.restoreKeyBackupWithRecoveryKey(
+                    "",
+                    "",
+                    "",
+                    121,
+                    2
+                    );
                 // init the receive callback
+                // @ts-ignore
                 matrixClient.once("sync",(state, prevState, res) => {
                     this.log.debug("state: " + JSON.stringify(state));
                     this.log.debug("prevState: " + JSON.stringify(prevState));
                     this.log.debug("res: " + JSON.stringify(res));
+                    matrixClient.uploadKeys();
                     try {
                         matrixClient.on("Room.timeline", (event, room, toStartOfTimeline) => this.onMatrixEvent(event, room, toStartOfTimeline));
                     } catch (error) {
-                        this.log.error(error)
+                        this.log.error(error);
                     }
                 });
             }
@@ -93,17 +145,42 @@ class MatrixOrg extends utils.Adapter {
             this.log.error(err);
         }
     }
+    handleEventDecrypted (event)
+    {
+        try {
+            if (event !== "null" && event !== "undefined" && event.isDecryptionFailure())
+            {
+                this.log.error("Decryption failure");
+                //sendErrorMessage(event.getRoomId());
+                return;
+            }
+
+            if (event.getType() === "m.room.message")
+                this.onMatrixEvent(event,null,null);
+        } catch (err) {
+            this.log.error("Decryption error: " + err);
+            //sendErrorMessage(event.getRoomId());
+        }
+    }
+
     /**
      * is called on every room event where the bot is in
-     * @param {*} event 
-     * @param {*} room 
-     * @param {*} toStartOfTimeline 
+     * @param {*} event
+     * @param {*} room not used yet
+     * @param {*} toStartOfTimeline not used yet
      */
     async onMatrixEvent(event, room, toStartOfTimeline)
     {
-        var messageUsed = false;
-        var reason = "";
-        if (event.event.type === "m.room.message")
+        let messageUsed = false;
+        let reason = "";
+        if (event.isEncrypted())
+        {
+            this.log.debug("encrypted event: " +JSON.stringify(event));
+            reason = "encrypted!";
+        }
+        //this.log.debug("event: " + JSON.stringify(event));
+        //this.log.debug("toStartOfTimeline: " + toStartOfTimeline);
+        else if (event.event.type === "m.room.message")
         {
             if (event.event.sender !== fullUserId)
             {
@@ -134,7 +211,7 @@ class MatrixOrg extends utils.Adapter {
             reason = "type not m.room.message";
         }
         if (messageUsed === false)
-        { 
+        {
             this.log.debug("Message ignored due to: " + reason);
         }
         else
@@ -149,8 +226,6 @@ class MatrixOrg extends utils.Adapter {
         const roomId = await this.getStateAsync("matrixServerData.roomId");
         if (roomId)
         {
-            let state = "send message to room with access token!";
-            
             try
             {
                 const data = {"body": message, "msgtype": "m.text" };
@@ -159,7 +234,7 @@ class MatrixOrg extends utils.Adapter {
             catch (err)
             {
                 this.log.error(err);
-                this.log.error("error during: " + state);
+                this.log.error("error during: send message to room with access token!");
             }
         }
     }
@@ -180,7 +255,7 @@ class MatrixOrg extends utils.Adapter {
         else
         {
             try {
-                var baseURL = "";
+                let baseURL = "";
                 if (this.config.serverPort === "443")
                 {
                     baseURL = "https://" + this.config.serverIp;
@@ -198,7 +273,7 @@ class MatrixOrg extends utils.Adapter {
             }
         }
     }
-    
+
     /**
      * Is called when adapter shuts down - callback has to be called under any circumstances!
      * @param {() => void} callback
@@ -236,7 +311,7 @@ class MatrixOrg extends utils.Adapter {
     }
     /**
      * Is called if a object is changed
-     * @param {*} obj 
+     * @param {*} obj
      */
     onMessage(obj) {
         if (typeof obj === "object" && obj.message)

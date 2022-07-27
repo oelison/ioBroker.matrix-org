@@ -18,3 +18,5 @@ admin/i18n/*/flat.txt
 /.vscode
 
 /admin/build
+
+localCryptoStorage/
