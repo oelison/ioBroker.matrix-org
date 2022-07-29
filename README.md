@@ -25,8 +25,11 @@ Create an own user as your BOT with password. Create a room for all members who 
 ### Usage
 
 Add as many instances as you need. Add a value to matrix-org.0.sendMessage on the way you like, with js
+If you set "image" to matrix.0.sendMessage, it will send the matrix logo to your channel.
 Or use: sendTo("matrix-org.0", "Hello World!"); in js
 Or use the blockly symbol in Sendto
+For images as reference: sendTo("matrix-org.0",{file: "https://www.abcd/images/test.png"});
+For images in base64: sendTo("matrix-org.0",{file:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACmSURBVFhH7ZdhCoAgDEZnd9D737T8xJkNNY1Ef+yB2LTcC1qWOT20kCBgjIkh0WwfmeuIxyGYnRzIPElgFSqgAvsKOOdCzeZ1y7EcZzDG16HvwtckihLdA4xxk3HeGGttc17Cc+lN6Ds/dlO6w6/ItQHn7H4GcDK3Em/zNboE5KKjcQstQxVQARVYLlDdC2YzvBfMQgVUYB8BlMWfn2E1ZJ7Fv+dEF0UZoNhXp9NnAAAAAElFTkSuQmCC"});
 
 ### to test your configuration use sendMessage
 
@@ -43,6 +46,10 @@ Join this room and try it out with your own credentials
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+* sending images added
+* sending from url and base64 encoded data
+
 ### 0.0.7 (2022-07-24)
 * removed all axios request
 * replaced with matrix-js-sdk calls

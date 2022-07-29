@@ -4,6 +4,10 @@
  * Created with @iobroker/create-adapter v2.1.1
  */
 
+const axios = require("axios").default;
+const { basename } = require("node:path");
+const { URL } = require("node:url");
+
 // The adapter-core module gives you access to the core ioBroker functions
 // you need to create an adapter
 const utils = require("@iobroker/adapter-core");
@@ -15,10 +19,10 @@ matrixcs.request(request);
 // until here may be deleted when fix of https://github.com/matrix-org/matrix-js-sdk/issues/2415
 
 // the client for matrix communication
-var matrixClient;
+let matrixClient;
 // local variable for fast access to static data
-var fullUserId = "";
-var roomId = "";
+let fullUserId = "";
+let roomId = "";
 class MatrixOrg extends utils.Adapter {
 
     /**
@@ -36,8 +40,8 @@ class MatrixOrg extends utils.Adapter {
     }
     /**
      * is called as part of the login chain to big for inline
-     * @param {*} err 
-     * @param {*} data 
+     * @param {*} err
+     * @param {*} data
      */
     async matrixRoomIdResponse(err, data)
     {
@@ -46,7 +50,7 @@ class MatrixOrg extends utils.Adapter {
             await this.setStateAsync("matrixServerData.roomId", {val: data.room_id, ack: true});
             roomId = data.room_id;
             matrixClient.login("m.login.password",{"user": this.config.botName, "password": this.config.botPassword},
-            (err, data)=>this.matrixLoginResponse(err, data)
+                (err, data)=>this.matrixLoginResponse(err, data)
             );
         }
         else if (err)
@@ -57,8 +61,8 @@ class MatrixOrg extends utils.Adapter {
     }
     /**
      * is called of last state of the login chain, Crypto disabled due to malfunction
-     * @param {*} err 
-     * @param {*} data 
+     * @param {*} err
+     * @param {*} data
      */
     async matrixLoginResponse(err, data)
     {
@@ -66,7 +70,7 @@ class MatrixOrg extends utils.Adapter {
         {
             fullUserId = data.user_id;
             this.setState("info.connection", true, true);
-            try 
+            try
             {
                 await matrixClient.startClient();
                 this.log.debug("client started!");
@@ -78,7 +82,7 @@ class MatrixOrg extends utils.Adapter {
                     try {
                         matrixClient.on("Room.timeline", (event, room, toStartOfTimeline) => this.onMatrixEvent(event, room, toStartOfTimeline));
                     } catch (error) {
-                        this.log.error(error)
+                        this.log.error(error);
                     }
                 });
             }
@@ -95,14 +99,14 @@ class MatrixOrg extends utils.Adapter {
     }
     /**
      * is called on every room event where the bot is in
-     * @param {*} event 
-     * @param {*} room 
-     * @param {*} toStartOfTimeline 
+     * @param {*} event
+     * @param {*} room not used yet
+     * @param {*} toStartOfTimeline not used yet
      */
     async onMatrixEvent(event, room, toStartOfTimeline)
     {
-        var messageUsed = false;
-        var reason = "";
+        let messageUsed = false;
+        let reason = "";
         if (event.event.type === "m.room.message")
         {
             if (event.event.sender !== fullUserId)
@@ -134,7 +138,7 @@ class MatrixOrg extends utils.Adapter {
             reason = "type not m.room.message";
         }
         if (messageUsed === false)
-        { 
+        {
             this.log.debug("Message ignored due to: " + reason);
         }
         else
@@ -149,8 +153,7 @@ class MatrixOrg extends utils.Adapter {
         const roomId = await this.getStateAsync("matrixServerData.roomId");
         if (roomId)
         {
-            let state = "send message to room with access token!";
-            
+            const state = "send message to room with access token!";
             try
             {
                 const data = {"body": message, "msgtype": "m.text" };
@@ -160,6 +163,108 @@ class MatrixOrg extends utils.Adapter {
             {
                 this.log.error(err);
                 this.log.error("error during: " + state);
+            }
+        }
+    }
+    /**
+     * Get a buffer and a file name from a possibly base64 encoded string.
+     * @param {string} base64String The possibly bas64 encoded data string.
+     * @returns Object of `buffer` and `name` from the base64 string or null if no base64 string.
+     */
+    getBufferAndNameFromBase64String (base64String)
+    {
+        // check for base64 encoded data
+        const b64match = base64String.match(/^data:([^/]+)\/([^;]+);base64,([a-zA-Z0-9+/]+=*)$/);
+        if (!b64match) {
+            return null;
+        }
+        // base64 encoded content
+        const buffer = Buffer.from(b64match[3], "base64");
+
+        // get mime type
+        const mimeType = `${b64match[1].replace(/\W/g, "_")}/${b64match[2].replace(/\W/g, "_")}`;
+        return {
+            buffer,
+            mimeType
+        };
+    }
+    /**
+     * Get the basename of a path or URL to a file.
+     * @param file Path or URL to a file.
+     * @returns The basename of the file.
+     */
+    getBasenameFromUrl (file)
+    {
+        if (file.match(/^\w+:\/\//))
+        {
+            try {
+                const url = new URL(file);
+                return basename(url.pathname);
+            } catch (err) {
+                return "";
+            }
+        } else {
+            return "";
+        }
+    }
+    /**
+     * send file from url or base64 encoded data to matrix as image
+     * @param {string} fileObject
+     */
+    async sendFileToMatrix(fileObject)
+    {
+        const file = String(fileObject);
+        const b64data = this.getBufferAndNameFromBase64String(file);
+        let buffer;
+        let imageType;
+        if(b64data)
+        {
+            buffer = b64data.buffer;
+            imageType = b64data.mimeType;
+            try {
+                if ((imageType === "") && (buffer.length > 4))
+                {
+                    const header = buffer[0].toString(16) +buffer[1].toString(16) +buffer[2].toString(16) + buffer[3].toString(16);
+                    switch (header) {
+                        case "89504e47":
+                            imageType = "image/png";
+                            break;
+                        case "47494638":
+                            imageType = "image/gif";
+                            break;
+                        case "ffd8ffe0":
+                        case "ffd8ffe1":
+                        case "ffd8ffe2":
+                        case "ffd8ffe3":
+                        case "ffd8ffe8":
+                            imageType = "image/jpeg";
+                            break;
+                        default:
+                            imageType = "unknown"; // Or you can use the blob.type as fallback
+                            break;
+                    }
+                }
+                const uploadResponse = await matrixClient.uploadContent(buffer, { rawResponse: false, type: imageType });
+                const matrixUrl = uploadResponse.content_uri;
+                await matrixClient.sendImageMessage(roomId, null, matrixUrl, {}, "");
+            } catch (err) {
+                this.log.error(err);
+            }
+        }
+        else
+        {
+            if ( file.startsWith("https://") || file.startsWith("http://"))
+            {
+                try {
+                    const fileName = this.getBasenameFromUrl(file);
+                    const imageResponse = await axios.get(file, { responseType: "arraybuffer" });
+                    const imageType = imageResponse.headers["content-type"];
+                    const uploadResponse = await matrixClient.uploadContent(imageResponse.data, { rawResponse: false, type: imageType });
+                    const matrixUrl = uploadResponse.content_uri;
+                    await matrixClient.sendImageMessage(roomId, null, matrixUrl, {}, fileName);
+                } catch (err) {
+                    this.log.error(err);
+                }
             }
         }
     }
@@ -180,7 +285,7 @@ class MatrixOrg extends utils.Adapter {
         else
         {
             try {
-                var baseURL = "";
+                let baseURL = "";
                 if (this.config.serverPort === "443")
                 {
                     baseURL = "https://" + this.config.serverIp;
@@ -198,7 +303,6 @@ class MatrixOrg extends utils.Adapter {
             }
         }
     }
-    
     /**
      * Is called when adapter shuts down - callback has to be called under any circumstances!
      * @param {() => void} callback
@@ -226,7 +330,15 @@ class MatrixOrg extends utils.Adapter {
             {
                 if (state.ack === false) // This is ioBroker convention, only send commands if ack = false
                 {
-                    this.sendMessageToMatrix(state.val.toString());
+                    if(state.val === "image")
+                    {
+                        this.sendFileToMatrix("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACmSURBVFhH7ZdhCoAgDEZnd9D737T8xJkNNY1Ef+yB2LTcC1qWOT20kCBgjIkh0WwfmeuIxyGYnRzIPElgFSqgAvsKOOdCzeZ1y7EcZzDG16HvwtckihLdA4xxk3HeGGttc17Cc+lN6Ds/dlO6w6/ItQHn7H4GcDK3Em/zNboE5KKjcQstQxVQARVYLlDdC2YzvBfMQgVUYB8BlMWfn2E1ZJ7Fv+dEF0UZoNhXp9NnAAAAAElFTkSuQmCC");
+
+                    }
+                    else
+                    {
+                        this.sendMessageToMatrix(state.val.toString());
+                    }
                 }
             }
         } else {
@@ -236,21 +348,35 @@ class MatrixOrg extends utils.Adapter {
     }
     /**
      * Is called if a object is changed
-     * @param {*} obj 
+     * @param {*} obj
      */
     onMessage(obj) {
-        if (typeof obj === "object" && obj.message)
+        if (typeof obj === "object")
         {
-            if (obj.command === "send")
+            // {"command":"send","message":{"file":"https://sciphy.de/toDownload/test.png"},"from":"system.adapter.javascript.0","_id":12345678}
+            // {"command":"send","message":"Hello!","from":"system.adapter.javascript.0","_id":12345678}
+            // {"command":"send","message":{"file":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACmSURBVFhH7ZdhCoAgDEZnd9D737T8xJkNNY1Ef+yB2LTcC1qWOT20kCBgjIkh0WwfmeuIxyGYnRzIPElgFSqgAvsKOOdCzeZ1y7EcZzDG16HvwtckihLdA4xxk3HeGGttc17Cc+lN6Ds/dlO6w6/ItQHn7H4GcDK3Em/zNboE5KKjcQstQxVQARVYLlDdC2YzvBfMQgVUYB8BlMWfn2E1ZJ7Fv+dEF0UZoNhXp9NnAAAAAElFTkSuQmCC"},"from":"system.adapter.javascript.0","_id":12345678}
+            if (obj.message)
             {
-                this.log.info("send command is triggered!" + obj.message);
-                if (obj.message)
+                if (obj.command === "send")
                 {
-                    this.sendMessageToMatrix(obj.message);
-                }
-                if (obj.callback)
-                {
-                    this.sendTo(obj.from, obj.command, "Message computed", obj.callback);
+                    if(obj.message.file)
+                    {
+                        this.log.debug("file command is triggered!");
+                        this.sendFileToMatrix(obj.message.file);
+                    }
+                    else
+                    {
+                        this.log.info("send command is triggered!" + obj.message);
+                        if (obj.message)
+                        {
+                            this.sendMessageToMatrix(obj.message);
+                        }
+                        if (obj.callback)
+                        {
+                            this.sendTo(obj.from, obj.command, "Message computed", obj.callback);
+                        }
+                    }
                 }
             }
         }
