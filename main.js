@@ -5,8 +5,10 @@
  */
 
 const axios = require("axios").default;
-const { basename } = require("node:path");
-const { URL } = require("node:url");
+const { basename } = require("path");
+const { URL } = require("url");
+const fs = require("fs");
+const Os = require("os");
 
 // The adapter-core module gives you access to the core ioBroker functions
 // you need to create an adapter
@@ -23,7 +25,8 @@ let matrixClient;
 // local variable for fast access to static data
 let fullUserId = "";
 let roomId = "";
-class MatrixOrg extends utils.Adapter {
+class MatrixOrg extends utils.Adapter
+{
 
     /**
      * @param {Partial<utils.AdapterOptions>} [options={}]
@@ -37,6 +40,10 @@ class MatrixOrg extends utils.Adapter {
         this.on("stateChange", this.onStateChange.bind(this));
         this.on("message", this.onMessage.bind(this));
         this.on("unload", this.onUnload.bind(this));
+    }
+    isWindows()
+    {
+        return Os.platform() === "win32";
     }
     /**
      * is called as part of the login chain to big for inline
@@ -79,10 +86,13 @@ class MatrixOrg extends utils.Adapter {
                     this.log.debug("state: " + JSON.stringify(state));
                     this.log.debug("prevState: " + JSON.stringify(prevState));
                     this.log.debug("res: " + JSON.stringify(res));
-                    try {
+                    try
+                    {
                         matrixClient.on("Room.timeline", (event, room, toStartOfTimeline) => this.onMatrixEvent(event, room, toStartOfTimeline));
-                    } catch (error) {
-                        this.log.error(error);
+                    }
+                    catch (err)
+                    {
+                        this.log.error(err);
                     }
                 });
             }
@@ -149,7 +159,8 @@ class MatrixOrg extends utils.Adapter {
     /**
      * @param {string} message
      */
-    async sendMessageToMatrix(message) {
+    async sendMessageToMatrix(message)
+    {
         const roomId = await this.getStateAsync("matrixServerData.roomId");
         if (roomId)
         {
@@ -168,110 +179,191 @@ class MatrixOrg extends utils.Adapter {
     }
     /**
      * Get a buffer and a file name from a possibly base64 encoded string.
-     * @param {string} base64String The possibly bas64 encoded data string.
+     * @param {object} base64String The possibly bas64 encoded data string.
      * @returns Object of `buffer` and `name` from the base64 string or null if no base64 string.
      */
     getBufferAndNameFromBase64String (base64String)
     {
-        // check for base64 encoded data
-        const b64match = base64String.match(/^data:([^/]+)\/([^;]+);base64,([a-zA-Z0-9+/]+=*)$/);
-        if (!b64match) {
+        this.log.debug(JSON.stringify(base64String));
+        if ((typeof base64String === "object") && (base64String.base64))
+        {
+            const mimeType = base64String.type;
+            const buffer = Buffer.from(base64String.base64, "base64");
+            return {
+                buffer,
+                mimeType
+            };
+        }
+        else
+        {
             return null;
         }
-        // base64 encoded content
-        const buffer = Buffer.from(b64match[3], "base64");
-
-        // get mime type
-        const mimeType = `${b64match[1].replace(/\W/g, "_")}/${b64match[2].replace(/\W/g, "_")}`;
-        return {
-            buffer,
-            mimeType
-        };
     }
     /**
      * Get the basename of a path or URL to a file.
      * @param file Path or URL to a file.
      * @returns The basename of the file.
      */
-    getBasenameFromUrl (file)
+    getBasenameFromFilePathOrUrl(file)
     {
         if (file.match(/^\w+:\/\//))
         {
-            try {
+            try
+            {
                 const url = new URL(file);
                 return basename(url.pathname);
-            } catch (err) {
-                return "";
             }
-        } else {
-            return "";
-        }
-    }
-    /**
-     * send file from url or base64 encoded data to matrix as image
-     * @param {string} fileObject
-     */
-    async sendFileToMatrix(fileObject)
-    {
-        const file = String(fileObject);
-        const b64data = this.getBufferAndNameFromBase64String(file);
-        let buffer;
-        let imageType;
-        if(b64data)
-        {
-            buffer = b64data.buffer;
-            imageType = b64data.mimeType;
-            try {
-                if ((imageType === "") && (buffer.length > 4))
-                {
-                    const header = buffer[0].toString(16) +buffer[1].toString(16) +buffer[2].toString(16) + buffer[3].toString(16);
-                    switch (header) {
-                        case "89504e47":
-                            imageType = "image/png";
-                            break;
-                        case "47494638":
-                            imageType = "image/gif";
-                            break;
-                        case "ffd8ffe0":
-                        case "ffd8ffe1":
-                        case "ffd8ffe2":
-                        case "ffd8ffe3":
-                        case "ffd8ffe8":
-                            imageType = "image/jpeg";
-                            break;
-                        default:
-                            imageType = "unknown"; // Or you can use the blob.type as fallback
-                            break;
-                    }
-                }
-                const uploadResponse = await matrixClient.uploadContent(buffer, { rawResponse: false, type: imageType });
-                const matrixUrl = uploadResponse.content_uri;
-                await matrixClient.sendImageMessage(roomId, null, matrixUrl, {}, "");
-            } catch (err) {
-                this.log.error(err);
+            catch (err)
+            {
+                return basename(file);
             }
         }
         else
         {
-            if ( file.startsWith("https://") || file.startsWith("http://"))
-            {
-                try {
-                    const fileName = this.getBasenameFromUrl(file);
-                    const imageResponse = await axios.get(file, { responseType: "arraybuffer" });
-                    const imageType = imageResponse.headers["content-type"];
-                    const uploadResponse = await matrixClient.uploadContent(imageResponse.data, { rawResponse: false, type: imageType });
-                    const matrixUrl = uploadResponse.content_uri;
-                    await matrixClient.sendImageMessage(roomId, null, matrixUrl, {}, fileName);
-                } catch (err) {
-                    this.log.error(err);
-                }
+            return basename(file);
+        }
+    }
+    /**
+     * try to get the image type from the data
+     * @param {*} buffer image data
+     * @returns the guessed image type
+     */
+    getFileTypeFromData(buffer)
+    {
+        let imageType = "";
+        if (buffer.length > 4)
+        {
+            const header = buffer[0].toString(16) +buffer[1].toString(16) +buffer[2].toString(16) + buffer[3].toString(16);
+            switch (header) {
+                case "89504e47":
+                    imageType = "image/png";
+                    break;
+                case "47494638":
+                    imageType = "image/gif";
+                    break;
+                case "ffd8ffe0":
+                case "ffd8ffe1":
+                case "ffd8ffe2":
+                case "ffd8ffe3":
+                case "ffd8ffe8":
+                    imageType = "image/jpeg";
+                    break;
+                default:
+                    imageType = "unknown"; // Or you can use the blob.type as fallback
+                    break;
             }
+        }
+        return imageType;
+    }
+    /**
+     * send the file as an image to matrix
+     * @param {*} buffer contain the binary data from the image
+     * @param {string} fileType mime type of the image
+     */
+    async sendFileToMatrix(buffer, fileType)
+    {
+        try
+        {
+            const uploadResponse = await matrixClient.uploadContent(buffer, { rawResponse: false, type: fileType });
+            const matrixUrl = uploadResponse.content_uri;
+            let msgtype = matrix.MsgType.File;
+            let info = {};
+            if (fileType.startsWith("image"))
+            {
+                msgtype = matrix.MsgType.Image;
+            }
+            else if (fileType.startsWith("video"))
+            {
+                msgtype = matrix.MsgType.Video;
+                info = {
+                    mimetype: fileType
+                };
+            }
+            const content = {
+                msgtype: msgtype,
+                url: matrixUrl,
+                info: info,
+                body: "",
+            };
+            await matrixClient.sendMessage(roomId, null, content, undefined);
+        }
+        catch (err)
+        {
+            this.log.error(err);
+        }
+    }
+    /**
+     * send file from url or base64 encoded data to matrix as image
+     * @param {object} fileObject
+     */
+    async sendFile(fileObject)
+    {
+        const file = String(fileObject.file);
+        const b64data = this.getBufferAndNameFromBase64String(fileObject);
+        let fileType;
+        let buffer;
+        if(b64data)
+        {
+            buffer = b64data.buffer;
+            fileType = b64data.mimeType;
+        }
+        else if ( file.startsWith("https://") || file.startsWith("http://"))
+        {
+            try
+            {
+                const imageResponse = await axios.get(file, { responseType: "arraybuffer" });
+                fileType = imageResponse.headers["content-type"];
+                buffer = imageResponse.data;
+            }
+            catch (err)
+            {
+                this.log.error(err);
+                this.log.error("read from file failed.");
+            }
+        }
+        else if ( file.startsWith("file://"))
+        {
+            if (fileObject.type)
+            {
+                fileType = fileObject.type;
+            }
+            try
+            {
+                let fileName = file.slice(7);
+                if (this.isWindows())
+                {
+                    if (file.startsWith("file:///"))
+                    {
+                        fileName = file.slice(8);
+                    }
+                }
+                buffer = fs.readFileSync(fileName);
+            }
+            catch (err)
+            {
+                this.log.error(err);
+            }
+        }
+        try
+        {
+            if ((fileType === "") && (buffer.length > 4))
+            {
+                fileType = this.getFileTypeFromData(buffer);
+                this.log.debug("guessed file type: " + fileType);
+            }
+            this.log.debug("file type: " + fileType);
+            this.sendFileToMatrix(buffer, fileType);
+        }
+        catch (err)
+        {
+            this.log.error(err);
         }
     }
     /**
      * Is called when databases are connected and adapter received configuration.
      */
-    async onReady() {
+    async onReady()
+    {
         this.unloaded = false;
         // Reset the connection indicator during startup
         this.setState("info.connection", false, true);
@@ -284,7 +376,8 @@ class MatrixOrg extends utils.Adapter {
         }
         else
         {
-            try {
+            try
+            {
                 let baseURL = "";
                 if (this.config.serverPort === "443")
                 {
@@ -296,7 +389,9 @@ class MatrixOrg extends utils.Adapter {
                 }
                 matrixClient = matrix.createClient({baseUrl: baseURL});
                 matrixClient.getRoomIdForAlias(this.config.roomName, (err, data) => this.matrixRoomIdResponse(err, data));
-            } catch (err) {
+            }
+            catch (err)
+            {
                 this.log.error(err);
                 this.log.error("Server not reached! " + this.config.serverIp + ":" + this.config.serverPort + " with room: " + this.config.roomName);
                 this.setState("info.connection", false, true);
@@ -307,11 +402,15 @@ class MatrixOrg extends utils.Adapter {
      * Is called when adapter shuts down - callback has to be called under any circumstances!
      * @param {() => void} callback
      */
-    onUnload(callback) {
+    onUnload(callback)
+    {
         this.unloaded = true;
-        try {
+        try
+        {
             callback();
-        } catch (e) {
+        }
+        catch (e)
+        {
             callback();
         }
     }
@@ -332,8 +431,7 @@ class MatrixOrg extends utils.Adapter {
                 {
                     if(state.val === "image")
                     {
-                        this.sendFileToMatrix("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACmSURBVFhH7ZdhCoAgDEZnd9D737T8xJkNNY1Ef+yB2LTcC1qWOT20kCBgjIkh0WwfmeuIxyGYnRzIPElgFSqgAvsKOOdCzeZ1y7EcZzDG16HvwtckihLdA4xxk3HeGGttc17Cc+lN6Ds/dlO6w6/ItQHn7H4GcDK3Em/zNboE5KKjcQstQxVQARVYLlDdC2YzvBfMQgVUYB8BlMWfn2E1ZJ7Fv+dEF0UZoNhXp9NnAAAAAElFTkSuQmCC");
-
+                        this.sendFile({type:"image/png",base64:"iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACmSURBVFhH7ZdhCoAgDEZnd9D737T8xJkNNY1Ef+yB2LTcC1qWOT20kCBgjIkh0WwfmeuIxyGYnRzIPElgFSqgAvsKOOdCzeZ1y7EcZzDG16HvwtckihLdA4xxk3HeGGttc17Cc+lN6Ds/dlO6w6/ItQHn7H4GcDK3Em/zNboE5KKjcQstQxVQARVYLlDdC2YzvBfMQgVUYB8BlMWfn2E1ZJ7Fv+dEF0UZoNhXp9NnAAAAAElFTkSuQmCC"});
                     }
                     else
                     {
@@ -341,7 +439,9 @@ class MatrixOrg extends utils.Adapter {
                     }
                 }
             }
-        } else {
+        }
+        else
+        {
             // The state was deleted
             this.log.info(`state ${id} deleted`);
         }
@@ -350,12 +450,14 @@ class MatrixOrg extends utils.Adapter {
      * Is called if a object is changed
      * @param {*} obj
      */
-    onMessage(obj) {
+    onMessage(obj)
+    {
         if (typeof obj === "object")
         {
+            this.log.debug(JSON.stringify(obj));
             // {"command":"send","message":{"file":"https://sciphy.de/toDownload/test.png"},"from":"system.adapter.javascript.0","_id":12345678}
             // {"command":"send","message":"Hello!","from":"system.adapter.javascript.0","_id":12345678}
-            // {"command":"send","message":{"file":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACmSURBVFhH7ZdhCoAgDEZnd9D737T8xJkNNY1Ef+yB2LTcC1qWOT20kCBgjIkh0WwfmeuIxyGYnRzIPElgFSqgAvsKOOdCzeZ1y7EcZzDG16HvwtckihLdA4xxk3HeGGttc17Cc+lN6Ds/dlO6w6/ItQHn7H4GcDK3Em/zNboE5KKjcQstQxVQARVYLlDdC2YzvBfMQgVUYB8BlMWfn2E1ZJ7Fv+dEF0UZoNhXp9NnAAAAAElFTkSuQmCC"},"from":"system.adapter.javascript.0","_id":12345678}
+            // {"command":"send","message":{"file":{"type":"image/png","base64":"iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACmSURBVFhH7ZdhCoAgDEZnd9D737T8xJkNNY1Ef+yB2LTcC1qWOT20kCBgjIkh0WwfmeuIxyGYnRzIPElgFSqgAvsKOOdCzeZ1y7EcZzDG16HvwtckihLdA4xxk3HeGGttc17Cc+lN6Ds/dlO6w6/ItQHn7H4GcDK3Em/zNboE5KKjcQstQxVQARVYLlDdC2YzvBfMQgVUYB8BlMWfn2E1ZJ7Fv+dEF0UZoNhXp9NnAAAAAElFTkSuQmCC"}},"from":"system.adapter.javascript.0","_id":12345678}
             if (obj.message)
             {
                 if (obj.command === "send")
@@ -363,7 +465,7 @@ class MatrixOrg extends utils.Adapter {
                     if(obj.message.file)
                     {
                         this.log.debug("file command is triggered!");
-                        this.sendFileToMatrix(obj.message.file);
+                        this.sendFile(obj.message);
                     }
                     else
                     {
@@ -383,13 +485,16 @@ class MatrixOrg extends utils.Adapter {
     }
 }
 
-if (require.main !== module) {
+if (require.main !== module)
+{
     // Export the constructor in compact mode
     /**
      * @param {Partial<utils.AdapterOptions>} [options={}]
      */
     module.exports = (options) => new MatrixOrg(options);
-} else {
+}
+else
+{
     // otherwise start the instance directly
     new MatrixOrg();
 }
