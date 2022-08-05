@@ -48,7 +48,7 @@ Join this room and try it out with your own credentials
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 0.1.0 (2022-08-05)
 * sending files added
 * sending from url and base64 encoded data
 * image ans video mime types are send as image and video all others as file
