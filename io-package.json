@@ -1,8 +1,20 @@
 {
     "common": {
         "name": "matrix-org",
-        "version": "0.1.0",
+        "version": "0.1.1",
         "news": {
+            "0.1.1": {
+                "en": "bugfix local file system was not working\nbugfix base64 was not working\nunit test added",
+                "de": "bugfix lokale dateisystem wurde nicht funktioniert\nbugfix base64 hat nicht funktioniert\neinheitstest hinzugefügt",
+                "ru": "ошибка локальной файловой системы не работает\nbugfix base64 не работает\nunit тест добавлен",
+                "pt": "sistema de arquivos local bugfix não estava funcionando\nbugfix base64 não estava funcionando\nteste de unidade adicionado",
+                "nl": "het lokale dossier werkte niet\nquality was er niet\neenheidstest toegevoegd",
+                "fr": "bugfix système de fichiers locaux ne fonctionnait pas\nbugfix base64 ne fonctionnait pas\nessai unitaire ajouté",
+                "it": "bugfix file system locale non funzionava\nbugfix base64 non funzionava\ntest unità aggiunto",
+                "es": "sistema de archivos locales de bugfix no estaba funcionando\nbugfix base64 no estaba trabajando\nunidad de prueba",
+                "pl": "system plików nie działał\nbootfix base64 nie działał\ntest",
+                "zh-cn": "b 地方档案系统没有工作。\nb ugfix基地64没有工作。\n单位试验"
+            },
             "0.1.0": {
                 "en": "sending files added\nsending from url and base64 encoded data\nimage ans video mime types are send as image and video all others as file",
                 "de": "versenden von dateien\nsenden von url und base64 kodierten daten\nimage ans video mime-typen senden als bild und video alle anderen als datei",
