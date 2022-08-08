@@ -5,8 +5,6 @@
  */
 
 const axios = require("axios").default;
-const { basename } = require("path");
-const { URL } = require("url");
 const fs = require("fs");
 const helper = require("./lib/helper");
 
@@ -174,89 +172,6 @@ class MatrixOrg extends utils.Adapter
         }
     }
     /**
-     * Get a buffer and a file name from a possibly base64 encoded string.
-     * @param {object} base64String The possibly bas64 encoded data string.
-     * @returns Object of `buffer` and `name` from the base64 string or null if no base64 string.
-     */
-    getBufferAndNameFromBase64String (base64String)
-    {
-        this.log.debug("base64 decoder" + JSON.stringify(base64String));
-        if ((typeof base64String === "object") && (base64String.base64))
-        {
-            const mimeType = base64String.type;
-            const buffer = Buffer.from(base64String.base64, "base64");
-            return {
-                buffer,
-                mimeType
-            };
-        }
-        else
-        {
-            return null;
-        }
-    }
-    /**
-     * Get the basename of a path or URL to a file.
-     * @param file Path or URL to a file.
-     * @returns The basename of the file.
-     */
-    getBasenameFromFilePathOrUrl(file)
-    {
-        if (file.match(/^\w+:\/\//))
-        {
-            try
-            {
-                const url = new URL(file);
-                return basename(url.pathname);
-            }
-            catch (err)
-            {
-                return basename(file);
-            }
-        }
-        else
-        {
-            return basename(file);
-        }
-    }
-    /**
-     * try to get the image type from the data
-     * @param {*} buffer image data
-     * @returns the guessed image type
-     */
-    getFileTypeFromData(buffer)
-    {
-        let imageType = "";
-        if (buffer.length > 4)
-        {
-            const header = buffer[0].toString(16) +buffer[1].toString(16) +buffer[2].toString(16) + buffer[3].toString(16);
-            switch (header) {
-                case "89504e47":
-                    imageType = "image/png";
-                    break;
-                case "47494638":
-                    imageType = "image/gif";
-                    break;
-                case "ffd8ffe0":
-                case "ffd8ffe1":
-                case "ffd8ffe2":
-                case "ffd8ffe3":
-                case "ffd8ffe8":
-                    imageType = "image/jpeg";
-                    break;
-                default:
-                    imageType = "unknown"; // Or you can use the blob.type as fallback
-                    this.log.warn("getFileType, No type detected, use type manualy.");
-                    break;
-            }
-        }
-        else
-        {
-            this.log.error("getFileType, length to low: " + buffer.length);
-        }
-        return imageType;
-    }
-    /**
      * send the file as an image to matrix
      * @param {*} buffer contain the binary data from the image
      * @param {string} fileType mime type of the image
@@ -301,14 +216,21 @@ class MatrixOrg extends utils.Adapter
     async sendFile(fileObject)
     {
         const file = String(fileObject.file);
-        const b64data = this.getBufferAndNameFromBase64String(fileObject.file);
+        const b64dataString = helper.getBufferAndNameFromBase64String(file);
+        const b64dataObject = helper.getBufferAndNameFromBase64Object(fileObject.file);
         let fileType;
         let buffer;
-        if(b64data)
+        if(b64dataString)
         {
-            this.log.debug(`base64 mimetype: ${b64data.mimeType}`);
-            buffer = b64data.buffer;
-            fileType = b64data.mimeType;
+            this.log.debug("String detected");
+            buffer = b64dataString.buffer;
+            fileType = b64dataString.mimeType;
+        }
+        else if (b64dataObject)
+        {
+            this.log.debug("Object detected");
+            buffer = b64dataObject.buffer;
+            fileType = b64dataObject.mimeType;
         }
         else if ( file.startsWith("https://") || file.startsWith("http://"))
         {
@@ -356,7 +278,7 @@ class MatrixOrg extends utils.Adapter
         try {
             if (fileType === undefined)
             {
-                //fileType = this.getFileTypeFromData(buffer);
+                fileType = helper.getFileTypeFromData(buffer);
                 this.log.debug("guessed file type: " + fileType);
             }
             else
