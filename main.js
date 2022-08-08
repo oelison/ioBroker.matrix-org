@@ -8,7 +8,7 @@ const axios = require("axios").default;
 const { basename } = require("path");
 const { URL } = require("url");
 const fs = require("fs");
-const Os = require("os");
+const helper = require("./lib/helper");
 
 // The adapter-core module gives you access to the core ioBroker functions
 // you need to create an adapter
@@ -40,10 +40,6 @@ class MatrixOrg extends utils.Adapter
         this.on("stateChange", this.onStateChange.bind(this));
         this.on("message", this.onMessage.bind(this));
         this.on("unload", this.onUnload.bind(this));
-    }
-    isWindows()
-    {
-        return Os.platform() === "win32";
     }
     /**
      * is called as part of the login chain to big for inline
@@ -184,7 +180,7 @@ class MatrixOrg extends utils.Adapter
      */
     getBufferAndNameFromBase64String (base64String)
     {
-        this.log.debug(JSON.stringify(base64String));
+        this.log.debug("base64 decoder" + JSON.stringify(base64String));
         if ((typeof base64String === "object") && (base64String.base64))
         {
             const mimeType = base64String.type;
@@ -250,8 +246,13 @@ class MatrixOrg extends utils.Adapter
                     break;
                 default:
                     imageType = "unknown"; // Or you can use the blob.type as fallback
+                    this.log.warn("getFileType, No type detected, use type manualy.");
                     break;
             }
+        }
+        else
+        {
+            this.log.error("getFileType, length to low: " + buffer.length);
         }
         return imageType;
     }
@@ -290,6 +291,7 @@ class MatrixOrg extends utils.Adapter
         catch (err)
         {
             this.log.error(err);
+            this.log.error("Sending of file failed");
         }
     }
     /**
@@ -299,11 +301,12 @@ class MatrixOrg extends utils.Adapter
     async sendFile(fileObject)
     {
         const file = String(fileObject.file);
-        const b64data = this.getBufferAndNameFromBase64String(fileObject);
+        const b64data = this.getBufferAndNameFromBase64String(fileObject.file);
         let fileType;
         let buffer;
         if(b64data)
         {
+            this.log.debug(`base64 mimetype: ${b64data.mimeType}`);
             buffer = b64data.buffer;
             fileType = b64data.mimeType;
         }
@@ -313,6 +316,7 @@ class MatrixOrg extends utils.Adapter
             {
                 const imageResponse = await axios.get(file, { responseType: "arraybuffer" });
                 fileType = imageResponse.headers["content-type"];
+                this.log.debug("http mimetype: " + fileType);
                 buffer = imageResponse.data;
             }
             catch (err)
@@ -326,11 +330,12 @@ class MatrixOrg extends utils.Adapter
             if (fileObject.type)
             {
                 fileType = fileObject.type;
+                this.log.debug("file filetype: " + fileType);
             }
             try
             {
                 let fileName = file.slice(7);
-                if (this.isWindows())
+                if (helper.isWindows())
                 {
                     if (file.startsWith("file:///"))
                     {
@@ -344,19 +349,32 @@ class MatrixOrg extends utils.Adapter
                 this.log.error(err);
             }
         }
-        try
+        else
         {
-            if ((fileType === "") && (buffer.length > 4))
+            this.log.error("no matching data found!");
+        }
+        try {
+            if (fileType === undefined)
             {
-                fileType = this.getFileTypeFromData(buffer);
+                //fileType = this.getFileTypeFromData(buffer);
                 this.log.debug("guessed file type: " + fileType);
             }
-            this.log.debug("file type: " + fileType);
-            this.sendFileToMatrix(buffer, fileType);
+            else
+            {
+                this.log.debug("file type: " + fileType);
+            }
+        } catch (error) {
+            this.log.error(error);
+            this.log.error("getFileType call failed");
+        }
+        try
+        {
+            this.sendFileToMatrix(buffer, String(fileType));
         }
         catch (err)
         {
             this.log.error(err);
+            this.log.error("Send file failed!");
         }
     }
     /**
