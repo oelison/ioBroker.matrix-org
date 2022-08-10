@@ -171,6 +171,24 @@ class MatrixOrg extends utils.Adapter
             }
         }
     }
+    /***
+     * @param {object} message
+     */
+    async sendHtmlToMatrix(message)
+    {
+        const roomId = await this.getStateAsync("matrixServerData.roomId");
+        if (roomId)
+        {
+            const state = "send message with html content to room with access token!";
+            try {
+                const data = {"body": message.text, msgtype: "m.text", format: "org.matrix.custom.html", formatted_body: message.html};
+                matrixClient.sendEvent(roomId.val, "m.room.message", data);
+            } catch (err) {
+                this.log.error(err);
+                this.log.error("error during: " + state);
+            }
+        }
+    }
     /**
      * send the file as an image to matrix
      * @param {*} buffer contain the binary data from the image
@@ -406,6 +424,10 @@ class MatrixOrg extends utils.Adapter
                     {
                         this.log.debug("file command is triggered!");
                         this.sendFile(obj.message);
+                    }
+                    else if (obj.message.html)
+                    {
+                        this.sendHtmlToMatrix(obj.message);
                     }
                     else
                     {
