@@ -1,8 +1,20 @@
 {
     "common": {
         "name": "matrix-org",
-        "version": "0.1.1",
+        "version": "0.1.2",
         "news": {
+            "0.1.2": {
+                "en": "base64 with html format added again\nhtml messages added",
+                "de": "base64 mit html-format wieder hinzugefügt\nhtml-nachrichten hinzugefügt",
+                "ru": "base64 с html форматом добавлен снова\nhtml сообщения добавлены",
+                "pt": "base64 com formato html adicionado novamente\nhtml mensagens adicionadas",
+                "nl": "quality over quantity (qoq) releases quantity releases vertaling:\n_",
+                "fr": "base64 avec format html ajouté à nouveau\nmessages html ajoutés",
+                "it": "base64 con formato html aggiunto di nuovo\nmessaggi html aggiunto",
+                "es": "base64 con formato html añadido de nuevo\nhtml messages added",
+                "pl": "baza64 z formatem html została dodana ponownie\nwiadomości html dodały do wiadomości html",
+                "zh-cn": "第64条\nhtml信息增加了"
+            },
             "0.1.1": {
                 "en": "bugfix local file system was not working\nbugfix base64 was not working\nunit test added",
                 "de": "bugfix lokale dateisystem wurde nicht funktioniert\nbugfix base64 hat nicht funktioniert\neinheitstest hinzugefügt",
