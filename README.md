@@ -26,14 +26,39 @@ Create an own user as your BOT with password. Create a room for all members who 
 
 Add as many instances as you need. Add a value to matrix-org.0.sendMessage on the way you like, with js
 If you set "image" to matrix.0.sendMessage, it will send the matrix logo to your channel.
-Or use: sendTo("matrix-org.0", "Hello World!"); in js
-Or use the blockly symbol in Sendto
-For images from local file system (Linux): sendTo("matrix-org.0",{file: "file:///tmp/images/test.png"});
+Or in js use: 
+```
+sendTo("matrix-org.0", "Hello World!");
+```
+Or use the blockly symbol in Sendto.
+For images from local file system (Linux): 
+```
+sendTo("matrix-org.0",{file: "file:///tmp/images/test.png"});
+```
 For images from local file system (Windows): sendTo("matrix-org.0",{file: "file:///C:/tmp/images/test.png"});
-For images as reference: sendTo("matrix-org.0",{file: "https://www.abcd/images/test.png"});
-For images in base64: sendTo("matrix-org.0",{file:{type:"image/png",base64:"iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACmSURBVFhH7ZdhCoAgDEZnd9D737T8xJkNNY1Ef+yB2LTcC1qWOT20kCBgjIkh0WwfmeuIxyGYnRzIPElgFSqgAvsKOOdCzeZ1y7EcZzDG16HvwtckihLdA4xxk3HeGGttc17Cc+lN6Ds/dlO6w6/ItQHn7H4GcDK3Em/zNboE5KKjcQstQxVQARVYLlDdC2YzvBfMQgVUYB8BlMWfn2E1ZJ7Fv+dEF0UZoNhXp9NnAAAAAElFTkSuQmCC"}});
+For images as reference: 
+```
+sendTo("matrix-org.0",{file: "https://www.abcd/images/test.png"});
+```
+For images in base64: 
+```
+sendTo("matrix-org.0",{file:{type:"image/png",base64:"iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACmSURBVFhH7ZdhCoAgDEZnd9D737T8xJkNNY1Ef+yB2LTcC1qWOT20kCBgjIkh0WwfmeuIxyGYnRzIPElgFSqgAvsKOOdCzeZ1y7EcZzDG16HvwtckihLdA4xxk3HeGGttc17Cc+lN6Ds/dlO6w6/ItQHn7H4GcDK3Em/zNboE5KKjcQstQxVQARVYLlDdC2YzvBfMQgVUYB8BlMWfn2E1ZJ7Fv+dEF0UZoNhXp9NnAAAAAElFTkSuQmCC"}});
+```
 Or
+```
 sendTo("matrix-org.0",{file:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACmSURBVFhH7ZdhCoAgDEZnd9D737T8xJkNNY1Ef+yB2LTcC1qWOT20kCBgjIkh0WwfmeuIxyGYnRzIPElgFSqgAvsKOOdCzeZ1y7EcZzDG16HvwtckihLdA4xxk3HeGGttc17Cc+lN6Ds/dlO6w6/ItQHn7H4GcDK3Em/zNboE5KKjcQstQxVQARVYLlDdC2YzvBfMQgVUYB8BlMWfn2E1ZJ7Fv+dEF0UZoNhXp9NnAAAAAElFTkSuQmCC"});
+```
+For html please follow this spec: https://spec.matrix.org/v1.3/client-server-api/#mroommessage-msgtypes
+E.g.: 
+```
+sendTo("matrix-org.0",{html: "<h1>Hello World!</h1>", text: "Hello World!"});
+```
+or 
+```
+sendTo("matrix-org.0",{html: "<table><tr><td>1</td><td>2</td></tr><tr><td>a</td><td>b</td></tr><table>", text: "Your client can not show html!"});
+```
+If your client is not able to decode html you will get the text.
+If your client do not support table it either show the text or simply 12ab.
 
 ### to test your configuration use sendMessage
 
@@ -52,6 +77,7 @@ Join this room and try it out with your own credentials
 -->
 ### **WORK IN PROGRESS**
 * base64 with html format added again
+* html messages added
 
 ### 0.1.1 (2022-08-08)
 * bugfix local file system was not working
