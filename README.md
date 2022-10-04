@@ -5,7 +5,6 @@
 [![Downloads](https://img.shields.io/npm/dm/iobroker.matrix-org.svg)](https://www.npmjs.com/package/iobroker.matrix-org)
 ![Number of Installations](https://iobroker.live/badges/matrix-org-installed.svg)
 ![Current version in stable repository](https://iobroker.live/badges/matrix-org-stable.svg)
-[![Dependency Status](https://img.shields.io/david/oelison/iobroker.matrix-org.svg)](https://david-dm.org/oelison/iobroker.matrix-org)
 
 [![NPM](https://nodei.co/npm/iobroker.matrix-org.png?downloads=true)](https://nodei.co/npm/iobroker.matrix-org/)
 
@@ -75,6 +74,9 @@ Join this room and try it out with your own credentials
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+* updates of dependencies
+
 ### 0.1.2 (2022-08-12)
 * base64 with html format added again
 * html messages added
