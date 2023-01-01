@@ -18,7 +18,7 @@
     "url": "https://github.com/oelison/ioBroker.matrix-org"
   },
   "dependencies": {
-    "@iobroker/adapter-core": "^2.6.6",
+    "@iobroker/adapter-core": "^2.6.7",
     "matrix-js-sdk": "^19.1.0"
   },
   "devDependencies": {
