@@ -12,11 +12,7 @@ const helper = require("./lib/helper");
 // you need to create an adapter
 const utils = require("@iobroker/adapter-core");
 const matrix = require("matrix-js-sdk");
-// Next three lines because of https://github.com/matrix-org/matrix-js-sdk/issues/2415
-const matrixcs = require("matrix-js-sdk/lib/matrix");
-const request = require("request");
-matrixcs.request(request);
-// until here may be deleted when fix of https://github.com/matrix-org/matrix-js-sdk/issues/2415
+const { json } = require("stream/consumers");
 
 // the client for matrix communication
 let matrixClient;
@@ -41,10 +37,9 @@ class MatrixOrg extends utils.Adapter
     }
     /**
      * is called as part of the login chain to big for inline
-     * @param {*} err
      * @param {*} data
      */
-    async matrixRoomIdResponse(err, data)
+    async matrixRoomIdResponse(data)
     {
         if (data)
         {
@@ -54,10 +49,17 @@ class MatrixOrg extends utils.Adapter
                 (err, data)=>this.matrixLoginResponse(err, data)
             );
         }
-        else if (err)
+    }
+    /**
+     * is called as part of the login chain to big for inline
+     * @param {*} err
+     */
+    async matrixRoomIdResponseErr(err)
+    {
+        if (err)
         {
             this.log.error("Server or room not found. Check port (443/8448), room name and server.");
-            this.log.error(err);
+            this.log.error(JSON.stringify(err));
         }
     }
     /**
@@ -104,10 +106,10 @@ class MatrixOrg extends utils.Adapter
     /**
      * is called on every room event where the bot is in
      * @param {*} event
-     * @param {*} room not used yet
-     * @param {*} toStartOfTimeline not used yet
+     * @param {*} _room not used yet
+     * @param {*} _toStartOfTimeline not used yet
      */
-    async onMatrixEvent(event, room, toStartOfTimeline)
+    async onMatrixEvent(event, _room, _toStartOfTimeline)
     {
         let messageUsed = false;
         let reason = "";
@@ -155,20 +157,25 @@ class MatrixOrg extends utils.Adapter
      */
     async sendMessageToMatrix(message)
     {
-        const roomId = await this.getStateAsync("matrixServerData.roomId");
-        if (roomId)
-        {
-            const state = "send message to room with access token!";
-            try
+        try {
+            const roomId = await this.getStateAsync("matrixServerData.roomId");
+            if (roomId)
             {
-                const data = {"body": message, "msgtype": "m.text" };
-                matrixClient.sendEvent(roomId.val, "m.room.message", data);
+                const state = "send message to room with access token!";
+                try
+                {
+                    const data = {"body": message, "msgtype": "m.text" };
+                    matrixClient.sendEvent(roomId.val, "m.room.message", data);
+                }
+                catch (err)
+                {
+                    this.log.error(err);
+                    this.log.error("error during: " + state);
+                }
             }
-            catch (err)
-            {
-                this.log.error(err);
-                this.log.error("error during: " + state);
-            }
+        } catch (error) {
+            this.log.error(error);
+            this.log.error("error during: matrixServerData.roomId");
         }
     }
     /***
@@ -233,6 +240,7 @@ class MatrixOrg extends utils.Adapter
      */
     async sendFile(fileObject)
     {
+        this.log.debug(JSON.stringify(fileObject));
         const file = String(fileObject.file);
         const b64dataString = helper.getBufferAndNameFromBase64String(file);
         const b64dataObject = helper.getBufferAndNameFromBase64Object(fileObject.file);
@@ -346,7 +354,9 @@ class MatrixOrg extends utils.Adapter
                     baseURL = "https://" + this.config.serverIp + ":" + this.config.serverPort;
                 }
                 matrixClient = matrix.createClient({baseUrl: baseURL});
-                matrixClient.getRoomIdForAlias(this.config.roomName, (err, data) => this.matrixRoomIdResponse(err, data));
+                matrixClient.getRoomIdForAlias(this.config.roomName)
+                    .then((data) => this.matrixRoomIdResponse(data))
+                    .catch((err) => this.matrixRoomIdResponseErr(err));
             }
             catch (err)
             {
@@ -385,11 +395,12 @@ class MatrixOrg extends utils.Adapter
             // The state was changed
             if (state.val)
             {
+                this.log.debug("try send");
                 if (state.ack === false) // This is ioBroker convention, only send commands if ack = false
                 {
                     if(state.val === "image")
                     {
-                        this.sendFile({type:"image/png",base64:"iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACmSURBVFhH7ZdhCoAgDEZnd9D737T8xJkNNY1Ef+yB2LTcC1qWOT20kCBgjIkh0WwfmeuIxyGYnRzIPElgFSqgAvsKOOdCzeZ1y7EcZzDG16HvwtckihLdA4xxk3HeGGttc17Cc+lN6Ds/dlO6w6/ItQHn7H4GcDK3Em/zNboE5KKjcQstQxVQARVYLlDdC2YzvBfMQgVUYB8BlMWfn2E1ZJ7Fv+dEF0UZoNhXp9NnAAAAAElFTkSuQmCC"});
+                        this.sendFile({file:{type:"image/png",base64:"iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACmSURBVFhH7ZdhCoAgDEZnd9D737T8xJkNNY1Ef+yB2LTcC1qWOT20kCBgjIkh0WwfmeuIxyGYnRzIPElgFSqgAvsKOOdCzeZ1y7EcZzDG16HvwtckihLdA4xxk3HeGGttc17Cc+lN6Ds/dlO6w6/ItQHn7H4GcDK3Em/zNboE5KKjcQstQxVQARVYLlDdC2YzvBfMQgVUYB8BlMWfn2E1ZJ7Fv+dEF0UZoNhXp9NnAAAAAElFTkSuQmCC"}});
                     }
                     else
                     {
@@ -420,6 +431,7 @@ class MatrixOrg extends utils.Adapter
             {
                 if (obj.command === "send")
                 {
+                    this.log.debug("send command arrived");
                     if(obj.message.file)
                     {
                         this.log.debug("file command is triggered!");
@@ -427,17 +439,20 @@ class MatrixOrg extends utils.Adapter
                     }
                     else if (obj.message.html)
                     {
+                        this.log.debug("html message");
                         this.sendHtmlToMatrix(obj.message);
                     }
                     else
                     {
-                        this.log.info("send command is triggered!" + obj.message);
+                        this.log.debug("send command is triggered!" + obj.message);
                         if (obj.message)
                         {
+                            this.log.debug("message send");
                             this.sendMessageToMatrix(obj.message);
                         }
                         if (obj.callback)
                         {
+                            this.log.debug("callback added");
                             this.sendTo(obj.from, obj.command, "Message computed", obj.callback);
                         }
                     }
@@ -460,3 +475,16 @@ else
     // otherwise start the instance directly
     new MatrixOrg();
 }
+
+// testcode for JS scripts in ioBroker
+// sendTo("matrix-org.0", "image test filesystem windows!");
+// sendTo("matrix-org.0",{file: "file:///C:/tmp/images/test.png"});
+// sendTo("matrix-org.0", "image test json!");
+// sendTo("matrix-org.0",{file:{type:"image/png",base64:"iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACmSURBVFhH7ZdhCoAgDEZnd9D737T8xJkNNY1Ef+yB2LTcC1qWOT20kCBgjIkh0WwfmeuIxyGYnRzIPElgFSqgAvsKOOdCzeZ1y7EcZzDG16HvwtckihLdA4xxk3HeGGttc17Cc+lN6Ds/dlO6w6/ItQHn7H4GcDK3Em/zNboE5KKjcQstQxVQARVYLlDdC2YzvBfMQgVUYB8BlMWfn2E1ZJ7Fv+dEF0UZoNhXp9NnAAAAAElFTkSuQmCC"}});
+// sendTo("matrix-org.0", "image test data!");
+// sendTo("matrix-org.0",{file:"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACmSURBVFhH7ZdhCoAgDEZnd9D737T8xJkNNY1Ef+yB2LTcC1qWOT20kCBgjIkh0WwfmeuIxyGYnRzIPElgFSqgAvsKOOdCzeZ1y7EcZzDG16HvwtckihLdA4xxk3HeGGttc17Cc+lN6Ds/dlO6w6/ItQHn7H4GcDK3Em/zNboE5KKjcQstQxVQARVYLlDdC2YzvBfMQgVUYB8BlMWfn2E1ZJ7Fv+dEF0UZoNhXp9NnAAAAAElFTkSuQmCC"});
+// sendTo("matrix-org.0", "Html!");
+// sendTo("matrix-org.0",{html: "<h1>Hello World!</h1>", text: "Hello World!"});
+// sendTo("matrix-org.0", "html table");
+// sendTo("matrix-org.0",{html: "<table><tr><td>1</td><td>2</td></tr><tr><td>a</td><td>b</td></tr><table>", text: "Your client can not show html!"});
+// sendTo("matrix-org.0", "test ready.");
