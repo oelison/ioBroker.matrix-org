@@ -12,7 +12,11 @@ const helper = require("./lib/helper");
 // you need to create an adapter
 const utils = require("@iobroker/adapter-core");
 const matrix = require("matrix-js-sdk");
-const { json } = require("stream/consumers");
+// Next three lines because of https://github.com/matrix-org/matrix-js-sdk/issues/2415
+const matrixcs = require("matrix-js-sdk/lib/matrix");
+const request = require("request");
+matrixcs.request(request);
+// until here may be deleted when fix of https://github.com/matrix-org/matrix-js-sdk/issues/2415
 
 // the client for matrix communication
 let matrixClient;
@@ -39,7 +43,7 @@ class MatrixOrg extends utils.Adapter
      * is called as part of the login chain to big for inline
      * @param {*} data
      */
-    async matrixRoomIdResponse(data)
+    async matrixRoomIdResponse(err, data)
     {
         if (data)
         {
@@ -49,14 +53,7 @@ class MatrixOrg extends utils.Adapter
                 (err, data)=>this.matrixLoginResponse(err, data)
             );
         }
-    }
-    /**
-     * is called as part of the login chain to big for inline
-     * @param {*} err
-     */
-    async matrixRoomIdResponseErr(err)
-    {
-        if (err)
+        else if (err)
         {
             this.log.error("Server or room not found. Check port (443/8448), room name and server.");
             this.log.error(JSON.stringify(err));
@@ -354,9 +351,7 @@ class MatrixOrg extends utils.Adapter
                     baseURL = "https://" + this.config.serverIp + ":" + this.config.serverPort;
                 }
                 matrixClient = matrix.createClient({baseUrl: baseURL});
-                matrixClient.getRoomIdForAlias(this.config.roomName)
-                    .then((data) => this.matrixRoomIdResponse(data))
-                    .catch((err) => this.matrixRoomIdResponseErr(err));
+                matrixClient.getRoomIdForAlias(this.config.roomName, (err, data) => this.matrixRoomIdResponse(err, data));
             }
             catch (err)
             {

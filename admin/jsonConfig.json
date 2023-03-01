@@ -29,7 +29,7 @@
                     "md": 6,
                     "lg": 6,
                     "label": "room",
-                    "help": "room name in your matrix server"
+                    "help": "helpRoom"
                 },
                 "botName": {
                     "newLine": true,
@@ -38,7 +38,7 @@
                     "md": 6,
                     "lg": 6,
                     "label": "botName",
-                    "help": "user name of this service in matrix"
+                    "help": "botNameDescription"
                 },
                 "botPassword": {
                     "type": "password",
@@ -47,7 +47,7 @@
                     "md": 6,
                     "lg": 6,
                     "label": "botPassword",
-                    "help": "a more or less complex password for the bot user in matrix"
+                    "help": "helpBotPassword"
                 }
             }
         }
