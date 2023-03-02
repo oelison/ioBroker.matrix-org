@@ -78,7 +78,7 @@ Join this room and try it out with your own credentials
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 0.1.5 (2023-03-02)
 * downgrade for node 16
 * translation for configuration
 

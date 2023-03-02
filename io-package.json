@@ -1,288 +1,288 @@
 {
-    "common": {
-        "name": "matrix-org",
-        "version": "0.1.4",
-        "news": {
-            "0.1.4": {
-                "en": "update of dependencies\nsmall readme improvement",
-                "de": "aktualisierung der abhängigkeiten\nkleine readme verbesserung",
-                "ru": "обновление зависимостей\nнебольшое улучшение считывания",
-                "pt": "atualização de dependências\npequena melhoria de leitura",
-                "nl": "vertaling:\nkleine verbetering",
-                "fr": "mise à jour des dépendances\npetite amélioration de la lecture",
-                "it": "aggiornamento delle dipendenze\npiccolo miglioramento della lettura",
-                "es": "actualización de las dependencias\npequeña mejora",
-                "pl": "aktualizacja zależności\nulepszenie czytania",
-                "uk": "оновлення залежностей\nневелике поліпшення чителю",
-                "zh-cn": "a. 紧急情况的最新情况\n小读者改进"
-            },
-            "0.1.3": {
-                "en": "updates of dependencies",
-                "de": "aktualisierung der abhängigkeiten",
-                "ru": "обновления зависимостей",
-                "pt": "atualizações de dependências",
-                "nl": "vertaling:",
-                "fr": "mises à jour des dépendances",
-                "it": "aggiornamenti di dipendenze",
-                "es": "actualizaciones de las dependencias",
-                "pl": "aktualizacja zależności",
-                "uk": "оновлення залежностей",
-                "zh-cn": "a. 紧急情况的最新情况"
-            },
-            "0.1.2": {
-                "en": "base64 with html format added again\nhtml messages added",
-                "de": "base64 mit html-format wieder hinzugefügt\nhtml-nachrichten hinzugefügt",
-                "ru": "base64 с html форматом добавлен снова\nhtml сообщения добавлены",
-                "pt": "base64 com formato html adicionado novamente\nhtml mensagens adicionadas",
-                "nl": "quality over quantity (qoq) releases quantity releases vertaling:\n_",
-                "fr": "base64 avec format html ajouté à nouveau\nmessages html ajoutés",
-                "it": "base64 con formato html aggiunto di nuovo\nmessaggi html aggiunto",
-                "es": "base64 con formato html añadido de nuevo\nhtml messages added",
-                "pl": "baza64 z formatem html została dodana ponownie\nwiadomości html dodały do wiadomości html",
-                "zh-cn": "第64条\nhtml信息增加了",
-                "uk": "base64 із знову доданим форматом html\nHTML повідомлень додано"
-            },
-            "0.1.1": {
-                "en": "bugfix local file system was not working\nbugfix base64 was not working\nunit test added",
-                "de": "bugfix lokale dateisystem wurde nicht funktioniert\nbugfix base64 hat nicht funktioniert\neinheitstest hinzugefügt",
-                "ru": "ошибка локальной файловой системы не работает\nbugfix base64 не работает\nunit тест добавлен",
-                "pt": "sistema de arquivos local bugfix não estava funcionando\nbugfix base64 não estava funcionando\nteste de unidade adicionado",
-                "nl": "het lokale dossier werkte niet\nquality was er niet\neenheidstest toegevoegd",
-                "fr": "bugfix système de fichiers locaux ne fonctionnait pas\nbugfix base64 ne fonctionnait pas\nessai unitaire ajouté",
-                "it": "bugfix file system locale non funzionava\nbugfix base64 non funzionava\ntest unità aggiunto",
-                "es": "sistema de archivos locales de bugfix no estaba funcionando\nbugfix base64 no estaba trabajando\nunidad de prueba",
-                "pl": "system plików nie działał\nbootfix base64 nie działał\ntest",
-                "zh-cn": "b 地方档案系统没有工作。\nb ugfix基地64没有工作。\n单位试验",
-                "uk": "виправлення помилок локальна файлова система не працювала\nвиправлення помилок base64 не працювало\nмодульний тест додано"
-            },
-            "0.1.0": {
-                "en": "sending files added\nsending from url and base64 encoded data\nimage ans video mime types are send as image and video all others as file",
-                "de": "versenden von dateien\nsenden von url und base64 kodierten daten\nimage ans video mime-typen senden als bild und video alle anderen als datei",
-                "ru": "отправка файлов добавлено\nотправка из url и base64 закодированные данные\nизображения as видео mime типы отправляют как изображение и видео все другие как файл",
-                "pt": "envio de arquivos adicionados\nenvio de dados codificados url e base64\nimagem ans vídeo mime tipos são enviar como imagem e vídeo todos os outros como arquivo",
-                "nl": "verzenden van dossiers\nverzenden van uil en basis64 gecodeerde gegevens\nde beelden van de video mime types worden verzonden als beeld en film alle anderen als bestand",
-                "fr": "envoi de fichiers ajoutés\nenvoi à partir de données codées url et base64\nimage et vidéo types de mime sont envoyer comme image et vidéo tous les autres comme fichier",
-                "it": "invio di file aggiunti\ninvio da url e base64 dati codificati\nimmagine ans video mime tipi vengono inviati come immagine e video tutti gli altri come file",
-                "es": "envío de archivos añadidos\nenvío de datos codificados por url y base64\nimagen ans vídeo mime tipos se envían como imagen y vídeo todos los demás como archivo",
-                "pl": "dodać plik\nwykorzystywanie z url i baz64 koduje dane\ntypy mime wideo są wysyłane jako obraz i wideo wszystkich innych jako pliki",
-                "zh-cn": "寄发文件\n从后勤和基础64传送的数据\n图像像像图像系统类型一样,传送成像,并把所有其他人作为档案。",
-                "uk": "надсилання файлів додано\nнадсилання з URL-адреси та даних у кодуванні base64\nзображення та відео типи mime надсилаються як зображення, а відео всі інші як файл"
-            },
-            "0.0.7": {
-                "en": "removed all axios request\nreplaced with matrix-js-sdk calls\nno logoff during the whole time\ntest with servers with access token expiery need to be done\nsync added\nreceive message added (please check on update and not on change to react on the same message)",
-                "de": "alle axios-anforderungen entfernen\nersetzt durch matrix-js-sdk anrufe\nkeine abmeldung während der ganzen zeit\ntesten mit servern mit zugriff auf markierten ablauf muss getan werden\nsynthesizer hinzugefügt\nempfangen nachricht hinzugefügt (bitte auf update überprüfen und nicht auf änderung, um auf dieselbe nachricht zu reagieren)",
-                "ru": "удалены все запросы axios\nзаменено при помощи матриц-js-sdk\nнет логотипа в течение всего времени\nтест с серверами с доступом к токен expiery нужно сделать\nсинхронизация добавлена\nполучить сообщение (пожалуйста, проверьте обновление и не на изменение, чтобы отреагировать на том же сообщении)",
-                "pt": "removido todo o pedido de axios\nsubstituído por chamadas de matriz-js-sdk\nsem logoff durante todo o tempo\nteste com servidores com expiério token de acesso precisa ser feito\nsincronização adicionada\nreceber mensagem adicionada (por favor, verifique a atualização e não na mudança para reagir na mesma mensagem)",
-                "nl": "verwijder alle axios verzoek\nvervangen met matrix-js-sdk telefoontjes\ngeen logoff gedurende de hele tijd\nde test met servers met toegang tot ontploffing moet gedaan worden\nvertaling:\nontvangen bericht toegevoegd op update en niet op verandering om op dezelfde boodschap te reageren",
-                "fr": "enlevé toute demande d'axios\nremplacé par des appels matrice-js-sdk\npas de logoff pendant tout le temps\ntest avec des serveurs avec l'expierie de jeton d'accès doit être fait\nsync added\nrecevoir un message ajouté (veuillez vérifier sur la mise à jour et non sur le changement pour réagir sur le même message)",
-                "it": "rimosso tutta la richiesta di assio\nsostituito con matrix-js-sdk chiamate\nnessun logoff durante tutto il tempo\ntest con server con accesso aken expiery deve essere fatto\nsincronizzazione aggiunto\nricevere il messaggio aggiunto (si prega di controllare l'aggiornamento e non su cambiamento per reagire sullo stesso messaggio)",
-                "es": "eliminar todas las solicitudes de axios\nreemplazado por llamadas matriz-js-sdk\nno logoff durante todo el tiempo\nprueba con servidores con acceso a la expiación token debe hacerse\nsincronización añadida\nrecibir mensaje añadido (por favor, compruebe la actualización y no en cambio para reaccionar en el mismo mensaje)",
-                "pl": "usunąć wszystkie żądania\nzastąpione macierz-js-dk call\nw czasie całego okresu nie było żadnych upływów\ntesty z serwerami z dodatkowymi wymaganiami muszą zostać wykonane\nsync dodaje\ndodano wiadomość (pełna kontrola nad aktualizacją i nie na zmianie reagowania na tę samą wiadomość)",
-                "zh-cn": "删除所有焦虑要求\n改为汇总表:js-sdk呼吁\n全时无伐木\n需与接获黑衣的服务器进行试验\n增 编\n获得的更多信息(更新检查,而不是改变对同一信息的反应)",
-                "uk": "видалено всі запити axios\nзамінено на виклики matrix-js-sdk\nвідсутність виходу протягом усього часу\nпотрібно провести тест із серверами з терміном дії маркера доступу\nдодано синхронізацію\nотримати додане повідомлення (будь ласка, перевіряйте оновлення, а не зміну, щоб реагувати на те саме повідомлення)"
-            },
-            "0.0.6": {
-                "en": "repeat false set for stable admin v5.3.8\nReadme with example improved (how to chose port 443 or 8448)\nsome more debug output on errors",
-                "de": "wiederholung falsch gesetzt für stabil admin v5.3.8\nReadme mit Beispiel verbessert (wie man Port 443 oder 8448 wählt)\neinige weitere debug-ausgabe auf fehlern",
-                "ru": "повторите ложный набор для стабильного админ v5.3.8\nReadme с примером улучшен (как выбрать порт 443 или 8448)\nнемного больше отладки вывода на ошибки",
-                "pt": "repetir falso conjunto para admin estável v5.3.8\nReadme com exemplo melhorado (como escolher a porta 443 ou 8448)\nalguns mais depuração de saída em erros",
-                "nl": "herhaal valse set voor stabiele administratie v5.3.8\nLees me met voorbeeld verbeterd\nnog meer debug output over fouten",
-                "fr": "répéter faux set pour administrateur stable v5.3.8\nLire l'exemple amélioré (comment choisir le port 443 ou 8448)\nun peu plus de sortie debug sur les erreurs",
-                "it": "ripeti il set falso per amministratore stabile v5.3.8\nReadme con esempio migliorato (come scegliere il porto 443 o 8448)\nqualche output debug in più su errori",
-                "es": "repita el falso set para administración estable v5.3.8\nReadme con ejemplo mejorado (cómo elegir puerto 443 o 8448)\nalgunos más depuración de salida en errores",
-                "pl": "powtórne losy admin v5.3.8\nCzytelnia poprawiona (jako port 443 lub 8448)\njakiś debug wykonujemy na błędach",
-                "zh-cn": "第5.3.8号决定重申的虚假要求\n阅读的例子有改进(选择港口443或8448)\n错误方面的一些更显著的产出",
-                "uk": "повторити помилковий набір для стабільного адміністратора v5.3.8\nReadme з покращеним прикладом (як вибрати порт 443 або 8448)\nтрохи більше виводу налагодження помилок"
-            }
-        },
-        "titleLang": {
-            "en": "push messages to matrix",
-            "de": "Push-Nachrichten an Matrix",
-            "ru": "push-сообщения в матрицу",
-            "pt": "enviar mensagens para a matriz",
-            "nl": "push berichten naar matrix",
-            "fr": "pousser les messages vers la matrice",
-            "it": "inviare messaggi alla matrice",
-            "es": "enviar mensajes a la matriz",
-            "pl": "wypychanie wiadomości do macierzy",
-            "zh-cn": "将消息推送到矩阵",
-            "uk": "надсилати повідомлення на матрицю"
-        },
-        "desc": {
-            "en": "Adapter for matrix push messages",
-            "de": "Adapter für Matrix-Push-Nachrichten",
-            "ru": "Адаптер для матричных push-сообщений",
-            "pt": "Adaptador para mensagens push de matriz",
-            "nl": "Adapter voor matrix push-berichten",
-            "fr": "Adaptateur pour messages push matriciels",
-            "it": "Adattatore per messaggi push a matrice",
-            "es": "Adaptador para mensajes push de matriz",
-            "pl": "Adapter do matrycowych wiadomości push",
-            "zh-cn": "矩阵推送消息的适配器",
-            "uk": "Адаптер для матричних push-повідомлень"
-        },
-        "authors": [
-            "Christian Oelschlegel <iobrokermatrix@sciphy.de>"
-        ],
-        "keywords": [
-            "push",
-            "message",
-            "matrix"
-        ],
-        "license": "MIT",
-        "platform": "Javascript/Node.js",
-        "main": "main.js",
-        "icon": "matrix-logo.png",
-        "enabled": true,
-        "extIcon": "https://raw.githubusercontent.com/oelison/ioBroker.matrix-org/main/admin/matrix-logo.png",
-        "readme": "https://github.com/oelison/ioBroker.matrix-org/blob/main/README.md",
-        "loglevel": "info",
-        "mode": "daemon",
-        "type": "messaging",
-        "compact": true,
-        "connectionType": "cloud",
-        "dataSource": "push",
-        "materialize": true,
-        "messagebox": true,
-        "blockly": true,
-        "adminUI": {
-            "config": "json"
-        },
-        "eraseOnUpload": true,
-        "dependencies": [
-            {
-                "js-controller": ">=3.0.0"
-            }
-        ],
-        "globalDependencies": [
-            {
-                "admin": ">=5.1.28"
-            }
-        ]
+  "common": {
+    "name": "matrix-org",
+    "version": "0.1.5",
+    "news": {
+      "0.1.5": {
+        "en": "downgrade for node 16\ntranslation for configuration",
+        "de": "downgrade für knoten anhang\nübersetzung für konfiguration",
+        "ru": "понижение для ноды 16, 16, 16\nперевод для конфигурации",
+        "pt": "downgrade para nó 16\ntradução para configuração",
+        "nl": "_ 16\nvertaling:",
+        "fr": "descendant pour node 16\ntraduction pour la configuration",
+        "it": "downgrade per nodo 16\ntraduzione per configurazione",
+        "es": "para el nodo 16\ntraducción para configuración",
+        "pl": "zeszyty 16\ntranskrypcja",
+        "uk": "внизград для вузла 16 мар\nпереклад для конфігурації",
+        "zh-cn": "降级 16\n笔译"
+      },
+      "0.1.4": {
+        "en": "update of dependencies\nsmall readme improvement",
+        "de": "aktualisierung der abhängigkeiten\nkleine readme verbesserung",
+        "ru": "обновление зависимостей\nнебольшое улучшение считывания",
+        "pt": "atualização de dependências\npequena melhoria de leitura",
+        "nl": "vertaling:\nkleine verbetering",
+        "fr": "mise à jour des dépendances\npetite amélioration de la lecture",
+        "it": "aggiornamento delle dipendenze\npiccolo miglioramento della lettura",
+        "es": "actualización de las dependencias\npequeña mejora",
+        "pl": "aktualizacja zależności\nulepszenie czytania",
+        "uk": "оновлення залежностей\nневелике поліпшення чителю",
+        "zh-cn": "a. 紧急情况的最新情况\n小读者改进"
+      },
+      "0.1.3": {
+        "en": "updates of dependencies",
+        "de": "aktualisierung der abhängigkeiten",
+        "ru": "обновления зависимостей",
+        "pt": "atualizações de dependências",
+        "nl": "vertaling:",
+        "fr": "mises à jour des dépendances",
+        "it": "aggiornamenti di dipendenze",
+        "es": "actualizaciones de las dependencias",
+        "pl": "aktualizacja zależności",
+        "uk": "оновлення залежностей",
+        "zh-cn": "a. 紧急情况的最新情况"
+      },
+      "0.1.2": {
+        "en": "base64 with html format added again\nhtml messages added",
+        "de": "base64 mit html-format wieder hinzugefügt\nhtml-nachrichten hinzugefügt",
+        "ru": "base64 с html форматом добавлен снова\nhtml сообщения добавлены",
+        "pt": "base64 com formato html adicionado novamente\nhtml mensagens adicionadas",
+        "nl": "quality over quantity (qoq) releases quantity releases vertaling:\n_",
+        "fr": "base64 avec format html ajouté à nouveau\nmessages html ajoutés",
+        "it": "base64 con formato html aggiunto di nuovo\nmessaggi html aggiunto",
+        "es": "base64 con formato html añadido de nuevo\nhtml messages added",
+        "pl": "baza64 z formatem html została dodana ponownie\nwiadomości html dodały do wiadomości html",
+        "zh-cn": "第64条\nhtml信息增加了",
+        "uk": "base64 із знову доданим форматом html\nHTML повідомлень додано"
+      },
+      "0.1.1": {
+        "en": "bugfix local file system was not working\nbugfix base64 was not working\nunit test added",
+        "de": "bugfix lokale dateisystem wurde nicht funktioniert\nbugfix base64 hat nicht funktioniert\neinheitstest hinzugefügt",
+        "ru": "ошибка локальной файловой системы не работает\nbugfix base64 не работает\nunit тест добавлен",
+        "pt": "sistema de arquivos local bugfix não estava funcionando\nbugfix base64 não estava funcionando\nteste de unidade adicionado",
+        "nl": "het lokale dossier werkte niet\nquality was er niet\neenheidstest toegevoegd",
+        "fr": "bugfix système de fichiers locaux ne fonctionnait pas\nbugfix base64 ne fonctionnait pas\nessai unitaire ajouté",
+        "it": "bugfix file system locale non funzionava\nbugfix base64 non funzionava\ntest unità aggiunto",
+        "es": "sistema de archivos locales de bugfix no estaba funcionando\nbugfix base64 no estaba trabajando\nunidad de prueba",
+        "pl": "system plików nie działał\nbootfix base64 nie działał\ntest",
+        "zh-cn": "b 地方档案系统没有工作。\nb ugfix基地64没有工作。\n单位试验",
+        "uk": "виправлення помилок локальна файлова система не працювала\nвиправлення помилок base64 не працювало\nмодульний тест додано"
+      },
+      "0.1.0": {
+        "en": "sending files added\nsending from url and base64 encoded data\nimage ans video mime types are send as image and video all others as file",
+        "de": "versenden von dateien\nsenden von url und base64 kodierten daten\nimage ans video mime-typen senden als bild und video alle anderen als datei",
+        "ru": "отправка файлов добавлено\nотправка из url и base64 закодированные данные\nизображения as видео mime типы отправляют как изображение и видео все другие как файл",
+        "pt": "envio de arquivos adicionados\nenvio de dados codificados url e base64\nimagem ans vídeo mime tipos são enviar como imagem e vídeo todos os outros como arquivo",
+        "nl": "verzenden van dossiers\nverzenden van uil en basis64 gecodeerde gegevens\nde beelden van de video mime types worden verzonden als beeld en film alle anderen als bestand",
+        "fr": "envoi de fichiers ajoutés\nenvoi à partir de données codées url et base64\nimage et vidéo types de mime sont envoyer comme image et vidéo tous les autres comme fichier",
+        "it": "invio di file aggiunti\ninvio da url e base64 dati codificati\nimmagine ans video mime tipi vengono inviati come immagine e video tutti gli altri come file",
+        "es": "envío de archivos añadidos\nenvío de datos codificados por url y base64\nimagen ans vídeo mime tipos se envían como imagen y vídeo todos los demás como archivo",
+        "pl": "dodać plik\nwykorzystywanie z url i baz64 koduje dane\ntypy mime wideo są wysyłane jako obraz i wideo wszystkich innych jako pliki",
+        "zh-cn": "寄发文件\n从后勤和基础64传送的数据\n图像像像图像系统类型一样,传送成像,并把所有其他人作为档案。",
+        "uk": "надсилання файлів додано\nнадсилання з URL-адреси та даних у кодуванні base64\nзображення та відео типи mime надсилаються як зображення, а відео всі інші як файл"
+      },
+      "0.0.7": {
+        "en": "removed all axios request\nreplaced with matrix-js-sdk calls\nno logoff during the whole time\ntest with servers with access token expiery need to be done\nsync added\nreceive message added (please check on update and not on change to react on the same message)",
+        "de": "alle axios-anforderungen entfernen\nersetzt durch matrix-js-sdk anrufe\nkeine abmeldung während der ganzen zeit\ntesten mit servern mit zugriff auf markierten ablauf muss getan werden\nsynthesizer hinzugefügt\nempfangen nachricht hinzugefügt (bitte auf update überprüfen und nicht auf änderung, um auf dieselbe nachricht zu reagieren)",
+        "ru": "удалены все запросы axios\nзаменено при помощи матриц-js-sdk\nнет логотипа в течение всего времени\nтест с серверами с доступом к токен expiery нужно сделать\nсинхронизация добавлена\nполучить сообщение (пожалуйста, проверьте обновление и не на изменение, чтобы отреагировать на том же сообщении)",
+        "pt": "removido todo o pedido de axios\nsubstituído por chamadas de matriz-js-sdk\nsem logoff durante todo o tempo\nteste com servidores com expiério token de acesso precisa ser feito\nsincronização adicionada\nreceber mensagem adicionada (por favor, verifique a atualização e não na mudança para reagir na mesma mensagem)",
+        "nl": "verwijder alle axios verzoek\nvervangen met matrix-js-sdk telefoontjes\ngeen logoff gedurende de hele tijd\nde test met servers met toegang tot ontploffing moet gedaan worden\nvertaling:\nontvangen bericht toegevoegd op update en niet op verandering om op dezelfde boodschap te reageren",
+        "fr": "enlevé toute demande d'axios\nremplacé par des appels matrice-js-sdk\npas de logoff pendant tout le temps\ntest avec des serveurs avec l'expierie de jeton d'accès doit être fait\nsync added\nrecevoir un message ajouté (veuillez vérifier sur la mise à jour et non sur le changement pour réagir sur le même message)",
+        "it": "rimosso tutta la richiesta di assio\nsostituito con matrix-js-sdk chiamate\nnessun logoff durante tutto il tempo\ntest con server con accesso aken expiery deve essere fatto\nsincronizzazione aggiunto\nricevere il messaggio aggiunto (si prega di controllare l'aggiornamento e non su cambiamento per reagire sullo stesso messaggio)",
+        "es": "eliminar todas las solicitudes de axios\nreemplazado por llamadas matriz-js-sdk\nno logoff durante todo el tiempo\nprueba con servidores con acceso a la expiación token debe hacerse\nsincronización añadida\nrecibir mensaje añadido (por favor, compruebe la actualización y no en cambio para reaccionar en el mismo mensaje)",
+        "pl": "usunąć wszystkie żądania\nzastąpione macierz-js-dk call\nw czasie całego okresu nie było żadnych upływów\ntesty z serwerami z dodatkowymi wymaganiami muszą zostać wykonane\nsync dodaje\ndodano wiadomość (pełna kontrola nad aktualizacją i nie na zmianie reagowania na tę samą wiadomość)",
+        "zh-cn": "删除所有焦虑要求\n改为汇总表:js-sdk呼吁\n全时无伐木\n需与接获黑衣的服务器进行试验\n增 编\n获得的更多信息(更新检查,而不是改变对同一信息的反应)",
+        "uk": "видалено всі запити axios\nзамінено на виклики matrix-js-sdk\nвідсутність виходу протягом усього часу\nпотрібно провести тест із серверами з терміном дії маркера доступу\nдодано синхронізацію\nотримати додане повідомлення (будь ласка, перевіряйте оновлення, а не зміну, щоб реагувати на те саме повідомлення)"
+      }
     },
-    "encryptedNative": [
-        "botPassword"
-    ],
-    "protectedNative": [
-        "botPassword"
-    ],
-    "native": {
-        "serverIp": "",
-        "serverPort": "8448",
-        "roomName": "#room:yourserver.com",
-        "botName": "",
-        "botPassword": ""
+    "titleLang": {
+      "en": "push messages to matrix",
+      "de": "Push-Nachrichten an Matrix",
+      "ru": "push-сообщения в матрицу",
+      "pt": "enviar mensagens para a matriz",
+      "nl": "push berichten naar matrix",
+      "fr": "pousser les messages vers la matrice",
+      "it": "inviare messaggi alla matrice",
+      "es": "enviar mensajes a la matriz",
+      "pl": "wypychanie wiadomości do macierzy",
+      "zh-cn": "将消息推送到矩阵",
+      "uk": "надсилати повідомлення на матрицю"
     },
-    "objects": [],
-    "instanceObjects": [
-        {
-            "_id": "info",
-            "type": "channel",
-            "common": {
-                "name": "Information"
-            },
-            "native": {}
-        },
-        {
-            "_id": "info.connection",
-            "type": "state",
-            "common": {
-                "role": "indicator.connected",
-                "name": "Device or service connected",
-                "type": "boolean",
-                "read": true,
-                "write": false,
-                "def": false
-            },
-            "native": {}
-        },
-        {
-            "_id": "matrixServerData",
-            "type": "channel",
-            "common": {
-                "name": {
-                    "en": "data from matrix server",
-                    "de": "daten von matrixserver",
-                    "ru": "данные с матрицы сервера",
-                    "pt": "dados do servidor de matriz",
-                    "nl": "data van matrix server",
-                    "fr": "data from matrix server",
-                    "it": "dati dal server matrix",
-                    "es": "datos del servidor de matriz",
-                    "pl": "dane z serwera macierzowego",
-                    "zh-cn": "矩阵服务器数据"
-                }
-            },
-            "native": {}
-        },
-        {
-            "_id": "matrixServerData.roomId",
-            "type": "state",
-            "common": {
-                "name": {
-                    "en": "room id",
-                    "de": "room id",
-                    "ru": "комната id",
-                    "pt": "quarto id",
-                    "nl": "quality over quantity (qoq) releases vertaling:",
-                    "fr": "room id",
-                    "it": "camera id",
-                    "es": "habitación id",
-                    "pl": "pomieszczenie",
-                    "zh-cn": "会议室"
-                },
-                "type": "string",
-                "role": "text",
-                "read": true,
-                "write": false
-            },
-            "native": {}
-        },
-        {
-            "_id": "sendMessage",
-            "type": "state",
-            "common": {
-                "name": {
-                    "en": "send message directly",
-                    "de": "nachricht direkt senden",
-                    "ru": "отправить сообщение напрямую",
-                    "pt": "enviar mensagem diretamente",
-                    "nl": "stuur direct bericht",
-                    "fr": "envoyer un message directement",
-                    "it": "inviare messaggi direttamente",
-                    "es": "enviar el mensaje directamente",
-                    "pl": "komunikat",
-                    "zh-cn": "直接发送信息"
-                },
-                "type": "string",
-                "role": "text",
-                "read": true,
-                "write": true
-            },
-            "native": {}
-        },
-        {
-            "_id": "receiveMessage",
-            "type": "state",
-            "common": {
-                "name": {
-                    "en": "receive message",
-                    "de": "nachricht senden",
-                    "ru": "получить сообщение",
-                    "pt": "receber mensagem",
-                    "nl": "ontvangen",
-                    "fr": "message",
-                    "it": "ricevere messaggio",
-                    "es": "mensaje",
-                    "pl": "wiadomość",
-                    "zh-cn": "收到的资料"
-                },
-                "type": "string",
-                "role": "text",
-                "read": true,
-                "write": false
-            },
-            "native": {}
-        }
+    "desc": {
+      "en": "Adapter for matrix push messages",
+      "de": "Adapter für Matrix-Push-Nachrichten",
+      "ru": "Адаптер для матричных push-сообщений",
+      "pt": "Adaptador para mensagens push de matriz",
+      "nl": "Adapter voor matrix push-berichten",
+      "fr": "Adaptateur pour messages push matriciels",
+      "it": "Adattatore per messaggi push a matrice",
+      "es": "Adaptador para mensajes push de matriz",
+      "pl": "Adapter do matrycowych wiadomości push",
+      "zh-cn": "矩阵推送消息的适配器",
+      "uk": "Адаптер для матричних push-повідомлень"
+    },
+    "authors": [
+      "Christian Oelschlegel <iobrokermatrix@sciphy.de>"
+    ],
+    "keywords": [
+      "push",
+      "message",
+      "matrix"
+    ],
+    "license": "MIT",
+    "platform": "Javascript/Node.js",
+    "main": "main.js",
+    "icon": "matrix-logo.png",
+    "enabled": true,
+    "extIcon": "https://raw.githubusercontent.com/oelison/ioBroker.matrix-org/main/admin/matrix-logo.png",
+    "readme": "https://github.com/oelison/ioBroker.matrix-org/blob/main/README.md",
+    "loglevel": "info",
+    "mode": "daemon",
+    "type": "messaging",
+    "compact": true,
+    "connectionType": "cloud",
+    "dataSource": "push",
+    "materialize": true,
+    "messagebox": true,
+    "blockly": true,
+    "adminUI": {
+      "config": "json"
+    },
+    "eraseOnUpload": true,
+    "dependencies": [
+      {
+        "js-controller": ">=3.0.0"
+      }
+    ],
+    "globalDependencies": [
+      {
+        "admin": ">=5.1.28"
+      }
     ]
+  },
+  "encryptedNative": [
+    "botPassword"
+  ],
+  "protectedNative": [
+    "botPassword"
+  ],
+  "native": {
+    "serverIp": "",
+    "serverPort": "8448",
+    "roomName": "#room:yourserver.com",
+    "botName": "",
+    "botPassword": ""
+  },
+  "objects": [],
+  "instanceObjects": [
+    {
+      "_id": "info",
+      "type": "channel",
+      "common": {
+        "name": "Information"
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.connection",
+      "type": "state",
+      "common": {
+        "role": "indicator.connected",
+        "name": "Device or service connected",
+        "type": "boolean",
+        "read": true,
+        "write": false,
+        "def": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "matrixServerData",
+      "type": "channel",
+      "common": {
+        "name": {
+          "en": "data from matrix server",
+          "de": "daten von matrixserver",
+          "ru": "данные с матрицы сервера",
+          "pt": "dados do servidor de matriz",
+          "nl": "data van matrix server",
+          "fr": "data from matrix server",
+          "it": "dati dal server matrix",
+          "es": "datos del servidor de matriz",
+          "pl": "dane z serwera macierzowego",
+          "zh-cn": "矩阵服务器数据"
+        }
+      },
+      "native": {}
+    },
+    {
+      "_id": "matrixServerData.roomId",
+      "type": "state",
+      "common": {
+        "name": {
+          "en": "room id",
+          "de": "room id",
+          "ru": "комната id",
+          "pt": "quarto id",
+          "nl": "quality over quantity (qoq) releases vertaling:",
+          "fr": "room id",
+          "it": "camera id",
+          "es": "habitación id",
+          "pl": "pomieszczenie",
+          "zh-cn": "会议室"
+        },
+        "type": "string",
+        "role": "text",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "sendMessage",
+      "type": "state",
+      "common": {
+        "name": {
+          "en": "send message directly",
+          "de": "nachricht direkt senden",
+          "ru": "отправить сообщение напрямую",
+          "pt": "enviar mensagem diretamente",
+          "nl": "stuur direct bericht",
+          "fr": "envoyer un message directement",
+          "it": "inviare messaggi direttamente",
+          "es": "enviar el mensaje directamente",
+          "pl": "komunikat",
+          "zh-cn": "直接发送信息"
+        },
+        "type": "string",
+        "role": "text",
+        "read": true,
+        "write": true
+      },
+      "native": {}
+    },
+    {
+      "_id": "receiveMessage",
+      "type": "state",
+      "common": {
+        "name": {
+          "en": "receive message",
+          "de": "nachricht senden",
+          "ru": "получить сообщение",
+          "pt": "receber mensagem",
+          "nl": "ontvangen",
+          "fr": "message",
+          "it": "ricevere messaggio",
+          "es": "mensaje",
+          "pl": "wiadomość",
+          "zh-cn": "收到的资料"
+        },
+        "type": "string",
+        "role": "text",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    }
+  ]
 }
