@@ -1,3 +1,12 @@
 {
-    "matrix-org adapter settings": "Ustawienia adaptera dla matrix-org"
+    "matrix-org adapter settings": "Ustawienia adaptera dla matrix-org",
+    "name": "nazwa",
+    "botName": "nazwa bota",
+    "botNameDescription": "nazwa użytkownika dla tej usługi w matrix",
+    "botPassword": "Hasło bota",
+    "helpBotPassword": "mniej lub bardziej złożone hasło dla użytkownika bota w matrix",
+    "room": "Pokój",
+    "helpRoom": "nazwa pokoju na twoim serwerze matrix",
+    "server": "serwer",
+    "helpServer": "IP lub nazwa hosta twojego serwera matrix"
 }

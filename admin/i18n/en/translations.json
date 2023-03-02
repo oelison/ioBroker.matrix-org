@@ -1,3 +1,12 @@
 {
-    "matrix-org adapter settings": "Adapter settings for matrix-org"
+    "matrix-org adapter settings": "Adapter settings for matrix-org",
+    "name": "Name",
+    "botName": "Bot name",
+    "botNameDescription": "user name for this service in matrix",
+    "botPassword": "Bot password",
+    "helpBotPassword": "a more or less complex password for the bot user in matrix",
+    "room": "Room",
+    "helpRoom": "room name in your matrix server",
+    "server": "Server",
+    "helpServer": "IP or hostname of your matrix server"
 }
