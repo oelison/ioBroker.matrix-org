@@ -12,11 +12,6 @@ const helper = require("./lib/helper");
 // you need to create an adapter
 const utils = require("@iobroker/adapter-core");
 const matrix = require("matrix-js-sdk");
-// Next three lines because of https://github.com/matrix-org/matrix-js-sdk/issues/2415
-const matrixcs = require("matrix-js-sdk/lib/matrix");
-const request = require("request");
-matrixcs.request(request);
-// until here may be deleted when fix of https://github.com/matrix-org/matrix-js-sdk/issues/2415
 
 // the client for matrix communication
 let matrixClient;
@@ -43,17 +38,24 @@ class MatrixOrg extends utils.Adapter
      * is called as part of the login chain to big for inline
      * @param {*} data
      */
-    async matrixRoomIdResponse(err, data)
+    async matrixRoomIdResponse(data)
     {
         if (data)
         {
             await this.setStateAsync("matrixServerData.roomId", {val: data.room_id, ack: true});
             roomId = data.room_id;
-            matrixClient.login("m.login.password",{"user": this.config.botName, "password": this.config.botPassword},
-                (err, data)=>this.matrixLoginResponse(err, data)
-            );
+            matrixClient.login("m.login.password",{"user": this.config.botName, "password": this.config.botPassword})
+                .then((data)=>this.matrixLoginResponse(data))
+                .catch((err)=>this.matrixLoginResponseErr(err));
         }
-        else if (err)
+    }
+    /**
+     * is called as part of the login chain to big for inline
+     * @param {*} err
+     */
+    async matrixRoomIdResponseErr(err)
+    {
+        if (err)
         {
             this.log.error("Server or room not found. Check port (443/8448), room name and server.");
             this.log.error(JSON.stringify(err));
@@ -61,10 +63,9 @@ class MatrixOrg extends utils.Adapter
     }
     /**
      * is called of last state of the login chain, Crypto disabled due to malfunction
-     * @param {*} err
      * @param {*} data
      */
-    async matrixLoginResponse(err, data)
+    async matrixLoginResponse(data)
     {
         if (data)
         {
@@ -94,6 +95,13 @@ class MatrixOrg extends utils.Adapter
                 this.log.error(err);
             }
         }
+    }
+    /**
+     * is called of last state of the login chain, Crypto disabled due to malfunction
+     * @param {*} err
+     */
+    async matrixLoginResponseErr(err)
+    {
         if (err)
         {
             this.log.error("Login has failed. Mostly credentials are wrong.");
@@ -103,10 +111,10 @@ class MatrixOrg extends utils.Adapter
     /**
      * is called on every room event where the bot is in
      * @param {*} event
-     * @param {*} _room not used yet
-     * @param {*} _toStartOfTimeline not used yet
+     * @param {*} room not used yet
+     * @param {*} toStartOfTimeline not used yet
      */
-    async onMatrixEvent(event, _room, _toStartOfTimeline)
+    async onMatrixEvent(event, room, toStartOfTimeline)
     {
         let messageUsed = false;
         let reason = "";
@@ -124,6 +132,7 @@ class MatrixOrg extends utils.Adapter
                     else
                     {
                         reason = "roomid don't fit: " + event.event.content.room_id + " is not the expected " + roomId;
+                        this.log.debug("room:" + room + " toStartOfTimeline" + toStartOfTimeline);
                     }
                 }
                 else
@@ -143,10 +152,6 @@ class MatrixOrg extends utils.Adapter
         if (messageUsed === false)
         {
             this.log.debug("Message ignored due to: " + reason);
-        }
-        else
-        {
-            this.log.debug("Message used.");
         }
     }
     /**
@@ -351,7 +356,9 @@ class MatrixOrg extends utils.Adapter
                     baseURL = "https://" + this.config.serverIp + ":" + this.config.serverPort;
                 }
                 matrixClient = matrix.createClient({baseUrl: baseURL});
-                matrixClient.getRoomIdForAlias(this.config.roomName, (err, data) => this.matrixRoomIdResponse(err, data));
+                matrixClient.getRoomIdForAlias(this.config.roomName)
+                    .then((data) => this.matrixRoomIdResponse(data))
+                    .catch((err) => this.matrixRoomIdResponseErr(err));
             }
             catch (err)
             {
