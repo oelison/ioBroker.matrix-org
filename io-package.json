@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "matrix-org",
-    "version": "0.1.6",
+    "version": "1.0.0",
     "news": {
+      "1.0.0": {
+        "en": "upgrade matrix-js-sdk (node 18 needed)",
+        "de": "upgrade-matrix-js-sdk (node 18 erforderlich)",
+        "ru": "обновление матрицы-js-sdk (не нужно 18)",
+        "pt": "upgrade matrix-js-sdk (nodo 18 necessário)",
+        "nl": "upgrade matrix-js-sdk (node 18 nodig)",
+        "fr": "matrice de mise à niveau-js-sdk (n°18 nécessaire)",
+        "it": "aggiornamento matrix-js-sdk (nodo 18 necessario)",
+        "es": "(nodo 18 necesario)",
+        "pl": "ulepszanie macierzy-sdk (bez 18 potrzeb)",
+        "uk": "оновлення матриці-js-sdk (node 18 потрібно)",
+        "zh-cn": "升级汇总表-js-sdk(不需要18)"
+      },
       "0.1.6": {
         "en": "last version for node 16\nupdated libs according dependabot accept matrix-js-sdk",
         "de": "letzte version für knoten 16\naktualisierte libs nach abhängigabot akzeptieren matrix-js-sdk",
@@ -80,19 +93,6 @@
         "pl": "system plików nie działał\nbootfix base64 nie działał\ntest",
         "zh-cn": "b 地方档案系统没有工作。\nb ugfix基地64没有工作。\n单位试验",
         "uk": "виправлення помилок локальна файлова система не працювала\nвиправлення помилок base64 не працювало\nмодульний тест додано"
-      },
-      "0.1.0": {
-        "en": "sending files added\nsending from url and base64 encoded data\nimage ans video mime types are send as image and video all others as file",
-        "de": "versenden von dateien\nsenden von url und base64 kodierten daten\nimage ans video mime-typen senden als bild und video alle anderen als datei",
-        "ru": "отправка файлов добавлено\nотправка из url и base64 закодированные данные\nизображения as видео mime типы отправляют как изображение и видео все другие как файл",
-        "pt": "envio de arquivos adicionados\nenvio de dados codificados url e base64\nimagem ans vídeo mime tipos são enviar como imagem e vídeo todos os outros como arquivo",
-        "nl": "verzenden van dossiers\nverzenden van uil en basis64 gecodeerde gegevens\nde beelden van de video mime types worden verzonden als beeld en film alle anderen als bestand",
-        "fr": "envoi de fichiers ajoutés\nenvoi à partir de données codées url et base64\nimage et vidéo types de mime sont envoyer comme image et vidéo tous les autres comme fichier",
-        "it": "invio di file aggiunti\ninvio da url e base64 dati codificati\nimmagine ans video mime tipi vengono inviati come immagine e video tutti gli altri come file",
-        "es": "envío de archivos añadidos\nenvío de datos codificados por url y base64\nimagen ans vídeo mime tipos se envían como imagen y vídeo todos los demás como archivo",
-        "pl": "dodać plik\nwykorzystywanie z url i baz64 koduje dane\ntypy mime wideo są wysyłane jako obraz i wideo wszystkich innych jako pliki",
-        "zh-cn": "寄发文件\n从后勤和基础64传送的数据\n图像像像图像系统类型一样,传送成像,并把所有其他人作为档案。",
-        "uk": "надсилання файлів додано\nнадсилання з URL-адреси та даних у кодуванні base64\nзображення та відео типи mime надсилаються як зображення, а відео всі інші як файл"
       }
     },
     "titleLang": {
