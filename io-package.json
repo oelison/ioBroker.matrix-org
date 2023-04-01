@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "matrix-org",
-    "version": "0.1.5",
+    "version": "0.1.6",
     "news": {
+      "0.1.6": {
+        "en": "last version for node 16\nupdated libs according dependabot accept matrix-js-sdk",
+        "de": "letzte version für knoten 16\naktualisierte libs nach abhängigabot akzeptieren matrix-js-sdk",
+        "ru": "последняя версия для ноды 16\nобновленные libs в зависимости от прием матрицы-js-sdk",
+        "pt": "última versão para o nó 16\natualizado libs de acordo dependeabot aceitar matriz-js-sdk",
+        "nl": "laatste versie van de 16\nvertaling:",
+        "fr": "dernière version pour node 16\nlibs mises à jour selon dependabot accept matrice-js-sdk",
+        "it": "ultima versione per nodo 16\nlibs aggiornate secondo dipendeabot accettare matrix-js-sdk",
+        "es": "última versión para el nodo 16\nlibs actualizadas según dependabot aceptar matriz-js-sdk",
+        "pl": "ostatnia wersja węzła 16\nw zależności od tego, bobot przyjmuje macierz-jsdk",
+        "uk": "остання версія для вузла 16\nоновлені libs відповідно до залежностей приймає матрицю-js-sdk",
+        "zh-cn": "第16条最后版本\na. 受托人包的更新表"
+      },
       "0.1.5": {
         "en": "downgrade for node 16\ntranslation for configuration",
         "de": "downgrade für knoten anhang\nübersetzung für konfiguration",
@@ -80,19 +93,6 @@
         "pl": "dodać plik\nwykorzystywanie z url i baz64 koduje dane\ntypy mime wideo są wysyłane jako obraz i wideo wszystkich innych jako pliki",
         "zh-cn": "寄发文件\n从后勤和基础64传送的数据\n图像像像图像系统类型一样,传送成像,并把所有其他人作为档案。",
         "uk": "надсилання файлів додано\nнадсилання з URL-адреси та даних у кодуванні base64\nзображення та відео типи mime надсилаються як зображення, а відео всі інші як файл"
-      },
-      "0.0.7": {
-        "en": "removed all axios request\nreplaced with matrix-js-sdk calls\nno logoff during the whole time\ntest with servers with access token expiery need to be done\nsync added\nreceive message added (please check on update and not on change to react on the same message)",
-        "de": "alle axios-anforderungen entfernen\nersetzt durch matrix-js-sdk anrufe\nkeine abmeldung während der ganzen zeit\ntesten mit servern mit zugriff auf markierten ablauf muss getan werden\nsynthesizer hinzugefügt\nempfangen nachricht hinzugefügt (bitte auf update überprüfen und nicht auf änderung, um auf dieselbe nachricht zu reagieren)",
-        "ru": "удалены все запросы axios\nзаменено при помощи матриц-js-sdk\nнет логотипа в течение всего времени\nтест с серверами с доступом к токен expiery нужно сделать\nсинхронизация добавлена\nполучить сообщение (пожалуйста, проверьте обновление и не на изменение, чтобы отреагировать на том же сообщении)",
-        "pt": "removido todo o pedido de axios\nsubstituído por chamadas de matriz-js-sdk\nsem logoff durante todo o tempo\nteste com servidores com expiério token de acesso precisa ser feito\nsincronização adicionada\nreceber mensagem adicionada (por favor, verifique a atualização e não na mudança para reagir na mesma mensagem)",
-        "nl": "verwijder alle axios verzoek\nvervangen met matrix-js-sdk telefoontjes\ngeen logoff gedurende de hele tijd\nde test met servers met toegang tot ontploffing moet gedaan worden\nvertaling:\nontvangen bericht toegevoegd op update en niet op verandering om op dezelfde boodschap te reageren",
-        "fr": "enlevé toute demande d'axios\nremplacé par des appels matrice-js-sdk\npas de logoff pendant tout le temps\ntest avec des serveurs avec l'expierie de jeton d'accès doit être fait\nsync added\nrecevoir un message ajouté (veuillez vérifier sur la mise à jour et non sur le changement pour réagir sur le même message)",
-        "it": "rimosso tutta la richiesta di assio\nsostituito con matrix-js-sdk chiamate\nnessun logoff durante tutto il tempo\ntest con server con accesso aken expiery deve essere fatto\nsincronizzazione aggiunto\nricevere il messaggio aggiunto (si prega di controllare l'aggiornamento e non su cambiamento per reagire sullo stesso messaggio)",
-        "es": "eliminar todas las solicitudes de axios\nreemplazado por llamadas matriz-js-sdk\nno logoff durante todo el tiempo\nprueba con servidores con acceso a la expiación token debe hacerse\nsincronización añadida\nrecibir mensaje añadido (por favor, compruebe la actualización y no en cambio para reaccionar en el mismo mensaje)",
-        "pl": "usunąć wszystkie żądania\nzastąpione macierz-js-dk call\nw czasie całego okresu nie było żadnych upływów\ntesty z serwerami z dodatkowymi wymaganiami muszą zostać wykonane\nsync dodaje\ndodano wiadomość (pełna kontrola nad aktualizacją i nie na zmianie reagowania na tę samą wiadomość)",
-        "zh-cn": "删除所有焦虑要求\n改为汇总表:js-sdk呼吁\n全时无伐木\n需与接获黑衣的服务器进行试验\n增 编\n获得的更多信息(更新检查,而不是改变对同一信息的反应)",
-        "uk": "видалено всі запити axios\nзамінено на виклики matrix-js-sdk\nвідсутність виходу протягом усього часу\nпотрібно провести тест із серверами з терміном дії маркера доступу\nдодано синхронізацію\nотримати додане повідомлення (будь ласка, перевіряйте оновлення, а не зміну, щоб реагувати на те саме повідомлення)"
       }
     },
     "titleLang": {

@@ -1,6 +1,6 @@
 {
   "name": "iobroker.matrix-org",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Adapter for pushing matrix messages into a room",
   "author": {
     "name": "Christian Oelschlegel",

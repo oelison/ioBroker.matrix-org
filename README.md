@@ -79,7 +79,7 @@ Join this room and try it out with your own credentials
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 0.1.6 (2023-04-01)
 * last version for node 16
 * updated libs according dependabot accept matrix-js-sdk
 
