@@ -66,7 +66,6 @@ class MatrixOrg extends utils.Adapter {
             this.setState("info.connection", true, true);
             try {
                 await matrixClient.startClient();
-
                 this.log.debug("client started!");
                 // init the receive callback
                 matrixClient.once("sync", (state, prevState, res) => {
@@ -74,11 +73,8 @@ class MatrixOrg extends utils.Adapter {
                     this.log.debug("prevState: " + JSON.stringify(prevState));
                     this.log.debug("res: " + JSON.stringify(res));
                     try {
-
-
                         matrixClient.on("Room.timeline", (event, room, toStartOfTimeline) => this.onMatrixEvent(event, room, toStartOfTimeline));
-                    }
-                    catch (err) {
+                    } catch (err) {
                         this.log.error(err);
                     }
                 });
@@ -90,8 +86,7 @@ class MatrixOrg extends utils.Adapter {
                         });
                     }
                 });
-            }
-            catch (err) {
+            } catch (err) {
                 this.log.error(err);
             }
         }
@@ -121,21 +116,17 @@ class MatrixOrg extends utils.Adapter {
                     if (event.event.room_id === roomId) {
                         this.setStateAsync("receiveMessage", { val: event.event.content.body, ack: true });
                         messageUsed = true;
-                    }
-                    else {
+                    } else {
                         reason = "roomid don't fit: " + event.event.content.room_id + " is not the expected " + roomId;
                         this.log.debug("room:" + room + " toStartOfTimeline" + toStartOfTimeline);
                     }
-                }
-                else {
+                } else {
                     reason = "message type is not m.text";
                 }
-            }
-            else {
+            } else {
                 reason = "It was my own message.";
             }
-        }
-        else {
+        } else {
             reason = "type not m.room.message";
         }
         if (messageUsed === false) {
@@ -153,8 +144,7 @@ class MatrixOrg extends utils.Adapter {
                 try {
                     const data = { "body": message, "msgtype": "m.text" };
                     matrixClient.sendEvent(roomId.val, "m.room.message", data);
-                }
-                catch (err) {
+                } catch (err) {
                     this.log.error(err);
                     this.log.error("error during: " + state);
                 }
@@ -193,8 +183,7 @@ class MatrixOrg extends utils.Adapter {
             let info = {};
             if (fileType.startsWith("image")) {
                 msgtype = matrix.MsgType.Image;
-            }
-            else if (fileType.startsWith("video")) {
+            } else if (fileType.startsWith("video")) {
                 msgtype = matrix.MsgType.Video;
                 info = {
                     mimetype: fileType
@@ -207,8 +196,7 @@ class MatrixOrg extends utils.Adapter {
                 body: "",
             };
             await matrixClient.sendMessage(roomId, null, content, undefined);
-        }
-        catch (err) {
+        } catch (err) {
             this.log.error(err);
             this.log.error("Sending of file failed");
         }
@@ -228,25 +216,21 @@ class MatrixOrg extends utils.Adapter {
             this.log.debug("String detected");
             buffer = b64dataString.buffer;
             fileType = b64dataString.mimeType;
-        }
-        else if (b64dataObject) {
+        } else if (b64dataObject) {
             this.log.debug("Object detected");
             buffer = b64dataObject.buffer;
             fileType = b64dataObject.mimeType;
-        }
-        else if (file.startsWith("https://") || file.startsWith("http://")) {
+        } else if (file.startsWith("https://") || file.startsWith("http://")) {
             try {
                 const imageResponse = await axios.get(file, { responseType: "arraybuffer" });
                 fileType = imageResponse.headers["content-type"];
                 this.log.debug("http mimetype: " + fileType);
                 buffer = imageResponse.data;
-            }
-            catch (err) {
+            } catch (err) {
                 this.log.error(err);
                 this.log.error("read from file failed.");
             }
-        }
-        else if (file.startsWith("file://")) {
+        } else if (file.startsWith("file://")) {
             if (fileObject.type) {
                 fileType = fileObject.type;
                 this.log.debug("file filetype: " + fileType);
@@ -259,20 +243,17 @@ class MatrixOrg extends utils.Adapter {
                     }
                 }
                 buffer = fs.readFileSync(fileName);
-            }
-            catch (err) {
+            } catch (err) {
                 this.log.error(err);
             }
-        }
-        else {
+        } else {
             this.log.error("no matching data found!");
         }
         try {
             if (fileType === undefined) {
                 fileType = helper.getFileTypeFromData(buffer);
                 this.log.debug("guessed file type: " + fileType);
-            }
-            else {
+            } else {
                 this.log.debug("file type: " + fileType);
             }
         } catch (error) {
@@ -281,8 +262,7 @@ class MatrixOrg extends utils.Adapter {
         }
         try {
             this.sendFileToMatrix(buffer, String(fileType));
-        }
-        catch (err) {
+        } catch (err) {
             this.log.error(err);
             this.log.error("Send file failed!");
         }
@@ -299,22 +279,19 @@ class MatrixOrg extends utils.Adapter {
         this.subscribeStates("sendMessage");
         if (this.config.serverIp === "") {
             this.log.error("No server set!");
-        }
-        else {
+        } else {
             try {
                 let baseURL = "";
                 if (this.config.serverPort === "443") {
                     baseURL = "https://" + this.config.serverIp;
-                }
-                else {
+                } else {
                     baseURL = "https://" + this.config.serverIp + ":" + this.config.serverPort;
                 }
                 matrixClient = matrix.createClient({ baseUrl: baseURL });
                 matrixClient.getRoomIdForAlias(this.config.roomName)
                     .then((data) => this.matrixRoomIdResponse(data))
                     .catch((err) => this.matrixRoomIdResponseErr(err));
-            }
-            catch (err) {
+            } catch (err) {
                 this.log.error(err);
                 this.log.error("Server not reached! " + this.config.serverIp + ":" + this.config.serverPort + " with room: " + this.config.roomName);
                 this.setState("info.connection", false, true);
@@ -329,8 +306,7 @@ class MatrixOrg extends utils.Adapter {
         this.unloaded = true;
         try {
             callback();
-        }
-        catch (e) {
+        } catch (e) {
             callback();
         }
     }
@@ -345,18 +321,15 @@ class MatrixOrg extends utils.Adapter {
             // The state was changed
             if (state.val) {
                 this.log.debug("try send");
-                if (state.ack === false) // This is ioBroker convention, only send commands if ack = false
-                {
+                if (state.ack === false) { // This is ioBroker convention, only send commands if ack = false
                     if (state.val === "image") {
                         this.sendFile({ file: { type: "image/png", base64: "iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACmSURBVFhH7ZdhCoAgDEZnd9D737T8xJkNNY1Ef+yB2LTcC1qWOT20kCBgjIkh0WwfmeuIxyGYnRzIPElgFSqgAvsKOOdCzeZ1y7EcZzDG16HvwtckihLdA4xxk3HeGGttc17Cc+lN6Ds/dlO6w6/ItQHn7H4GcDK3Em/zNboE5KKjcQstQxVQARVYLlDdC2YzvBfMQgVUYB8BlMWfn2E1ZJ7Fv+dEF0UZoNhXp9NnAAAAAElFTkSuQmCC" } });
-                    }
-                    else {
+                    } else {
                         this.sendMessageToMatrix(state.val.toString());
                     }
                 }
             }
-        }
-        else {
+        } else {
             // The state was deleted
             this.log.info(`state ${id} deleted`);
         }
@@ -377,12 +350,10 @@ class MatrixOrg extends utils.Adapter {
                     if (obj.message.file) {
                         this.log.debug("file command is triggered!");
                         this.sendFile(obj.message);
-                    }
-                    else if (obj.message.html) {
+                    } else if (obj.message.html) {
                         this.log.debug("html message");
                         this.sendHtmlToMatrix(obj.message);
-                    }
-                    else {
+                    } else {
                         this.log.debug("send command is triggered!" + obj.message);
                         if (obj.message) {
                             this.log.debug("message send");
@@ -397,7 +368,6 @@ class MatrixOrg extends utils.Adapter {
             }
         }
     }
-
 }
 
 if (require.main !== module) {
@@ -406,13 +376,10 @@ if (require.main !== module) {
      * @param {Partial<utils.AdapterOptions>} [options={}]
      */
     module.exports = (options) => new MatrixOrg(options);
-}
-else {
+} else {
     // otherwise start the instance directly
     new MatrixOrg();
 }
-
-
 
 // testcode for JS scripts in ioBroker
 // sendTo("matrix-org.0", "image test filesystem windows!");
