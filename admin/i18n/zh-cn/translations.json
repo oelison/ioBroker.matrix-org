@@ -8,5 +8,7 @@
     "room": "房间",
     "helpRoom": "矩阵服务器中的房间名称",
     "server": "服务器",
-    "helpServer": "矩阵服务器的 IP 或主机名"
+    "helpServer": "矩阵服务器的 IP 或主机名",
+    "autoJoin": "自动加入受邀频道",
+    "helpAutoJoin": "勾选后自动加入受邀频道"
 }

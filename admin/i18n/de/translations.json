@@ -8,5 +8,7 @@
     "room": "Raumname",
     "helpRoom": "Raumname in Ihrem Matrixserver",
     "server": "Server",
-    "helpServer": "IP oder Hostname Ihres Matrixservers"
+    "helpServer": "IP oder Hostname Ihres Matrixservers",
+    "autoJoin": "Dem eingeladenen Kanal automatisch beitreten",
+    "helpAutoJoin": "Dem eingeladenen Kanal automatisch beitreten, wenn aktiviert"
 }

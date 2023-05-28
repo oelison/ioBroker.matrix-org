@@ -8,5 +8,7 @@
     "room": "Kamer",
     "helpRoom": "kamernaam in uw matrixserver",
     "server": "Server",
-    "helpServer": "IP of hostnaam van uw matrixserver"
+    "helpServer": "IP of hostnaam van uw matrixserver",
+    "autoJoin": "sluit je automatisch aan bij het uitgenodigde kanaal",
+    "helpAutoJoin": "word automatisch lid van het uitgenodigde kanaal wanneer aangevinkt"
 }

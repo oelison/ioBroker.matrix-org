@@ -8,5 +8,7 @@
     "room": "Habitación",
     "helpRoom": "nombre de la habitación en su servidor de matrix",
     "server": "Servidor",
-    "helpServer": "IP o nombre de host de su servidor matrix"
+    "helpServer": "IP o nombre de host de su servidor matrix",
+    "autoJoin": "unirse al canal invitado automáticamente",
+    "helpAutoJoin": "unirse al canal invitado automáticamente cuando esté marcado"
 }
