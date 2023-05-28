@@ -80,10 +80,12 @@ class MatrixOrg extends utils.Adapter {
                 });
                 // autologin snippet by matrix-js-sdk
                 matrixClient.on("RoomMember.membership", (event, member) => {
-                    if (member.membership === "invite" && member.userId === fullUserId) {
-                        matrixClient.joinRoom(member.roomId).then(() => {
-                            this.log.info("Auto-joined " + member.roomId);
-                        });
+                    if (this.config.autoJoin === true) {
+                        if (member.membership === "invite" && member.userId === fullUserId) {
+                            matrixClient.joinRoom(member.roomId).then(() => {
+                                this.log.info("Auto-joined " + member.roomId);
+                            });
+                        }
                     }
                 });
             } catch (err) {

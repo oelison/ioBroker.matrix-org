@@ -8,5 +8,7 @@
     "room": "Chambre",
     "helpRoom": "nom de la salle dans votre serveur matrix",
     "server": "Serveur",
-    "helpServer": "IP ou nom d'hôte de votre serveur matrix"
+    "helpServer": "IP ou nom d'hôte de votre serveur matrix",
+    "autoJoin": "rejoindre automatiquement le canal invité",
+    "helpAutoJoin": "rejoindre le canal invité automatiquement lorsque coché"
 }

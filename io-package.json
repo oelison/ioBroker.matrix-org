@@ -1,288 +1,289 @@
 {
-  "common": {
-    "name": "matrix-org",
-    "version": "1.0.0",
-    "news": {
-      "1.0.0": {
-        "en": "upgrade matrix-js-sdk (node 18 needed)",
-        "de": "upgrade-matrix-js-sdk (node 18 erforderlich)",
-        "ru": "обновление матрицы-js-sdk (не нужно 18)",
-        "pt": "upgrade matrix-js-sdk (nodo 18 necessário)",
-        "nl": "upgrade matrix-js-sdk (node 18 nodig)",
-        "fr": "matrice de mise à niveau-js-sdk (n°18 nécessaire)",
-        "it": "aggiornamento matrix-js-sdk (nodo 18 necessario)",
-        "es": "(nodo 18 necesario)",
-        "pl": "ulepszanie macierzy-sdk (bez 18 potrzeb)",
-        "uk": "оновлення матриці-js-sdk (node 18 потрібно)",
-        "zh-cn": "升级汇总表-js-sdk(不需要18)"
-      },
-      "0.1.6": {
-        "en": "last version for node 16\nupdated libs according dependabot accept matrix-js-sdk",
-        "de": "letzte version für knoten 16\naktualisierte libs nach abhängigabot akzeptieren matrix-js-sdk",
-        "ru": "последняя версия для ноды 16\nобновленные libs в зависимости от прием матрицы-js-sdk",
-        "pt": "última versão para o nó 16\natualizado libs de acordo dependeabot aceitar matriz-js-sdk",
-        "nl": "laatste versie van de 16\nvertaling:",
-        "fr": "dernière version pour node 16\nlibs mises à jour selon dependabot accept matrice-js-sdk",
-        "it": "ultima versione per nodo 16\nlibs aggiornate secondo dipendeabot accettare matrix-js-sdk",
-        "es": "última versión para el nodo 16\nlibs actualizadas según dependabot aceptar matriz-js-sdk",
-        "pl": "ostatnia wersja węzła 16\nw zależności od tego, bobot przyjmuje macierz-jsdk",
-        "uk": "остання версія для вузла 16\nоновлені libs відповідно до залежностей приймає матрицю-js-sdk",
-        "zh-cn": "第16条最后版本\na. 受托人包的更新表"
-      },
-      "0.1.5": {
-        "en": "downgrade for node 16\ntranslation for configuration",
-        "de": "downgrade für knoten anhang\nübersetzung für konfiguration",
-        "ru": "понижение для ноды 16, 16, 16\nперевод для конфигурации",
-        "pt": "downgrade para nó 16\ntradução para configuração",
-        "nl": "_ 16\nvertaling:",
-        "fr": "descendant pour node 16\ntraduction pour la configuration",
-        "it": "downgrade per nodo 16\ntraduzione per configurazione",
-        "es": "para el nodo 16\ntraducción para configuración",
-        "pl": "zeszyty 16\ntranskrypcja",
-        "uk": "внизград для вузла 16 мар\nпереклад для конфігурації",
-        "zh-cn": "降级 16\n笔译"
-      },
-      "0.1.4": {
-        "en": "update of dependencies\nsmall readme improvement",
-        "de": "aktualisierung der abhängigkeiten\nkleine readme verbesserung",
-        "ru": "обновление зависимостей\nнебольшое улучшение считывания",
-        "pt": "atualização de dependências\npequena melhoria de leitura",
-        "nl": "vertaling:\nkleine verbetering",
-        "fr": "mise à jour des dépendances\npetite amélioration de la lecture",
-        "it": "aggiornamento delle dipendenze\npiccolo miglioramento della lettura",
-        "es": "actualización de las dependencias\npequeña mejora",
-        "pl": "aktualizacja zależności\nulepszenie czytania",
-        "uk": "оновлення залежностей\nневелике поліпшення чителю",
-        "zh-cn": "a. 紧急情况的最新情况\n小读者改进"
-      },
-      "0.1.3": {
-        "en": "updates of dependencies",
-        "de": "aktualisierung der abhängigkeiten",
-        "ru": "обновления зависимостей",
-        "pt": "atualizações de dependências",
-        "nl": "vertaling:",
-        "fr": "mises à jour des dépendances",
-        "it": "aggiornamenti di dipendenze",
-        "es": "actualizaciones de las dependencias",
-        "pl": "aktualizacja zależności",
-        "uk": "оновлення залежностей",
-        "zh-cn": "a. 紧急情况的最新情况"
-      },
-      "0.1.2": {
-        "en": "base64 with html format added again\nhtml messages added",
-        "de": "base64 mit html-format wieder hinzugefügt\nhtml-nachrichten hinzugefügt",
-        "ru": "base64 с html форматом добавлен снова\nhtml сообщения добавлены",
-        "pt": "base64 com formato html adicionado novamente\nhtml mensagens adicionadas",
-        "nl": "quality over quantity (qoq) releases quantity releases vertaling:\n_",
-        "fr": "base64 avec format html ajouté à nouveau\nmessages html ajoutés",
-        "it": "base64 con formato html aggiunto di nuovo\nmessaggi html aggiunto",
-        "es": "base64 con formato html añadido de nuevo\nhtml messages added",
-        "pl": "baza64 z formatem html została dodana ponownie\nwiadomości html dodały do wiadomości html",
-        "zh-cn": "第64条\nhtml信息增加了",
-        "uk": "base64 із знову доданим форматом html\nHTML повідомлень додано"
-      },
-      "0.1.1": {
-        "en": "bugfix local file system was not working\nbugfix base64 was not working\nunit test added",
-        "de": "bugfix lokale dateisystem wurde nicht funktioniert\nbugfix base64 hat nicht funktioniert\neinheitstest hinzugefügt",
-        "ru": "ошибка локальной файловой системы не работает\nbugfix base64 не работает\nunit тест добавлен",
-        "pt": "sistema de arquivos local bugfix não estava funcionando\nbugfix base64 não estava funcionando\nteste de unidade adicionado",
-        "nl": "het lokale dossier werkte niet\nquality was er niet\neenheidstest toegevoegd",
-        "fr": "bugfix système de fichiers locaux ne fonctionnait pas\nbugfix base64 ne fonctionnait pas\nessai unitaire ajouté",
-        "it": "bugfix file system locale non funzionava\nbugfix base64 non funzionava\ntest unità aggiunto",
-        "es": "sistema de archivos locales de bugfix no estaba funcionando\nbugfix base64 no estaba trabajando\nunidad de prueba",
-        "pl": "system plików nie działał\nbootfix base64 nie działał\ntest",
-        "zh-cn": "b 地方档案系统没有工作。\nb ugfix基地64没有工作。\n单位试验",
-        "uk": "виправлення помилок локальна файлова система не працювала\nвиправлення помилок base64 не працювало\nмодульний тест додано"
-      }
+    "common": {
+        "name": "matrix-org",
+        "version": "1.0.0",
+        "news": {
+            "1.0.0": {
+                "en": "upgrade matrix-js-sdk (node 18 needed)",
+                "de": "upgrade-matrix-js-sdk (node 18 erforderlich)",
+                "ru": "обновление матрицы-js-sdk (не нужно 18)",
+                "pt": "upgrade matrix-js-sdk (nodo 18 necessário)",
+                "nl": "upgrade matrix-js-sdk (node 18 nodig)",
+                "fr": "matrice de mise à niveau-js-sdk (n°18 nécessaire)",
+                "it": "aggiornamento matrix-js-sdk (nodo 18 necessario)",
+                "es": "(nodo 18 necesario)",
+                "pl": "ulepszanie macierzy-sdk (bez 18 potrzeb)",
+                "uk": "оновлення матриці-js-sdk (node 18 потрібно)",
+                "zh-cn": "升级汇总表-js-sdk(不需要18)"
+            },
+            "0.1.6": {
+                "en": "last version for node 16\nupdated libs according dependabot accept matrix-js-sdk",
+                "de": "letzte version für knoten 16\naktualisierte libs nach abhängigabot akzeptieren matrix-js-sdk",
+                "ru": "последняя версия для ноды 16\nобновленные libs в зависимости от прием матрицы-js-sdk",
+                "pt": "última versão para o nó 16\natualizado libs de acordo dependeabot aceitar matriz-js-sdk",
+                "nl": "laatste versie van de 16\nvertaling:",
+                "fr": "dernière version pour node 16\nlibs mises à jour selon dependabot accept matrice-js-sdk",
+                "it": "ultima versione per nodo 16\nlibs aggiornate secondo dipendeabot accettare matrix-js-sdk",
+                "es": "última versión para el nodo 16\nlibs actualizadas según dependabot aceptar matriz-js-sdk",
+                "pl": "ostatnia wersja węzła 16\nw zależności od tego, bobot przyjmuje macierz-jsdk",
+                "uk": "остання версія для вузла 16\nоновлені libs відповідно до залежностей приймає матрицю-js-sdk",
+                "zh-cn": "第16条最后版本\na. 受托人包的更新表"
+            },
+            "0.1.5": {
+                "en": "downgrade for node 16\ntranslation for configuration",
+                "de": "downgrade für knoten anhang\nübersetzung für konfiguration",
+                "ru": "понижение для ноды 16, 16, 16\nперевод для конфигурации",
+                "pt": "downgrade para nó 16\ntradução para configuração",
+                "nl": "_ 16\nvertaling:",
+                "fr": "descendant pour node 16\ntraduction pour la configuration",
+                "it": "downgrade per nodo 16\ntraduzione per configurazione",
+                "es": "para el nodo 16\ntraducción para configuración",
+                "pl": "zeszyty 16\ntranskrypcja",
+                "uk": "внизград для вузла 16 мар\nпереклад для конфігурації",
+                "zh-cn": "降级 16\n笔译"
+            },
+            "0.1.4": {
+                "en": "update of dependencies\nsmall readme improvement",
+                "de": "aktualisierung der abhängigkeiten\nkleine readme verbesserung",
+                "ru": "обновление зависимостей\nнебольшое улучшение считывания",
+                "pt": "atualização de dependências\npequena melhoria de leitura",
+                "nl": "vertaling:\nkleine verbetering",
+                "fr": "mise à jour des dépendances\npetite amélioration de la lecture",
+                "it": "aggiornamento delle dipendenze\npiccolo miglioramento della lettura",
+                "es": "actualización de las dependencias\npequeña mejora",
+                "pl": "aktualizacja zależności\nulepszenie czytania",
+                "uk": "оновлення залежностей\nневелике поліпшення чителю",
+                "zh-cn": "a. 紧急情况的最新情况\n小读者改进"
+            },
+            "0.1.3": {
+                "en": "updates of dependencies",
+                "de": "aktualisierung der abhängigkeiten",
+                "ru": "обновления зависимостей",
+                "pt": "atualizações de dependências",
+                "nl": "vertaling:",
+                "fr": "mises à jour des dépendances",
+                "it": "aggiornamenti di dipendenze",
+                "es": "actualizaciones de las dependencias",
+                "pl": "aktualizacja zależności",
+                "uk": "оновлення залежностей",
+                "zh-cn": "a. 紧急情况的最新情况"
+            },
+            "0.1.2": {
+                "en": "base64 with html format added again\nhtml messages added",
+                "de": "base64 mit html-format wieder hinzugefügt\nhtml-nachrichten hinzugefügt",
+                "ru": "base64 с html форматом добавлен снова\nhtml сообщения добавлены",
+                "pt": "base64 com formato html adicionado novamente\nhtml mensagens adicionadas",
+                "nl": "quality over quantity (qoq) releases quantity releases vertaling:\n_",
+                "fr": "base64 avec format html ajouté à nouveau\nmessages html ajoutés",
+                "it": "base64 con formato html aggiunto di nuovo\nmessaggi html aggiunto",
+                "es": "base64 con formato html añadido de nuevo\nhtml messages added",
+                "pl": "baza64 z formatem html została dodana ponownie\nwiadomości html dodały do wiadomości html",
+                "zh-cn": "第64条\nhtml信息增加了",
+                "uk": "base64 із знову доданим форматом html\nHTML повідомлень додано"
+            },
+            "0.1.1": {
+                "en": "bugfix local file system was not working\nbugfix base64 was not working\nunit test added",
+                "de": "bugfix lokale dateisystem wurde nicht funktioniert\nbugfix base64 hat nicht funktioniert\neinheitstest hinzugefügt",
+                "ru": "ошибка локальной файловой системы не работает\nbugfix base64 не работает\nunit тест добавлен",
+                "pt": "sistema de arquivos local bugfix não estava funcionando\nbugfix base64 não estava funcionando\nteste de unidade adicionado",
+                "nl": "het lokale dossier werkte niet\nquality was er niet\neenheidstest toegevoegd",
+                "fr": "bugfix système de fichiers locaux ne fonctionnait pas\nbugfix base64 ne fonctionnait pas\nessai unitaire ajouté",
+                "it": "bugfix file system locale non funzionava\nbugfix base64 non funzionava\ntest unità aggiunto",
+                "es": "sistema de archivos locales de bugfix no estaba funcionando\nbugfix base64 no estaba trabajando\nunidad de prueba",
+                "pl": "system plików nie działał\nbootfix base64 nie działał\ntest",
+                "zh-cn": "b 地方档案系统没有工作。\nb ugfix基地64没有工作。\n单位试验",
+                "uk": "виправлення помилок локальна файлова система не працювала\nвиправлення помилок base64 не працювало\nмодульний тест додано"
+            }
+        },
+        "titleLang": {
+            "en": "push messages to matrix",
+            "de": "Push-Nachrichten an Matrix",
+            "ru": "push-сообщения в матрицу",
+            "pt": "enviar mensagens para a matriz",
+            "nl": "push berichten naar matrix",
+            "fr": "pousser les messages vers la matrice",
+            "it": "inviare messaggi alla matrice",
+            "es": "enviar mensajes a la matriz",
+            "pl": "wypychanie wiadomości do macierzy",
+            "zh-cn": "将消息推送到矩阵",
+            "uk": "надсилати повідомлення на матрицю"
+        },
+        "desc": {
+            "en": "Adapter for matrix push messages",
+            "de": "Adapter für Matrix-Push-Nachrichten",
+            "ru": "Адаптер для матричных push-сообщений",
+            "pt": "Adaptador para mensagens push de matriz",
+            "nl": "Adapter voor matrix push-berichten",
+            "fr": "Adaptateur pour messages push matriciels",
+            "it": "Adattatore per messaggi push a matrice",
+            "es": "Adaptador para mensajes push de matriz",
+            "pl": "Adapter do matrycowych wiadomości push",
+            "zh-cn": "矩阵推送消息的适配器",
+            "uk": "Адаптер для матричних push-повідомлень"
+        },
+        "authors": [
+            "Christian Oelschlegel <iobrokermatrix@sciphy.de>"
+        ],
+        "keywords": [
+            "push",
+            "message",
+            "matrix"
+        ],
+        "license": "MIT",
+        "platform": "Javascript/Node.js",
+        "main": "main.js",
+        "icon": "matrix-logo.png",
+        "enabled": true,
+        "extIcon": "https://raw.githubusercontent.com/oelison/ioBroker.matrix-org/main/admin/matrix-logo.png",
+        "readme": "https://github.com/oelison/ioBroker.matrix-org/blob/main/README.md",
+        "loglevel": "info",
+        "mode": "daemon",
+        "type": "messaging",
+        "compact": true,
+        "connectionType": "cloud",
+        "dataSource": "push",
+        "materialize": true,
+        "messagebox": true,
+        "blockly": true,
+        "adminUI": {
+            "config": "json"
+        },
+        "eraseOnUpload": true,
+        "dependencies": [
+            {
+                "js-controller": ">=3.0.0"
+            }
+        ],
+        "globalDependencies": [
+            {
+                "admin": ">=5.1.28"
+            }
+        ]
     },
-    "titleLang": {
-      "en": "push messages to matrix",
-      "de": "Push-Nachrichten an Matrix",
-      "ru": "push-сообщения в матрицу",
-      "pt": "enviar mensagens para a matriz",
-      "nl": "push berichten naar matrix",
-      "fr": "pousser les messages vers la matrice",
-      "it": "inviare messaggi alla matrice",
-      "es": "enviar mensajes a la matriz",
-      "pl": "wypychanie wiadomości do macierzy",
-      "zh-cn": "将消息推送到矩阵",
-      "uk": "надсилати повідомлення на матрицю"
-    },
-    "desc": {
-      "en": "Adapter for matrix push messages",
-      "de": "Adapter für Matrix-Push-Nachrichten",
-      "ru": "Адаптер для матричных push-сообщений",
-      "pt": "Adaptador para mensagens push de matriz",
-      "nl": "Adapter voor matrix push-berichten",
-      "fr": "Adaptateur pour messages push matriciels",
-      "it": "Adattatore per messaggi push a matrice",
-      "es": "Adaptador para mensajes push de matriz",
-      "pl": "Adapter do matrycowych wiadomości push",
-      "zh-cn": "矩阵推送消息的适配器",
-      "uk": "Адаптер для матричних push-повідомлень"
-    },
-    "authors": [
-      "Christian Oelschlegel <iobrokermatrix@sciphy.de>"
+    "encryptedNative": [
+        "botPassword"
     ],
-    "keywords": [
-      "push",
-      "message",
-      "matrix"
+    "protectedNative": [
+        "botPassword"
     ],
-    "license": "MIT",
-    "platform": "Javascript/Node.js",
-    "main": "main.js",
-    "icon": "matrix-logo.png",
-    "enabled": true,
-    "extIcon": "https://raw.githubusercontent.com/oelison/ioBroker.matrix-org/main/admin/matrix-logo.png",
-    "readme": "https://github.com/oelison/ioBroker.matrix-org/blob/main/README.md",
-    "loglevel": "info",
-    "mode": "daemon",
-    "type": "messaging",
-    "compact": true,
-    "connectionType": "cloud",
-    "dataSource": "push",
-    "materialize": true,
-    "messagebox": true,
-    "blockly": true,
-    "adminUI": {
-      "config": "json"
+    "native": {
+        "serverIp": "",
+        "serverPort": "8448",
+        "roomName": "#room:yourserver.com",
+        "botName": "",
+        "botPassword": "",
+        "autoJoin": false
     },
-    "eraseOnUpload": true,
-    "dependencies": [
-      {
-        "js-controller": ">=3.0.0"
-      }
-    ],
-    "globalDependencies": [
-      {
-        "admin": ">=5.1.28"
-      }
-    ]
-  },
-  "encryptedNative": [
-    "botPassword"
-  ],
-  "protectedNative": [
-    "botPassword"
-  ],
-  "native": {
-    "serverIp": "",
-    "serverPort": "8448",
-    "roomName": "#room:yourserver.com",
-    "botName": "",
-    "botPassword": ""
-  },
-  "objects": [],
-  "instanceObjects": [
-    {
-      "_id": "info",
-      "type": "channel",
-      "common": {
-        "name": "Information"
-      },
-      "native": {}
-    },
-    {
-      "_id": "info.connection",
-      "type": "state",
-      "common": {
-        "role": "indicator.connected",
-        "name": "Device or service connected",
-        "type": "boolean",
-        "read": true,
-        "write": false,
-        "def": false
-      },
-      "native": {}
-    },
-    {
-      "_id": "matrixServerData",
-      "type": "channel",
-      "common": {
-        "name": {
-          "en": "data from matrix server",
-          "de": "daten von matrixserver",
-          "ru": "данные с матрицы сервера",
-          "pt": "dados do servidor de matriz",
-          "nl": "data van matrix server",
-          "fr": "data from matrix server",
-          "it": "dati dal server matrix",
-          "es": "datos del servidor de matriz",
-          "pl": "dane z serwera macierzowego",
-          "zh-cn": "矩阵服务器数据"
+    "objects": [],
+    "instanceObjects": [
+        {
+            "_id": "info",
+            "type": "channel",
+            "common": {
+                "name": "Information"
+            },
+            "native": {}
+        },
+        {
+            "_id": "info.connection",
+            "type": "state",
+            "common": {
+                "role": "indicator.connected",
+                "name": "Device or service connected",
+                "type": "boolean",
+                "read": true,
+                "write": false,
+                "def": false
+            },
+            "native": {}
+        },
+        {
+            "_id": "matrixServerData",
+            "type": "channel",
+            "common": {
+                "name": {
+                    "en": "data from matrix server",
+                    "de": "daten von matrixserver",
+                    "ru": "данные с матрицы сервера",
+                    "pt": "dados do servidor de matriz",
+                    "nl": "data van matrix server",
+                    "fr": "data from matrix server",
+                    "it": "dati dal server matrix",
+                    "es": "datos del servidor de matriz",
+                    "pl": "dane z serwera macierzowego",
+                    "zh-cn": "矩阵服务器数据"
+                }
+            },
+            "native": {}
+        },
+        {
+            "_id": "matrixServerData.roomId",
+            "type": "state",
+            "common": {
+                "name": {
+                    "en": "room id",
+                    "de": "room id",
+                    "ru": "комната id",
+                    "pt": "quarto id",
+                    "nl": "quality over quantity (qoq) releases vertaling:",
+                    "fr": "room id",
+                    "it": "camera id",
+                    "es": "habitación id",
+                    "pl": "pomieszczenie",
+                    "zh-cn": "会议室"
+                },
+                "type": "string",
+                "role": "text",
+                "read": true,
+                "write": false
+            },
+            "native": {}
+        },
+        {
+            "_id": "sendMessage",
+            "type": "state",
+            "common": {
+                "name": {
+                    "en": "send message directly",
+                    "de": "nachricht direkt senden",
+                    "ru": "отправить сообщение напрямую",
+                    "pt": "enviar mensagem diretamente",
+                    "nl": "stuur direct bericht",
+                    "fr": "envoyer un message directement",
+                    "it": "inviare messaggi direttamente",
+                    "es": "enviar el mensaje directamente",
+                    "pl": "komunikat",
+                    "zh-cn": "直接发送信息"
+                },
+                "type": "string",
+                "role": "text",
+                "read": true,
+                "write": true
+            },
+            "native": {}
+        },
+        {
+            "_id": "receiveMessage",
+            "type": "state",
+            "common": {
+                "name": {
+                    "en": "receive message",
+                    "de": "nachricht senden",
+                    "ru": "получить сообщение",
+                    "pt": "receber mensagem",
+                    "nl": "ontvangen",
+                    "fr": "message",
+                    "it": "ricevere messaggio",
+                    "es": "mensaje",
+                    "pl": "wiadomość",
+                    "zh-cn": "收到的资料"
+                },
+                "type": "string",
+                "role": "text",
+                "read": true,
+                "write": false
+            },
+            "native": {}
         }
-      },
-      "native": {}
-    },
-    {
-      "_id": "matrixServerData.roomId",
-      "type": "state",
-      "common": {
-        "name": {
-          "en": "room id",
-          "de": "room id",
-          "ru": "комната id",
-          "pt": "quarto id",
-          "nl": "quality over quantity (qoq) releases vertaling:",
-          "fr": "room id",
-          "it": "camera id",
-          "es": "habitación id",
-          "pl": "pomieszczenie",
-          "zh-cn": "会议室"
-        },
-        "type": "string",
-        "role": "text",
-        "read": true,
-        "write": false
-      },
-      "native": {}
-    },
-    {
-      "_id": "sendMessage",
-      "type": "state",
-      "common": {
-        "name": {
-          "en": "send message directly",
-          "de": "nachricht direkt senden",
-          "ru": "отправить сообщение напрямую",
-          "pt": "enviar mensagem diretamente",
-          "nl": "stuur direct bericht",
-          "fr": "envoyer un message directement",
-          "it": "inviare messaggi direttamente",
-          "es": "enviar el mensaje directamente",
-          "pl": "komunikat",
-          "zh-cn": "直接发送信息"
-        },
-        "type": "string",
-        "role": "text",
-        "read": true,
-        "write": true
-      },
-      "native": {}
-    },
-    {
-      "_id": "receiveMessage",
-      "type": "state",
-      "common": {
-        "name": {
-          "en": "receive message",
-          "de": "nachricht senden",
-          "ru": "получить сообщение",
-          "pt": "receber mensagem",
-          "nl": "ontvangen",
-          "fr": "message",
-          "it": "ricevere messaggio",
-          "es": "mensaje",
-          "pl": "wiadomość",
-          "zh-cn": "收到的资料"
-        },
-        "type": "string",
-        "role": "text",
-        "read": true,
-        "write": false
-      },
-      "native": {}
-    }
-  ]
+    ]
 }

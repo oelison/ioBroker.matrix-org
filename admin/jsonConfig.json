@@ -48,6 +48,15 @@
                     "lg": 6,
                     "label": "botPassword",
                     "help": "helpBotPassword"
+                },
+                "autoJoin": {
+                    "newLine": true,
+                    "type": "checkbox",
+                    "sm": 12,
+                    "md": 6,
+                    "lg": 6,
+                    "label": "autoJoin",
+                    "help": "helpAutoJoin"
                 }
             }
         }

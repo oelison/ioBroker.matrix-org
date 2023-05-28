@@ -8,5 +8,7 @@
     "room": "Pokój",
     "helpRoom": "nazwa pokoju na twoim serwerze matrix",
     "server": "serwer",
-    "helpServer": "IP lub nazwa hosta twojego serwera matrix"
+    "helpServer": "IP lub nazwa hosta twojego serwera matrix",
+    "autoJoin": "dołącz automatycznie do zaproszonego kanału",
+    "helpAutoJoin": "dołącz automatycznie do zaproszonego kanału, gdy jest zaznaczone"
 }
