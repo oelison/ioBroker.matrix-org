@@ -9,6 +9,9 @@
   "homepage": "https://github.com/oelison/ioBroker.matrix-org",
   "license": "MIT",
   "keywords": [
+    "ioBroker",
+    "adapter",
+    "smart home",
     "push",
     "message",
     "matrix"
