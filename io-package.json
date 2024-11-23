@@ -125,11 +125,15 @@
             "Christian Oelschlegel <iobrokermatrix@sciphy.de>"
         ],
         "keywords": [
+            "ioBroker",
             "push",
             "message",
             "matrix"
         ],
-        "license": "MIT",
+        "licenseInformation": {
+            "license": "MIT",
+            "type": "free"
+        },
         "platform": "Javascript/Node.js",
         "main": "main.js",
         "icon": "matrix-logo.png",
