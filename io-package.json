@@ -125,7 +125,6 @@
             "Christian Oelschlegel <iobrokermatrix@sciphy.de>"
         ],
         "keywords": [
-            "ioBroker",
             "push",
             "message",
             "matrix"
@@ -135,7 +134,6 @@
             "type": "free"
         },
         "platform": "Javascript/Node.js",
-        "main": "main.js",
         "icon": "matrix-logo.png",
         "enabled": true,
         "extIcon": "https://raw.githubusercontent.com/oelison/ioBroker.matrix-org/main/admin/matrix-logo.png",
@@ -146,7 +144,6 @@
         "compact": true,
         "connectionType": "cloud",
         "dataSource": "push",
-        "materialize": true,
         "messagebox": true,
         "blockly": true,
         "adminUI": {
