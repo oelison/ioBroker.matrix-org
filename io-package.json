@@ -140,6 +140,7 @@
         "readme": "https://github.com/oelison/ioBroker.matrix-org/blob/main/README.md",
         "loglevel": "info",
         "mode": "daemon",
+        "tier": 2,
         "type": "messaging",
         "compact": true,
         "connectionType": "cloud",
