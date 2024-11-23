@@ -1,6 +1,9 @@
 {
     "i18n": true,
     "type": "tabs",
+    "tabsStyle": {
+        "width": "calc(100% - 100px)"
+    },
     "items": {
         "_options": {
             "type": "panel",
@@ -8,9 +11,11 @@
             "items": {
                 "serverIp": {
                     "type": "text",
+                    "xs": 12,
                     "sm": 12,
                     "md": 6,
-                    "lg": 6,
+                    "lg": 4,
+                    "xl": 4,
                     "label": "Server",
                     "help": "IP or hostname of your matrix server"
                 },
@@ -18,43 +23,53 @@
                     "type": "number",
                     "min": 1,
                     "max": 65535,
+                    "xs": 12,
                     "sm": 12,
                     "md": 6,
-                    "lg": 6,
+                    "lg": 4,
+                    "xl": 4,
                     "label": "Port"
                 },
                 "roomName": {
                     "type": "text",
+                    "xs": 12,
                     "sm": 12,
                     "md": 6,
-                    "lg": 6,
+                    "lg": 4,
+                    "xl": 4,
                     "label": "room",
                     "help": "helpRoom"
                 },
                 "botName": {
                     "newLine": true,
                     "type": "text",
+                    "xs": 12,
                     "sm": 12,
                     "md": 6,
-                    "lg": 6,
+                    "lg": 4,
+                    "xl": 4,
                     "label": "botName",
                     "help": "botNameDescription"
                 },
                 "botPassword": {
                     "type": "password",
                     "repeat": false,
+                    "xs": 12,
                     "sm": 12,
                     "md": 6,
-                    "lg": 6,
+                    "lg": 4,
+                    "xl": 4,
                     "label": "botPassword",
                     "help": "helpBotPassword"
                 },
                 "autoJoin": {
                     "newLine": true,
                     "type": "checkbox",
+                    "xs": 12,
                     "sm": 12,
                     "md": 6,
-                    "lg": 6,
+                    "lg": 4,
+                    "xl": 4,
                     "label": "autoJoin",
                     "help": "helpAutoJoin"
                 }
