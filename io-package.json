@@ -142,7 +142,7 @@
     "mode": "daemon",
     "tier": 2,
     "type": "messaging",
-    "compact": true,
+    "compact": false,
     "connectionType": "cloud",
     "dataSource": "push",
     "messagebox": true,
