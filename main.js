@@ -4,14 +4,15 @@
  * Created with @iobroker/create-adapter v2.1.1
  */
 
-const axios = require('axios').default;
-const fs = require('fs');
-const helper = require('./lib/helper');
+import * as axios from 'axios';
+import * as fs from 'fs';
+import * as helper from './lib/helper.js';
 
 // The adapter-core module gives you access to the core ioBroker functions
 // you need to create an adapter
-const utils = require('@iobroker/adapter-core');
-const matrix = require('matrix-js-sdk');
+import * as utils from '@iobroker/adapter-core';
+import * as matrix from 'matrix-js-sdk';
+import * as url from 'node:url';
 
 // the client for matrix communication
 let matrixClient;
@@ -41,7 +42,7 @@ class MatrixOrg extends utils.Adapter {
      */
     async matrixRoomIdResponse(data) {
         if (data) {
-            await this.setStateAsync('matrixServerData.roomId', { val: data.room_id, ack: true });
+            this.setState('matrixServerData.roomId', data.room_id, true);
             roomId = data.room_id;
             matrixClient
                 .login('m.login.password', { user: this.config.botName, password: this.config.botPassword })
@@ -404,15 +405,17 @@ class MatrixOrg extends utils.Adapter {
     }
 }
 
-if (require.main !== module) {
-    // Export the constructor in compact mode
-    /**
-     * @param [options] not use just tunneling
-     */
-    module.exports = options => new MatrixOrg(options);
-} else {
-    // otherwise start the instance directly
+const modulePath = url.fileURLToPath(import.meta.url);
+if (process.argv[1] === modulePath) {
     new MatrixOrg();
+}
+/**
+ * Adapter start entry point
+ *
+ * @param options tunnel options to adapter
+ */
+export default function startAdapter(options) {
+    return new MatrixOrg(options);
 }
 
 // testcode for JS scripts in ioBroker

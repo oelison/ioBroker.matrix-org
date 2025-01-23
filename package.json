@@ -16,16 +16,17 @@
     "message",
     "matrix"
   ],
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "https://github.com/oelison/ioBroker.matrix-org"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=20.0.0"
   },
   "dependencies": {
     "@iobroker/adapter-core": "^3.2.3",
-    "matrix-js-sdk": "^32.4.0"
+    "matrix-js-sdk": "^36.0.0"
   },
   "devDependencies": {
     "@alcalzone/release-script": "^3.5.9",
@@ -69,10 +70,10 @@
     "main.js"
   ],
   "scripts": {
-    "test:js": "mocha --ui tdd --bail --async-only --config test/mocharc.custom.json \"{!(node_modules|test)/**/*.test.js,*.test.js,test/**/*.test!(PackageFiles|Startup).js}\"",
+    "test:js": "mocha --ui tdd --bail --async-only --config test/mocharc.custom.json \"{!(node_modules|test)/**/*.test.cjs,*.test.cjs,test/**/*.test!(PackageFiles|Startup).cjs}\"",
     "test:package": "mocha test/package --exit",
     "test:integration": "mocha test/integration --exit",
-    "test": "npm run test:js && npm run test:package",
+    "test": "npm run test:cjs && npm run test:package",
     "check": "tsc --noEmit -p tsconfig.check.json",
     "lint": "eslint -c eslint.config.mjs",
     "translate": "translate-adapter",
