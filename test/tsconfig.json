@@ -4,6 +4,6 @@
         "noImplicitAny": false
     },
     "include": [
-        "./**/*.js"
+        "./**/*.js", "unit.cjs", "pachage.cjs", "integration.cjs", "mocha.setup.cjs"
     ]
 }
