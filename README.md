@@ -160,7 +160,7 @@ Join this room and try it out with your own credentials
 ## License
 MIT License
 
-Copyright (c) 2024 Christian Oelschlegel <iobrokermatrix@sciphy.de>
+Copyright (c) 2025 Christian Oelschlegel <iobrokermatrix@sciphy.de>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
