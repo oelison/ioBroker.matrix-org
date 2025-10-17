@@ -77,7 +77,7 @@ Join this room and try it out with your own credentials
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 1.2.0 (2025-10-17)
 * upgrade matrix-js-sdk to 38.4.0 node 22 required
 * switch to ESM
 * eslint 9 (what a messi commit)

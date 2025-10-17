@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "matrix-org",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "news": {
+      "1.2.0": {
+        "en": "upgrade matrix-js-sdk to 38.4.0 node 22 required\nswitch to ESM\neslint 9 (what a messi commit)",
+        "de": "matrix-js-sdk auf 38.4.0 knoten 22 erforderlich\nauf ESM wechseln\neslint 9 (was ein chaos begeht)",
+        "ru": "требуется модернизация матрицы-js-sdk до 38.4.0 узла 22\nпереход на ESM\neslint 9 (что такое месси)",
+        "pt": "atualizar matriz-js-sdk para 38.4.0 nó 22 necessário\nmudar para o MEE\neslint 9 (que messi commit)",
+        "nl": "upgrade matrix-js-sdk naar 38.4.0 node 22 vereist\noverschakelen naar ESM\neslint 9 (wat een messi commit)",
+        "fr": "mise à niveau matrix-js-sdk à 38.4.0 noeud 22 nécessaire\npasser à ESM\neslint 9 (ce qu'un messi commit)",
+        "it": "aggiornamento matrix-js-sdk a 38.4.0 nodo 22 richiesto\npassare a ESM\neslint 9 (che cosa un messi commit)",
+        "es": "actualización de matriz-js-sdk a 38.4.0 nodo 22 requerido\ncambiar a ESM\neslint 9 (lo que un mesi cometer)",
+        "pl": "upgrade matrix- js- sdk do 38.4.0 węzła 22 wymagane\nprzełączanie na ESM\neslint 9 (what a messi commit)",
+        "uk": "оновлення матриці-js-sdk до 38.4.0 вузол 22 потрібно\nвимикач до ESM\neslint 9 (через мессі)",
+        "zh-cn": "将矩阵-js-sdk升级为38.4.0节点 22\n切换到无害环境管理\neslint 9( 一场混乱的战斗)"
+      },
       "1.1.0": {
         "en": "upgrade matrix-js-sdk\nauto join added (default false)",
         "de": "matrix-js-sdk\nauto join hinzugefügt (default false)",
@@ -80,19 +93,6 @@
         "pl": "aktualizacja zależności",
         "uk": "оновлення залежностей",
         "zh-cn": "a. 紧急情况的最新情况"
-      },
-      "0.1.2": {
-        "en": "base64 with html format added again\nhtml messages added",
-        "de": "base64 mit html-format wieder hinzugefügt\nhtml-nachrichten hinzugefügt",
-        "ru": "base64 с html форматом добавлен снова\nhtml сообщения добавлены",
-        "pt": "base64 com formato html adicionado novamente\nhtml mensagens adicionadas",
-        "nl": "quality over quantity (qoq) releases quantity releases vertaling:\n_",
-        "fr": "base64 avec format html ajouté à nouveau\nmessages html ajoutés",
-        "it": "base64 con formato html aggiunto di nuovo\nmessaggi html aggiunto",
-        "es": "base64 con formato html añadido de nuevo\nhtml messages added",
-        "pl": "baza64 z formatem html została dodana ponownie\nwiadomości html dodały do wiadomości html",
-        "zh-cn": "第64条\nhtml信息增加了",
-        "uk": "base64 із знову доданим форматом html\nHTML повідомлень додано"
       }
     },
     "titleLang": {
