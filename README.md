@@ -78,7 +78,7 @@ Join this room and try it out with your own credentials
     ### **WORK IN PROGRESS**
 -->
 ### **WORK IN PROGRESS**
-* upgrade matrix-js-sdk to 36.0.0
+* upgrade matrix-js-sdk to 38.4.0 node 22 required
 * switch to ESM
 * eslint 9 (what a messi commit)
 

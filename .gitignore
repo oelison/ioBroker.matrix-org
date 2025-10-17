@@ -1,6 +1,5 @@
-# No dot-directories except github/vscode
+# No dot-directories except github
 .*/
-!.vscode/
 !.github/
 
 *.code-workspace
@@ -18,3 +17,5 @@ admin/i18n/*/flat.txt
 /.vscode
 
 /admin/build
+
+/.commitinfo
