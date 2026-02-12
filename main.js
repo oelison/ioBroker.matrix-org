@@ -199,8 +199,10 @@ class MatrixOrg extends utils.Adapter {
             const matrixUrl = uploadResponse.content_uri;
             let msgtype = matrix.MsgType.File;
             let info = {};
+            let body = '';
             if (fileType.startsWith('image')) {
                 msgtype = matrix.MsgType.Image;
+                body = `image.${fileType.split('/')[1]}`;
             } else if (fileType.startsWith('video')) {
                 msgtype = matrix.MsgType.Video;
                 info = {
@@ -211,7 +213,7 @@ class MatrixOrg extends utils.Adapter {
                 msgtype: msgtype,
                 url: matrixUrl,
                 info: info,
-                body: '',
+                body: body,
             };
             await matrixClient.sendMessage(roomId, null, content, undefined);
         } catch (err) {

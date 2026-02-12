@@ -77,6 +77,9 @@ Join this room and try it out with your own credentials
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+* set body in send file to matrix
+
 ### 1.2.0 (2025-10-17)
 * upgrade matrix-js-sdk to 38.4.0 node 22 required
 * switch to ESM
@@ -160,7 +163,7 @@ Join this room and try it out with your own credentials
 ## License
 MIT License
 
-Copyright (c) 2025 Christian Oelschlegel <iobrokermatrix@sciphy.de>
+Copyright (c) 2026 Christian Oelschlegel <iobrokermatrix@sciphy.de>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
