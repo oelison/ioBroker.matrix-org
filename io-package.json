@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "matrix-org",
-    "version": "1.2.0",
+    "version": "1.2.1",
     "news": {
+      "1.2.1": {
+        "en": "set body in send file to matrix",
+        "de": "set body in send file to matrix",
+        "ru": "настройте тело в отправке файла в матрицу",
+        "pt": "definir o corpo no ficheiro de envio para a matriz",
+        "nl": "set body in send file to matrix",
+        "fr": "définir le corps dans le fichier envoyer à la matrice",
+        "it": "impostare il corpo in inviare file a matrice",
+        "es": "cuerpo establecido en enviar archivo a matriz",
+        "pl": "ustawić ciało w pliku wysyłającym do macierzy",
+        "uk": "встановити тіло в надсилання файлу до матриці",
+        "zh-cn": "在发送文件到矩阵中设置正文"
+      },
       "1.2.0": {
         "en": "upgrade matrix-js-sdk to 38.4.0 node 22 required\nswitch to ESM\neslint 9 (what a messi commit)",
         "de": "matrix-js-sdk auf 38.4.0 knoten 22 erforderlich\nauf ESM wechseln\neslint 9 (was ein chaos begeht)",
@@ -80,19 +93,6 @@
         "pl": "aktualizacja zależności\nulepszenie czytania",
         "uk": "оновлення залежностей\nневелике поліпшення чителю",
         "zh-cn": "a. 紧急情况的最新情况\n小读者改进"
-      },
-      "0.1.3": {
-        "en": "updates of dependencies",
-        "de": "aktualisierung der abhängigkeiten",
-        "ru": "обновления зависимостей",
-        "pt": "atualizações de dependências",
-        "nl": "vertaling:",
-        "fr": "mises à jour des dépendances",
-        "it": "aggiornamenti di dipendenze",
-        "es": "actualizaciones de las dependencias",
-        "pl": "aktualizacja zależności",
-        "uk": "оновлення залежностей",
-        "zh-cn": "a. 紧急情况的最新情况"
       }
     },
     "titleLang": {
