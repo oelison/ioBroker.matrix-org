@@ -122,11 +122,12 @@ class MatrixOrg extends utils.Adapter {
     async onMatrixEvent(event, room, toStartOfTimeline) {
         let messageUsed = false;
         let reason = '';
+        this.log.debug(`Event: ${JSON.stringify(event)}`);
         if (event.event.type === 'm.room.message') {
             if (event.event.sender !== fullUserId) {
                 if (event.event.content.msgtype === 'm.text') {
                     if (event.event.room_id === roomId) {
-                        this.setStateAsync('receiveMessage', { val: event.event.content.body, ack: true });
+                        this.setState('receiveMessage', { val: event.event.content.body, ack: true });
                         messageUsed = true;
                     } else {
                         reason = `roomid don't fit: ${event.event.content.room_id} is not the expected ${roomId}`;
@@ -146,15 +147,37 @@ class MatrixOrg extends utils.Adapter {
         }
     }
     /**
+     * normalize the message and send it to matrix, only text messages with msgtype m.text are supported here
+     *
+     * @param input expect a string, number, boolean or an object with the properties text, message or body as string
+     */
+    async normalizeMessage(input) {
+        if (typeof input === 'string') {
+            return input;
+        } else if (typeof input === 'number' || typeof input === 'boolean') {
+            return input.toString();
+        } else if (typeof input?.text === 'string') {
+            return input.text;
+        } else if (typeof input?.message === 'string') {
+            return input.message;
+        } else if (typeof input?.body === 'string') {
+            return input.body;
+        }
+        this.log.error('Unsupported message type. Only string, number and boolean are supported.');
+        throw new Error('Invalid message format: no string body found');
+    }
+
+    /**
      * @param message expect a simple string to send to room
      */
     async sendMessageToMatrix(message) {
         try {
+            const body = await this.normalizeMessage(message);
             const roomId = await this.getStateAsync('matrixServerData.roomId');
             if (roomId) {
                 const state = 'send message to room with access token!';
                 try {
-                    const data = { body: message, msgtype: 'm.text' };
+                    const data = { body: body, msgtype: 'm.text' };
                     matrixClient.sendEvent(roomId.val, 'm.room.message', data);
                 } catch (err) {
                     this.log.error(err);

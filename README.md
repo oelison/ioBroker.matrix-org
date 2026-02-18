@@ -77,6 +77,9 @@ Join this room and try it out with your own credentials
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+* string normalisation due to bug report #95
+
 ### 1.2.1 (2026-02-12)
 * set body in send file to matrix
 
