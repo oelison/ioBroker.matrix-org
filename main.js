@@ -5,7 +5,7 @@
  */
 
 import * as axios from 'axios';
-import * as fs from 'fs';
+import * as fs from 'node:fs';
 import * as helper from './lib/helper.js';
 
 // The adapter-core module gives you access to the core ioBroker functions
