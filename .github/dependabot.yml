@@ -2,23 +2,27 @@
 version: 2
 updates:
 
-  - package-ecosystem: "npm"
-    directory: "/"
+  - package-ecosystem: 'npm'
+    directory: '/'
     schedule:
-      interval: "cron"
-      timezone: "Europe/Berlin"
-      cronjob: "2 20 9 * *"
+      interval: 'cron'
+      timezone: 'Europe/Berlin'
+      cronjob: '2 20 9 * *'
     open-pull-requests-limit: 20
     assignees:
-      - "oelison"
-    versioning-strategy: "increase"
+      - 'oelison'
+    versioning-strategy: 'increase'
+    ignore:
+      - dependency-name: '@types/node'
+        update-types:
+          - 'version-update:semver-major'
 
   - package-ecosystem: github-actions
-    directory: "/"
+    directory: '/'
     schedule:
-      interval: "cron"
-      timezone: "Europe/Berlin"
-      cronjob: "2 20 9 * *"
+      interval: 'cron'
+      timezone: 'Europe/Berlin'
+      cronjob: '2 20 9 * *'
     open-pull-requests-limit: 20
     assignees:
-      - "oelison"
+      - 'oelison'
