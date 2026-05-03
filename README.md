@@ -164,6 +164,8 @@ Join this room and try it out with your own credentials
 ### 0.0.1 (2022-06-26)
 * (oelison) initial release
 
+[Older changelogs can be found there](CHANGELOG_OLD.md)
+
 ## License
 MIT License
 
