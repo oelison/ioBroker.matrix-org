@@ -4,7 +4,6 @@
  * Created with @iobroker/create-adapter v2.1.1
  */
 
-import * as axios from 'axios';
 import * as fs from 'node:fs';
 import * as helper from './lib/helper.js';
 
