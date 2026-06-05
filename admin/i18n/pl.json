@@ -1,14 +1,14 @@
 {
-    "matrix-org adapter settings": "Ustawienia adaptera dla matrix-org",
-    "name": "nazwa",
+    "autoJoin": "dołącz automatycznie do zaproszonego kanału",
     "botName": "nazwa bota",
     "botNameDescription": "nazwa użytkownika dla tej usługi w matrix",
     "botPassword": "Hasło bota",
+    "helpAutoJoin": "dołącz automatycznie do zaproszonego kanału, gdy jest zaznaczone",
     "helpBotPassword": "mniej lub bardziej złożone hasło dla użytkownika bota w matrix",
-    "room": "Pokój",
     "helpRoom": "nazwa pokoju na twoim serwerze matrix",
-    "server": "serwer",
     "helpServer": "IP lub nazwa hosta twojego serwera matrix",
-    "autoJoin": "dołącz automatycznie do zaproszonego kanału",
-    "helpAutoJoin": "dołącz automatycznie do zaproszonego kanału, gdy jest zaznaczone"
+    "matrix-org adapter settings": "Ustawienia adaptera dla matrix-org",
+    "name": "nazwa",
+    "room": "Pokój",
+    "server": "serwer"
 }

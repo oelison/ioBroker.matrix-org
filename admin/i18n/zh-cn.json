@@ -1,14 +1,14 @@
 {
-    "matrix-org adapter settings": "matrix-org 的适配器设置",
-    "name": "姓名",
+    "autoJoin": "自动加入受邀频道",
     "botName": "机器人名称",
     "botNameDescription": "矩阵中此服务的用户名",
     "botPassword": "机器人密码",
+    "helpAutoJoin": "勾选后自动加入受邀频道",
     "helpBotPassword": "矩阵中 bot 用户的或多或少复杂的密码",
-    "room": "房间",
     "helpRoom": "矩阵服务器中的房间名称",
-    "server": "服务器",
     "helpServer": "矩阵服务器的 IP 或主机名",
-    "autoJoin": "自动加入受邀频道",
-    "helpAutoJoin": "勾选后自动加入受邀频道"
+    "matrix-org adapter settings": "matrix-org 的适配器设置",
+    "name": "姓名",
+    "room": "房间",
+    "server": "服务器"
 }
