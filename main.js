@@ -4,7 +4,6 @@
  * Created with @iobroker/create-adapter v2.1.1
  */
 
-import * as axios from 'axios';
 import * as fs from 'node:fs';
 import * as helper from './lib/helper.js';
 
@@ -266,10 +265,17 @@ class MatrixOrg extends utils.Adapter {
             fileType = b64dataObject.mimeType;
         } else if (file.startsWith('https://') || file.startsWith('http://')) {
             try {
-                const imageResponse = await axios.get(file, { responseType: 'arraybuffer' });
-                fileType = imageResponse.headers['content-type'];
+                const response = await fetch(file);
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+
+                fileType = response.headers.get('content-type');
                 this.log.debug(`http mimetype: ${fileType}`);
-                buffer = imageResponse.data;
+
+                const arrayBuffer = await response.arrayBuffer();
+                buffer = Buffer.from(arrayBuffer);
             } catch (err) {
                 this.log.error(err);
                 this.log.error('read from file failed.');
