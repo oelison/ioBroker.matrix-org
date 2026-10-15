@@ -43,8 +43,14 @@ class MatrixOrg extends utils.Adapter {
         if (data) {
             this.setState('matrixServerData.roomId', data.room_id, true);
             roomId = data.room_id;
+            const loginData = { user: this.config.botName, password: this.config.botPassword };
+            const storedDeviceId = await this.getState('matrixSession.deviceId');
+            if (storedDeviceId && storedDeviceId.val) {
+                loginData.device_id = storedDeviceId.val;
+            }
+            loginData.initial_device_display_name = this.config.deviceName || 'ioBroker';
             matrixClient
-                .login('m.login.password', { user: this.config.botName, password: this.config.botPassword })
+                .login('m.login.password', loginData)
                 .then(data => this.matrixLoginResponse(data))
                 .catch(err => this.matrixLoginResponseErr(err));
         }
@@ -68,37 +74,47 @@ class MatrixOrg extends utils.Adapter {
     async matrixLoginResponse(data) {
         if (data) {
             fullUserId = data.user_id;
+            await this.setState('matrixSession.userId', data.user_id, true);
+            await this.setState('matrixSession.deviceId', data.device_id, true);
+            await this.setState('matrixSession.accessToken', data.access_token, true);
             this.setState('info.connection', true, true);
             try {
-                await matrixClient.startClient();
-                this.log.debug('client started!');
-                // init the receive callback
-                matrixClient.once('sync', (state, prevState, res) => {
-                    this.log.debug(`state: ${JSON.stringify(state)}`);
-                    this.log.debug(`prevState: ${JSON.stringify(prevState)}`);
-                    this.log.debug(`res: ${JSON.stringify(res)}`);
-                    try {
-                        matrixClient.on('Room.timeline', (event, room, toStartOfTimeline) =>
-                            this.onMatrixEvent(event, room, toStartOfTimeline),
-                        );
-                    } catch (err) {
-                        this.log.error(err);
-                    }
-                });
-                // autologin snippet by matrix-js-sdk
-                matrixClient.on('RoomMember.membership', (event, member) => {
-                    if (this.config.autoJoin === true) {
-                        if (member.membership === 'invite' && member.userId === fullUserId) {
-                            matrixClient.joinRoom(member.roomId).then(() => {
-                                this.log.info(`Auto-joined ${member.roomId}`);
-                            });
-                        }
-                    }
-                });
+                await this.startMatrixClient();
             } catch (err) {
                 this.log.error(err);
             }
         }
+    }
+    /**
+     * starts the matrix client and wires up the sync/room/member callbacks,
+     * shared by the password-login path and the stored-session path
+     */
+    async startMatrixClient() {
+        await matrixClient.startClient();
+        this.log.debug('client started!');
+        // init the receive callback
+        matrixClient.once('sync', (state, prevState, res) => {
+            this.log.debug(`state: ${JSON.stringify(state)}`);
+            this.log.debug(`prevState: ${JSON.stringify(prevState)}`);
+            this.log.debug(`res: ${JSON.stringify(res)}`);
+            try {
+                matrixClient.on('Room.timeline', (event, room, toStartOfTimeline) =>
+                    this.onMatrixEvent(event, room, toStartOfTimeline),
+                );
+            } catch (err) {
+                this.log.error(err);
+            }
+        });
+        // autologin snippet by matrix-js-sdk
+        matrixClient.on('RoomMember.membership', (event, member) => {
+            if (this.config.autoJoin === true) {
+                if (member.membership === 'invite' && member.userId === fullUserId) {
+                    matrixClient.joinRoom(member.roomId).then(() => {
+                        this.log.info(`Auto-joined ${member.roomId}`);
+                    });
+                }
+            }
+        });
     }
     /**
      * is called of last state of the login chain, Crypto disabled due to malfunction
@@ -337,11 +353,43 @@ class MatrixOrg extends utils.Adapter {
                 } else {
                     baseURL = `https://${this.config.serverIp}:${this.config.serverPort}`;
                 }
-                matrixClient = matrix.createClient({ baseUrl: baseURL });
-                matrixClient
-                    .getRoomIdForAlias(this.config.roomName)
-                    .then(data => this.matrixRoomIdResponse(data))
-                    .catch(err => this.matrixRoomIdResponseErr(err));
+                // try to reuse a stored session (device_id + access token) to avoid creating a new device on every start
+                const storedUserId = (await this.getState('matrixSession.userId'))?.val;
+                const storedDeviceId = (await this.getState('matrixSession.deviceId'))?.val;
+                const storedAccessToken = (await this.getState('matrixSession.accessToken'))?.val;
+                if (storedUserId && storedDeviceId && storedAccessToken) {
+                    this.log.info(`Reusing stored matrix session for device ${storedDeviceId}`);
+                    matrixClient = matrix.createClient({
+                        baseUrl: baseURL,
+                        userId: storedUserId,
+                        accessToken: storedAccessToken,
+                        deviceId: storedDeviceId,
+                    });
+                    try {
+                        const roomData = await matrixClient.getRoomIdForAlias(this.config.roomName);
+                        this.setState('matrixServerData.roomId', roomData.room_id, true);
+                        roomId = roomData.room_id;
+                        await this.startMatrixClient();
+                    } catch (err) {
+                        this.log.warn(
+                            `Stored session not valid anymore, falling back to password login: ${err.message || err}`,
+                        );
+                        await this.setState('matrixSession.accessToken', '', true);
+                        await this.setState('matrixSession.deviceId', '', true);
+                        await this.setState('matrixSession.userId', '', true);
+                        matrixClient = matrix.createClient({ baseUrl: baseURL });
+                        matrixClient
+                            .getRoomIdForAlias(this.config.roomName)
+                            .then(data => this.matrixRoomIdResponse(data))
+                            .catch(err2 => this.matrixRoomIdResponseErr(err2));
+                    }
+                } else {
+                    matrixClient = matrix.createClient({ baseUrl: baseURL });
+                    matrixClient
+                        .getRoomIdForAlias(this.config.roomName)
+                        .then(data => this.matrixRoomIdResponse(data))
+                        .catch(err => this.matrixRoomIdResponseErr(err));
+                }
             } catch (err) {
                 this.log.error(err);
                 this.log.error(
@@ -362,6 +410,9 @@ class MatrixOrg extends utils.Adapter {
         this.unloaded = true;
         /*eslint no-unused-vars: ["error", { "caughtErrors": "none" }]*/
         try {
+            if (matrixClient) {
+                matrixClient.stopClient();
+            }
             callback();
         } catch (err) {
             this.log.error(err);

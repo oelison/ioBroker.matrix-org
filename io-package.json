@@ -174,6 +174,7 @@
     "roomName": "#room:yourserver.com",
     "botName": "",
     "botPassword": "",
+    "deviceName": "ioBroker",
     "autoJoin": false
   },
   "objects": [],
@@ -233,6 +234,98 @@
           "es": "habitación id",
           "pl": "pomieszczenie",
           "zh-cn": "会议室"
+        },
+        "type": "string",
+        "role": "text",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "matrixSession",
+      "type": "channel",
+      "common": {
+        "name": {
+          "en": "matrix session data",
+          "de": "matrix-sitzungsdaten",
+          "ru": "данные сессии matrix",
+          "pt": "dados de sessão matrix",
+          "nl": "matrix-sessiedata",
+          "fr": "données de session matrix",
+          "it": "dati di sessione matrix",
+          "es": "datos de sesión matrix",
+          "pl": "dane sesji matrix",
+          "zh-cn": "矩阵会话数据",
+          "uk": "дані сесії matrix"
+        }
+      },
+      "native": {}
+    },
+    {
+      "_id": "matrixSession.deviceId",
+      "type": "state",
+      "common": {
+        "name": {
+          "en": "device id",
+          "de": "geräte-id",
+          "ru": "идентификатор устройства",
+          "pt": "id do dispositivo",
+          "nl": "apparaat-id",
+          "fr": "identifiant de l'appareil",
+          "it": "id del dispositivo",
+          "es": "id del dispositivo",
+          "pl": "identyfikator urządzenia",
+          "zh-cn": "设备id",
+          "uk": "ідентифікатор пристрою"
+        },
+        "type": "string",
+        "role": "text",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "matrixSession.accessToken",
+      "type": "state",
+      "common": {
+        "name": {
+          "en": "access token",
+          "de": "zugriffstoken",
+          "ru": "токен доступа",
+          "pt": "token de acesso",
+          "nl": "toegangstoken",
+          "fr": "jeton d'accès",
+          "it": "token di accesso",
+          "es": "token de acceso",
+          "pl": "token dostępu",
+          "zh-cn": "访问令牌",
+          "uk": "токен доступу"
+        },
+        "type": "string",
+        "role": "text",
+        "read": true,
+        "write": false
+      },
+      "native": {}
+    },
+    {
+      "_id": "matrixSession.userId",
+      "type": "state",
+      "common": {
+        "name": {
+          "en": "user id",
+          "de": "benutzer-id",
+          "ru": "идентификатор пользователя",
+          "pt": "id do usuário",
+          "nl": "gebruikers-id",
+          "fr": "identifiant de l'utilisateur",
+          "it": "id utente",
+          "es": "id de usuario",
+          "pl": "identyfikator użytkownika",
+          "zh-cn": "用户id",
+          "uk": "ідентифікатор користувача"
         },
         "type": "string",
         "role": "text",
