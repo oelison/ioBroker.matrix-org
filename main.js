@@ -77,7 +77,6 @@ class MatrixOrg extends utils.Adapter {
             await this.setState('matrixSession.userId', data.user_id, true);
             await this.setState('matrixSession.deviceId', data.device_id, true);
             await this.setState('matrixSession.accessToken', data.access_token, true);
-            this.setState('info.connection', true, true);
             try {
                 await this.startMatrixClient();
             } catch (err) {
@@ -115,6 +114,7 @@ class MatrixOrg extends utils.Adapter {
                 }
             }
         });
+        this.setState('info.connection', true, true);
     }
     /**
      * is called of last state of the login chain, Crypto disabled due to malfunction

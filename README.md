@@ -79,6 +79,7 @@ Join this room and try it out with your own credentials
 -->
 ### **WORK IN PROGRESS**
 * some bumps
+* reuse of matrix device/credentials #127
 
 ### 1.2.2 (2026-03-29)
 * string normalisation due to bug report #95
