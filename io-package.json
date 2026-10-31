@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "matrix-org",
-    "version": "1.2.2",
+    "version": "1.3.0",
     "news": {
+      "1.3.0": {
+        "en": "some bumps\nreuse of matrix device/credentials #127",
+        "de": "Einige Unebenheiten\nWiederverwendung von Matrix-Geräten #127",
+        "ru": "некоторые неровности\nповторное использование матричного устройства/учетных данных #127",
+        "pt": "uns solavancos\nreuso de credenciais/dispositivos Matrix #127",
+        "nl": "enkele hobbels\nhergebruik van matrixapparaat/inloggegevens #127",
+        "fr": "des bosses\nréutilisation de l'appareil Matrix #127",
+        "it": "urti\nriuso delle credenziali Matrix #127",
+        "es": "unos baches\nreutilización de matriz/credenciales #127",
+        "pl": "kilka guzków\nponowne użycie urządzenia macierzowego/poświadczeń #127",
+        "uk": "деякі горбки\nповторне використання матричного пристрою/облікових даних #127",
+        "zh-cn": "一些颠簸\n重用矩阵设备/凭证 #127"
+      },
       "1.2.2": {
         "en": "string normalisation due to bug report #95\nsome bumbs",
         "de": "string-normalisierung durch fehlerbericht #95\neinige bumben",
@@ -80,19 +93,6 @@
         "pl": "ostatnia wersja węzła 16\nw zależności od tego, bobot przyjmuje macierz-jsdk",
         "uk": "остання версія для вузла 16\nоновлені libs відповідно до залежностей приймає матрицю-js-sdk",
         "zh-cn": "第16条最后版本\na. 受托人包的更新表"
-      },
-      "0.1.5": {
-        "en": "downgrade for node 16\ntranslation for configuration",
-        "de": "downgrade für knoten anhang\nübersetzung für konfiguration",
-        "ru": "понижение для ноды 16, 16, 16\nперевод для конфигурации",
-        "pt": "downgrade para nó 16\ntradução para configuração",
-        "nl": "_ 16\nvertaling:",
-        "fr": "descendant pour node 16\ntraduction pour la configuration",
-        "it": "downgrade per nodo 16\ntraduzione per configurazione",
-        "es": "para el nodo 16\ntraducción para configuración",
-        "pl": "zeszyty 16\ntranskrypcja",
-        "uk": "внизград для вузла 16 мар\nпереклад для конфігурації",
-        "zh-cn": "降级 16\n笔译"
       }
     },
     "titleLang": {

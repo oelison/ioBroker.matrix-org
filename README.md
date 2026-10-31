@@ -77,7 +77,7 @@ Join this room and try it out with your own credentials
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 1.3.0 (2026-10-31)
 * some bumps
 * reuse of matrix device/credentials #127
 
@@ -96,9 +96,6 @@ Join this room and try it out with your own credentials
 ### 1.1.0 (2024-11-23)
 * upgrade matrix-js-sdk
 * auto join added (default false)
-
-### 1.0.0 (2023-04-01)
-* upgrade matrix-js-sdk (node 18 needed)
 
 [Older changelogs can be found there](CHANGELOG_OLD.md)
 
