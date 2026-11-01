@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "matrix-org",
-    "version": "1.3.0",
+    "version": "1.3.1",
     "news": {
+      "1.3.1": {
+        "en": "bugfix for self send messages need to be ignored",
+        "de": "Bugfix für Selbstversand muss ignoriert werden",
+        "ru": "исправление, из-за которого необходимо игнорировать самостоятельную отправку сообщений",
+        "pt": "O bug para autoenvio deve ser ignorado",
+        "nl": "De bugfix voor zelfverstuurde berichten moet genegeerd worden",
+        "fr": "le correctif pour les SMS doit être ignoré",
+        "it": "il bugfix per i messaggi autosegnati va ignorato",
+        "es": "Hay que ignorar el error del autoenvío",
+        "pl": "Poprawka dotycząca samodzielnego wysyłania wiadomości musi zostać zignorowana",
+        "uk": "виправлення помилок для самостійного надсилання повідомлень потрібно ігнорувати",
+        "zh-cn": "需要忽略自发消息的错误修复"
+      },
       "1.3.0": {
         "en": "some bumps\nreuse of matrix device/credentials #127",
         "de": "Einige Unebenheiten\nWiederverwendung von Matrix-Geräten #127",
@@ -80,19 +93,6 @@
         "pl": "ulepszanie macierzy-sdk (bez 18 potrzeb)",
         "uk": "оновлення матриці-js-sdk (node 18 потрібно)",
         "zh-cn": "升级汇总表-js-sdk(不需要18)"
-      },
-      "0.1.6": {
-        "en": "last version for node 16\nupdated libs according dependabot accept matrix-js-sdk",
-        "de": "letzte version für knoten 16\naktualisierte libs nach abhängigabot akzeptieren matrix-js-sdk",
-        "ru": "последняя версия для ноды 16\nобновленные libs в зависимости от прием матрицы-js-sdk",
-        "pt": "última versão para o nó 16\natualizado libs de acordo dependeabot aceitar matriz-js-sdk",
-        "nl": "laatste versie van de 16\nvertaling:",
-        "fr": "dernière version pour node 16\nlibs mises à jour selon dependabot accept matrice-js-sdk",
-        "it": "ultima versione per nodo 16\nlibs aggiornate secondo dipendeabot accettare matrix-js-sdk",
-        "es": "última versión para el nodo 16\nlibs actualizadas según dependabot aceptar matriz-js-sdk",
-        "pl": "ostatnia wersja węzła 16\nw zależności od tego, bobot przyjmuje macierz-jsdk",
-        "uk": "остання версія для вузла 16\nоновлені libs відповідно до залежностей приймає матрицю-js-sdk",
-        "zh-cn": "第16条最后版本\na. 受托人包的更新表"
       }
     },
     "titleLang": {

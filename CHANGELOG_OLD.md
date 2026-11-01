@@ -67,5 +67,9 @@
 
 ### 0.0.1 (2022-06-26)
 * (oelison) initial release
+## 1.1.0 (2024-11-23)
+* upgrade matrix-js-sdk
+* auto join added (default false)
+
 ## 1.0.0 (2023-04-01)
 * upgrade matrix-js-sdk (node 18 needed)

@@ -77,9 +77,8 @@ Join this room and try it out with your own credentials
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
-### **WORK IN PROGRESS**
+### 1.3.1 (2026-11-01)
 * bugfix for self send messages need to be ignored
-
 
 ### 1.3.0 (2026-10-31)
 * some bumps
@@ -96,10 +95,6 @@ Join this room and try it out with your own credentials
 * upgrade matrix-js-sdk to 38.4.0 node 22 required
 * switch to ESM
 * eslint 9 (what a messi commit)
-
-### 1.1.0 (2024-11-23)
-* upgrade matrix-js-sdk
-* auto join added (default false)
 
 [Older changelogs can be found there](CHANGELOG_OLD.md)
 
