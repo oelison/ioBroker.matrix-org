@@ -369,6 +369,7 @@ class MatrixOrg extends utils.Adapter {
                         const roomData = await matrixClient.getRoomIdForAlias(this.config.roomName);
                         this.setState('matrixServerData.roomId', roomData.room_id, true);
                         roomId = roomData.room_id;
+                        fullUserId = storedUserId;
                         await this.startMatrixClient();
                     } catch (err) {
                         this.log.warn(
