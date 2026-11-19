@@ -61,6 +61,10 @@ sendTo("matrix-org.0",{html: "<table><tr><td>1</td><td>2</td></tr><tr><td>a</td>
 If your client is not able to decode html you will get the text.
 If your client do not support table it either show the text or simply 12ab.
 
+### Messages for scripts and AI agents
+
+`sendTo("matrix-org.0", "help", {})` answers `{ help, commands }`: `help` describes the commands with their parameters in English, for AI agents (e.g. ioBroker.pi-agent) and script authors; `commands` lists every command with `write` (`true` when it sends something).
+
 ### to test your configuration use sendMessage
 
 simply open the objects and change the string of one matrix-org instance
@@ -77,6 +81,9 @@ Join this room and try it out with your own credentials
     Placeholder for the next version (at the beginning of the line):
     ### **WORK IN PROGRESS**
 -->
+### **WORK IN PROGRESS**
+* (@GermanBluefox) Added the message "help": a description of all messages for AI agents (e.g. pi-agent), and common.supportedMessages.help
+
 ### 1.3.1 (2026-11-01)
 * bugfix for self send messages need to be ignored
 
