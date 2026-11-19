@@ -6,6 +6,7 @@
 
 import * as fs from 'node:fs';
 import * as helper from './lib/helper.js';
+import { COMMANDS, HELP } from './lib/help.js';
 
 // The adapter-core module gives you access to the core ioBroker functions
 // you need to create an adapter
@@ -462,6 +463,13 @@ class MatrixOrg extends utils.Adapter {
             // {"command":"send","message":{"file":"https://sciphy.de/toDownload/test.png"},"from":"system.adapter.javascript.0","_id":12345678}
             // {"command":"send","message":"Hello!","from":"system.adapter.javascript.0","_id":12345678}
             // {"command":"send","message":{"file":{"type":"image/png","base64":"iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACmSURBVFhH7ZdhCoAgDEZnd9D737T8xJkNNY1Ef+yB2LTcC1qWOT20kCBgjIkh0WwfmeuIxyGYnRzIPElgFSqgAvsKOOdCzeZ1y7EcZzDG16HvwtckihLdA4xxk3HeGGttc17Cc+lN6Ds/dlO6w6/ItQHn7H4GcDK3Em/zNboE5KKjcQstQxVQARVYLlDdC2YzvBfMQgVUYB8BlMWfn2E1ZJ7Fv+dEF0UZoNhXp9NnAAAAAElFTkSuQmCC"}},"from":"system.adapter.javascript.0","_id":12345678}
+            if (obj.command === 'help') {
+                // description of all commands for AI agents, also while the bot is not logged in
+                if (obj.callback) {
+                    this.sendTo(obj.from, obj.command, { help: HELP, commands: COMMANDS }, obj.callback);
+                }
+                return;
+            }
             if (obj.message) {
                 if (obj.command === 'send') {
                     this.log.debug('send command arrived');

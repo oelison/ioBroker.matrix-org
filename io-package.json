@@ -146,6 +146,10 @@
     "connectionType": "cloud",
     "dataSource": "push",
     "messagebox": true,
+    "supportedMessages": {
+      "custom": true,
+      "help": true
+    },
     "blockly": true,
     "adminUI": {
       "config": "json"
